@@ -51,9 +51,9 @@ public class IntroActivity extends AppCompatActivity {
 
     private void setUpIntroScreenItemsList(){
         introScreenItems = new ArrayList<>();
-        introScreenItems.add(new IntroScreenItem("muie"));
-        introScreenItems.add(new IntroScreenItem("la"));
-        introScreenItems.add(new IntroScreenItem("comisie"));
+        introScreenItems.add(new IntroScreenItem("1"));
+        introScreenItems.add(new IntroScreenItem("2"));
+        introScreenItems.add(new IntroScreenItem("3"));
     }
 
     private void setUpIntroScreenPager(){
