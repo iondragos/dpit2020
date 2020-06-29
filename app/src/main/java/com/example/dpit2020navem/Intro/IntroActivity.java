@@ -17,6 +17,8 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -39,7 +41,6 @@ public class IntroActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_intro);
-
 
         setUpIntroScreenItemsList();
         setUpIntroScreenPager();
@@ -76,6 +77,7 @@ public class IntroActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(IntroActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -84,6 +86,7 @@ public class IntroActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(IntroActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

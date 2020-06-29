@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/homePage"
+            android:title="Home Page"
+            android:icon="@drawable/icon_side_menu"/>
+        <item
+            android:id="@+id/addAnObject"
+            android:title="Add an Object"
+            android:icon="@drawable/icon_side_menu"/>
+        <item
+            android:id="@+id/ownedObjectList"
+            android:title="Owned Object List"
+            android:icon="@drawable/icon_side_menu"/>
+        <item
+            android:id="@+id/objectTypeDetailes"
+            android:title="Object Type Detailes"
+            android:icon="@drawable/icon_side_menu"/>
+        <item
+            android:id="@+id/UVCinfo"
+            android:title="UVC info"
+            android:icon="@drawable/icon_side_menu"/>
+        <item
+            android:id="@+id/settings"
+            android:title="Settings"
+            android:icon="@drawable/icon_side_menu"/>
+        <item
+            android:id="@+id/help"
+            android:title="Help"
+            android:icon="@drawable/icon_side_menu"/>
+
+    </group>
+
+
+</menu>
