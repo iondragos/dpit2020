@@ -24,6 +24,12 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
+    public void onBackPressed() {
+        finish();
+        System.exit(0);
+    }
+
+
     private void welcomePageTimer(){
         timer = new Timer();
         timer.schedule(new TimerTask() {

@@ -65,6 +65,7 @@ public class ObjectMenuActivity extends AppCompatActivity {
                 if(id == R.id.homePage){
                     Intent intent = new Intent(ObjectMenuActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }else if(id == R.id.addAnObject){
                     drawerLayout.closeDrawer(sideMenu);
                 }

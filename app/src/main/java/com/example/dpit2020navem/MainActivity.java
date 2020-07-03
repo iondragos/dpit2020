@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 }else if(id == R.id.addAnObject){
                     Intent intent = new Intent(MainActivity.this, ObjectTypeMenuActivity.class);
                     startActivity(intent);
+                    finish();
                 }
 
                 return true;
