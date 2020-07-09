@@ -28,7 +28,7 @@ public class ObjectListAdapter extends ArrayAdapter<Object> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         String objectName = getItem(position).getObjectName();
-        Integer objectRemainingDisinfectionTime  = getItem(position).getObjectRemainingDisinfectionTime();
+        Integer objectRemainingDisinfectionTime  = getItem(position).getObjectDisinfectionTime();
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);

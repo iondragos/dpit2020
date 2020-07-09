@@ -7,17 +7,21 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.dpit2020navem.AddAnObject.Adapter.ObjectTypeListAdapter;
 import com.example.dpit2020navem.AddAnObject.Model.Object;
 import com.example.dpit2020navem.AddAnObject.Model.ObjectType;
+import com.example.dpit2020navem.Database.OwnedObjectsDatabase;
 import com.example.dpit2020navem.MainActivity;
+import com.example.dpit2020navem.OwnedObject;
 import com.example.dpit2020navem.R;
 import com.google.android.material.navigation.NavigationView;
 
@@ -31,10 +35,12 @@ public class ObjectTypeMenuActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView sideMenu;
+    List<OwnedObject> ownedObjectList;
     List<Object> objectList;
     List<ObjectType> objectTypeList;
     Context context = this;
     ListView objectTypesListView;
+    OwnedObjectsDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +98,39 @@ public class ObjectTypeMenuActivity extends AppCompatActivity {
 
     private void createObjectListMenu(){
         objectList = new ArrayList<>();
-        objectTypeList = new ArrayList<>();
-        objectList.add(new Object("Corona 1",3000));
+        database = new OwnedObjectsDatabase(this);
+
+        /*
+        boolean isInserted = database.insertObjectToOwnedObjectsDatabase(1L, "fsssfv", "DSS",324 );
+
+        if(isInserted == true)
+            Toast.makeText(ObjectTypeMenuActivity.this,"Data Inserted",Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(ObjectTypeMenuActivity.this,"Data not Inserted",Toast.LENGTH_LONG).show();
+
+        Cursor c = database.getOwnedObjects();
+        ownedObjectList = new ArrayList<>();
+        while (c.moveToNext()) {
+            objectList.add(new Object(c.getString(3),c.getInt(4)));
+        }*/
+
+
+        OwnedObject test = new OwnedObject();
+        test.setOwnedObjectId(1L);
+        test.setOwnedObjectName("fsssfv");
+        test.setOwnedObjectType("DSS");
+        test.setOwnedObjectDisinfectionTime(3453);
+        database.addToOwnedObjectsDatabase(test);
+
+        ownedObjectList = new ArrayList<>();
+        ownedObjectList = database.getOwnedObjects();
+
+
+        for (int i = 0; i < ownedObjectList.size(); i++) {
+            objectList.add(new Object(ownedObjectList.get(i).getOwnedObjectName(),ownedObjectList.get(i).getOwnedObjectDisinfectionTime()));
+        }
+
+        /*objectList.add(new Object("Corona 1",3000));
         objectList.add(new Object("Corona 2",3000));
         objectList.add(new Object("Corona 3",3000));
         objectList.add(new Object("Corona 4",3000));
@@ -102,8 +139,9 @@ public class ObjectTypeMenuActivity extends AppCompatActivity {
         objectList.add(new Object("Corona 7",3000));
         objectList.add(new Object("Corona 8",3000));
         objectList.add(new Object("Corona 9",3000));
-        objectList.add(new Object("Corona 10",3000));
+        objectList.add(new Object("Corona 10",3000));*/
 
+        objectTypeList = new ArrayList<>();
         objectTypeList.add(new ObjectType("Corona I",R.drawable.test,3000,objectList));
         objectTypeList.add(new ObjectType("Corona II",R.drawable.test,3000,objectList));
         objectTypeList.add(new ObjectType("Corona III",R.drawable.test,3000,objectList));
@@ -129,6 +167,5 @@ public class ObjectTypeMenuActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }
