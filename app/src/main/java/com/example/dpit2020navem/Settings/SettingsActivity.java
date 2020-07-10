@@ -1,5 +1,4 @@
-//mlc
-package com.example.dpit2020navem;
+package com.example.dpit2020navem.Settings;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -11,35 +10,33 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.dpit2020navem.AddAnObject.Activity.ObjectTypeMenuActivity;
+import com.example.dpit2020navem.Help.HelpActivity;
+import com.example.dpit2020navem.HomePage.MainActivity;
+import com.example.dpit2020navem.ObjectTypeDetailes.ObjectTypeDetailesActivity;
+import com.example.dpit2020navem.OwnedObjectsList.OwnedObjectsListActivity;
+import com.example.dpit2020navem.R;
+import com.example.dpit2020navem.UvcInfo.UvcInfoActivity;
 import com.google.android.material.navigation.NavigationView;
 
-
-public class MainActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     Button buttonSideMenu;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView sideMenu;
-    Button buttonChangeBoxState;
-    TextView boxState;
-    boolean open;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_settings);
+
 
         setUpSideMenu();
         openSideMenu();
-        changeBoxState();
 
     }
-
-
 
     private void setUpSideMenu(){
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -57,9 +54,29 @@ public class MainActivity extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if(id == R.id.homePage){
-                    drawerLayout.closeDrawer(sideMenu);
+                    Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 }else if(id == R.id.addAnObject){
-                    Intent intent = new Intent(MainActivity.this, ObjectTypeMenuActivity.class);
+                    Intent intent = new Intent(SettingsActivity.this, ObjectTypeMenuActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else if(id == R.id.ownedObjectList) {
+                    Intent intent = new Intent(SettingsActivity.this, OwnedObjectsListActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else if(id == R.id.objectTypeDetailes) {
+                    Intent intent = new Intent(SettingsActivity.this, ObjectTypeDetailesActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else if(id == R.id.UVCinfo) {
+                    Intent intent = new Intent(SettingsActivity.this, UvcInfoActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else if(id == R.id.settings) {
+                    drawerLayout.closeDrawer(sideMenu);
+                }else if(id == R.id.help) {
+                    Intent intent = new Intent(SettingsActivity.this, HelpActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -80,27 +97,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.openDrawer(sideMenu);
-            }
-        });
-    }
-
-    private void changeBoxState(){
-        buttonChangeBoxState = findViewById(R.id.buttonChangeBoxState);
-        boxState = findViewById(R.id.boxState);
-        open = false;
-        boxState.setText("box closed");
-
-        buttonChangeBoxState.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(open == false) {
-                    open = true;
-                    boxState.setText("box opened");
-                }
-                else {
-                    open = false;
-                    boxState.setText("box closed");
-                }
             }
         });
     }
