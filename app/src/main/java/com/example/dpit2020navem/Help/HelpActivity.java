@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 
 import com.example.dpit2020navem.AddAnObject.Activity.ObjectTypeMenuActivity;
 import com.example.dpit2020navem.HomePage.MainActivity;
@@ -20,12 +22,20 @@ import com.example.dpit2020navem.Settings.SettingsActivity;
 import com.example.dpit2020navem.UvcInfo.UvcInfoActivity;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class HelpActivity extends AppCompatActivity {
 
     Button buttonSideMenu;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView sideMenu;
+    private ExpandableListView questionAnswerListView;
+    private QuestionsAnswearsListAdapter questionAnswerListAdapter;
+    private List<String> listQuestions;
+    private HashMap<String,List<String>> listAnswers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +44,7 @@ public class HelpActivity extends AppCompatActivity {
 
         setUpSideMenu();
         openSideMenu();
+        setUpQuestionsAnswersListView();
 
     }
 
@@ -101,4 +112,43 @@ public class HelpActivity extends AppCompatActivity {
         });
 
     }
+
+    private void setUpQuestionsAnswersListView(){
+        questionAnswerListView = (ExpandableListView)findViewById(R.id.questionsAnswersList);
+        initializeQuestionsAndAnswers();
+        questionAnswerListAdapter = new QuestionsAnswearsListAdapter(this,listQuestions,listAnswers);
+        questionAnswerListView.setAdapter(questionAnswerListAdapter);
+    }
+
+    private void initializeQuestionsAndAnswers(){
+        listQuestions = new ArrayList<>();
+        listAnswers = new HashMap<>();
+
+        listQuestions.add("Cati cai pot fi inhamati la caruta?");
+        listQuestions.add("Cine bate la fereastra mea?");
+        listQuestions.add("Is this a kind of message you want to send out?");
+        listQuestions.add("Ce-ai baut?");
+
+        List<String> list1 = new ArrayList<>();
+        list1.add("minim doi cai");
+        list1.add("maxim sasa cai");
+
+        List<String> list2 = new ArrayList<>();
+        list2.add("o gagica cu politia");
+
+        List<String> list3 = new ArrayList<>();
+        list3.add("yes");
+
+        List<String> list4 = new ArrayList<>();
+        list4.add("tat ce s-o putut inafara de");
+        list4.add("5 beri");
+        list4.add("2 cidruri");
+        list4.add("si cateva shoturi");
+
+        listAnswers.put(listQuestions.get(0),list1);
+        listAnswers.put(listQuestions.get(1),list2);
+        listAnswers.put(listQuestions.get(2),list3);
+        listAnswers.put(listQuestions.get(3),list4);
+    }
+
 }
