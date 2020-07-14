@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddAnObject.Activity.ObjectMenuActivity"></activity>
+        <activity android:name=".Settings.SettingsActivity"></activity>
+        <activity android:name=".Help.HelpActivity" />
+        <activity android:name=".UvcInfo.UvcInfoActivity" />
+        <activity android:name=".ObjectTypeDetailes.ObjectTypeDetailesActivity" />
+        <activity android:name=".OwnedObjectsList.OwnedObjectsListActivity" />
+        <activity android:name=".AddAnObject.Activity.ObjectMenuActivity" />
         <activity android:name=".AddAnObject.Activity.ObjectTypeMenuActivity" />
         <activity android:name=".Intro.WelcomeActivity">
             <intent-filter>
@@ -19,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Intro.IntroActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".HomePage.MainActivity" />
     </application>
 
 </manifest>

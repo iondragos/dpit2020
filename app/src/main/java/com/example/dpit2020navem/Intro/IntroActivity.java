@@ -11,14 +11,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.example.dpit2020navem.MainActivity;
+import com.example.dpit2020navem.HomePage.MainActivity;
 import com.example.dpit2020navem.R;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class IntroActivity extends AppCompatActivity {
 

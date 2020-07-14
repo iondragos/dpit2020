@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.dpit2020navem.MainActivity;
 import com.example.dpit2020navem.R;
 
 import java.util.Timer;

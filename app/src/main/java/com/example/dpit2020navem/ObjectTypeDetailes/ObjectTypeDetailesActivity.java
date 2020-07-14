@@ -1,4 +1,4 @@
-package com.example.dpit2020navem.AddAnObject.Activity;
+package com.example.dpit2020navem.ObjectTypeDetailes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -10,43 +10,30 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 
-import com.example.dpit2020navem.AddAnObject.Adapter.ObjectListAdapter;
-import com.example.dpit2020navem.AddAnObject.Model.Object;
-import com.example.dpit2020navem.AddAnObject.Model.ObjectType;
+import com.example.dpit2020navem.AddAnObject.Activity.ObjectTypeMenuActivity;
 import com.example.dpit2020navem.Help.HelpActivity;
 import com.example.dpit2020navem.HomePage.MainActivity;
-import com.example.dpit2020navem.ObjectTypeDetailes.ObjectTypeDetailesActivity;
 import com.example.dpit2020navem.OwnedObjectsList.OwnedObjectsListActivity;
 import com.example.dpit2020navem.R;
 import com.example.dpit2020navem.Settings.SettingsActivity;
 import com.example.dpit2020navem.UvcInfo.UvcInfoActivity;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ObjectMenuActivity extends AppCompatActivity {
+public class ObjectTypeDetailesActivity extends AppCompatActivity {
 
     Button buttonSideMenu;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView sideMenu;
-    ListView objectsListView;
-    List<Object> objectList;
-    Bundle bundle;
-    Button buttonAddAnObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_object_menu);
+        setContentView(R.layout.activity_object_type_detailes);
 
         setUpSideMenu();
         openSideMenu();
-        setUpObjectListAdapter();
-        buttonAddAnObject = findViewById(R.id.addAnObject);
 
     }
 
@@ -66,41 +53,29 @@ public class ObjectMenuActivity extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if(id == R.id.homePage){
-                    Intent intent1 = new Intent("finish");
-                    sendBroadcast(intent1);
-                    Intent intent = new Intent(ObjectMenuActivity.this, MainActivity.class);
+                    Intent intent = new Intent(ObjectTypeDetailesActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }else if(id == R.id.addAnObject){
-                    drawerLayout.closeDrawer(sideMenu);
+                    Intent intent = new Intent(ObjectTypeDetailesActivity.this, ObjectTypeMenuActivity.class);
+                    startActivity(intent);
+                    finish();
                 }else if(id == R.id.ownedObjectList) {
-                    Intent intent1 = new Intent("finish");
-                    sendBroadcast(intent1);
-                    Intent intent = new Intent(ObjectMenuActivity.this, OwnedObjectsListActivity.class);
+                    Intent intent = new Intent(ObjectTypeDetailesActivity.this, OwnedObjectsListActivity.class);
                     startActivity(intent);
                     finish();
                 }else if(id == R.id.objectTypeDetailes) {
-                    Intent intent1 = new Intent("finish");
-                    sendBroadcast(intent1);
-                    Intent intent = new Intent(ObjectMenuActivity.this, ObjectTypeDetailesActivity.class);
-                    startActivity(intent);
-                    finish();
+                    drawerLayout.closeDrawer(sideMenu);
                 }else if(id == R.id.UVCinfo) {
-                    Intent intent1 = new Intent("finish");
-                    sendBroadcast(intent1);
-                    Intent intent = new Intent(ObjectMenuActivity.this, UvcInfoActivity.class);
+                    Intent intent = new Intent(ObjectTypeDetailesActivity.this, UvcInfoActivity.class);
                     startActivity(intent);
                     finish();
                 }else if(id == R.id.settings) {
-                    Intent intent1 = new Intent("finish");
-                    sendBroadcast(intent1);
-                    Intent intent = new Intent(ObjectMenuActivity.this, SettingsActivity.class);
+                    Intent intent = new Intent(ObjectTypeDetailesActivity.this, SettingsActivity.class);
                     startActivity(intent);
                     finish();
                 }else if(id == R.id.help) {
-                    Intent intent1 = new Intent("finish");
-                    sendBroadcast(intent1);
-                    Intent intent = new Intent(ObjectMenuActivity.this, HelpActivity.class);
+                    Intent intent = new Intent(ObjectTypeDetailesActivity.this, HelpActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -114,6 +89,7 @@ public class ObjectMenuActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
+
     private void openSideMenu(){
         buttonSideMenu = findViewById(R.id.buttonSideMenu);
         buttonSideMenu.setOnClickListener(new View.OnClickListener() {
@@ -123,19 +99,4 @@ public class ObjectMenuActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void setUpObjectListAdapter(){
-        objectsListView = findViewById(R.id.lvObjectList);
-        objectList = new ArrayList<>();
-
-        bundle = getIntent().getExtras();
-        if (bundle != null) {
-            ObjectType objectType = (ObjectType) bundle.get("Object");
-            objectList = objectType.getObjectList();
-        }
-
-        ObjectListAdapter adapter = new ObjectListAdapter(this, R.layout.layout_object_menu, objectList);
-        objectsListView.setAdapter(adapter);
-    }
-
 }
