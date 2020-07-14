@@ -28,7 +28,7 @@
             android:layout_height="35dp"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/icon_side_menu"
+            android:background="@drawable/menu_icon"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +41,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toEndOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
+            app:srcCompat="@drawable/ic_launcher_foreground"
+            tools:ignore="VectorDrawableCompat" />
         <TextView
             android:id="@+id/appName"
             android:layout_width="wrap_content"
