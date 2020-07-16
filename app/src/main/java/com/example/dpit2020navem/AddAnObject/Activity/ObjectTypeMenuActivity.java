@@ -9,14 +9,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.dpit2020navem.AddAnObject.Adapter.ObjectTypeListAdapter;
 import com.example.dpit2020navem.AddAnObject.Model.Object;
@@ -26,8 +24,7 @@ import com.example.dpit2020navem.HomePage.MainActivity;
 import com.example.dpit2020navem.ObjectTypeDetailes.ObjectTypeDetailesActivity;
 import com.example.dpit2020navem.OwnedObjectsList.OwnedObjectsListActivity;
 import com.example.dpit2020navem.Database.OwnedObjectsDatabase;
-import com.example.dpit2020navem.MainActivity;
-import com.example.dpit2020navem.OwnedObject;
+import com.example.dpit2020navem.OwnedObjectsList.OwnedObject;
 import com.example.dpit2020navem.R;
 import com.example.dpit2020navem.Settings.SettingsActivity;
 import com.example.dpit2020navem.UvcInfo.UvcInfoActivity;
@@ -143,21 +140,6 @@ public class ObjectTypeMenuActivity extends AppCompatActivity {
         objectList = new ArrayList<>();
         database = new OwnedObjectsDatabase(this);
 
-        /*
-        boolean isInserted = database.insertObjectToOwnedObjectsDatabase(1L, "fsssfv", "DSS",324 );
-
-        if(isInserted == true)
-            Toast.makeText(ObjectTypeMenuActivity.this,"Data Inserted",Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(ObjectTypeMenuActivity.this,"Data not Inserted",Toast.LENGTH_LONG).show();
-
-        Cursor c = database.getOwnedObjects();
-        ownedObjectList = new ArrayList<>();
-        while (c.moveToNext()) {
-            objectList.add(new Object(c.getString(3),c.getInt(4)));
-        }*/
-
-
         OwnedObject test = new OwnedObject();
         test.setOwnedObjectId(1L);
         test.setOwnedObjectName("fsssfv");
@@ -173,16 +155,6 @@ public class ObjectTypeMenuActivity extends AppCompatActivity {
             objectList.add(new Object(ownedObjectList.get(i).getOwnedObjectName(),ownedObjectList.get(i).getOwnedObjectDisinfectionTime()));
         }
 
-        /*objectList.add(new Object("Corona 1",3000));
-        objectList.add(new Object("Corona 2",3000));
-        objectList.add(new Object("Corona 3",3000));
-        objectList.add(new Object("Corona 4",3000));
-        objectList.add(new Object("Corona 5",3000));
-        objectList.add(new Object("Corona 6",3000));
-        objectList.add(new Object("Corona 7",3000));
-        objectList.add(new Object("Corona 8",3000));
-        objectList.add(new Object("Corona 9",3000));
-        objectList.add(new Object("Corona 10",3000));*/
 
         objectTypeList = new ArrayList<>();
         objectTypeList.add(new ObjectType("Corona I",R.drawable.test,3000,objectList));

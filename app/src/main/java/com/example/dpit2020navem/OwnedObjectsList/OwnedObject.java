@@ -1,4 +1,4 @@
-package com.example.dpit2020navem;
+package com.example.dpit2020navem.OwnedObjectsList;
 
 public class OwnedObject {
     private Long ownedObjectId;

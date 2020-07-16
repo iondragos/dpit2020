@@ -1,13 +1,11 @@
 package com.example.dpit2020navem.Database;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 
-import com.example.dpit2020navem.OwnedObject;
+import com.example.dpit2020navem.OwnedObjectsList.OwnedObject;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import java.util.ArrayList;
