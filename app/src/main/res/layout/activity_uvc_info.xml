@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:scaleType="fitStart"
-                    android:src="@drawable/uvc_info_backg"></ImageView>
+                    android:src="@drawable/uvc_info_background"></ImageView>
             </LinearLayout>
         </ScrollView>
 
