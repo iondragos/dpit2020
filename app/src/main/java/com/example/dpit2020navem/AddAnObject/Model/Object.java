@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class Object implements Serializable {
     private String objectName;
-    private Integer objectRemainingDisinfectionTime;//seconds
+    private Integer objectDisinfectionTime;//seconds
 
-    public Object(String objectName, Integer objectRemainingDisinfectionTime) {
+    public Object(String objectName, Integer objectDisinfectionTime) {
         this.objectName = objectName;
-        this.objectRemainingDisinfectionTime = objectRemainingDisinfectionTime;
+        this.objectDisinfectionTime = objectDisinfectionTime;
     }
 
     public String getObjectName() {
@@ -19,11 +19,11 @@ public class Object implements Serializable {
         this.objectName = objectName;
     }
 
-    public int getObjectRemainingDisinfectionTime() {
-        return objectRemainingDisinfectionTime;
+    public int getObjectDisinfectionTime() {
+        return objectDisinfectionTime;
     }
 
-    public void setObjectRemainingDisinfectionTime(Integer objectRemainingDisinfectionTime) {
-        this.objectRemainingDisinfectionTime = objectRemainingDisinfectionTime;
+    public void setObjectDisinfectionTime(Integer objectDisinfectionTime) {
+        this.objectDisinfectionTime = objectDisinfectionTime;
     }
 }
