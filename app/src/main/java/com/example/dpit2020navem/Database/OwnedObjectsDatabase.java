@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 
-import com.example.dpit2020navem.OwnedObjectsList.OwnedObject;
+import com.example.dpit2020navem.AddAnObject.Model.OwnedObject;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import java.util.ArrayList;
@@ -74,6 +74,30 @@ public class OwnedObjectsDatabase extends SQLiteAssetHelper {
         SQLiteDatabase db = getReadableDatabase();
         String query = String.format("DELETE FROM OwnedObjectsDetail where ObjectId=%d", ownedObjectId);
         db.execSQL(query);
+    }
+
+    public List<OwnedObject> getObjectsByObjectType(String ownedObjectType) {
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {"ObjectId", "ObjectType", "ObjectName", "ObjectDisinfectionTime"};
+        String sqlTable = "OwnedObjectsDetail";
+
+        qb.setTables(sqlTable);
+        String selection = String.format("ObjectType=%d", ownedObjectType);
+
+        Cursor c = qb.query(db, sqlSelect, selection, null, null, null, null);
+
+        List<OwnedObject> result = new ArrayList<>();
+        if (c.moveToFirst()) {
+            do {
+                OwnedObject ownedObject = extractOwnedObjectsFromCursor(c);
+
+                result.add(ownedObject);
+            } while (c.moveToNext());
+        }
+
+        return result;
     }
 
 }

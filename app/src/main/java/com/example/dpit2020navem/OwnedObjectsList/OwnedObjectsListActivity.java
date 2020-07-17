@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.dpit2020navem.AddAnObject.Activity.ObjectTypeMenuActivity;
+import com.example.dpit2020navem.Database.OwnedObjectsDatabase;
 import com.example.dpit2020navem.Help.HelpActivity;
 import com.example.dpit2020navem.HomePage.MainActivity;
 import com.example.dpit2020navem.ObjectTypeDetailes.ObjectTypeDetailesActivity;
@@ -26,6 +27,8 @@ public class OwnedObjectsListActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView sideMenu;
+    Button buttonDeleteAllObjects;
+    OwnedObjectsDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class OwnedObjectsListActivity extends AppCompatActivity {
 
         setUpSideMenu();
         openSideMenu();
+        cleanOwnedObjectsList();
 
     }
 
@@ -96,6 +100,19 @@ public class OwnedObjectsListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.openDrawer(sideMenu);
+            }
+        });
+    }
+
+    private void cleanOwnedObjectsList(){
+        database = new OwnedObjectsDatabase(this);
+
+        buttonDeleteAllObjects = findViewById(R.id.buttonDeleteAllObjects);
+
+        buttonDeleteAllObjects.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                database.cleanOwnedObjectsDatabase();
             }
         });
     }

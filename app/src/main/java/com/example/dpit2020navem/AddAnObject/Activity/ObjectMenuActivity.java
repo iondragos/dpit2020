@@ -13,8 +13,8 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.dpit2020navem.AddAnObject.Adapter.ObjectListAdapter;
-import com.example.dpit2020navem.AddAnObject.Model.Object;
 import com.example.dpit2020navem.AddAnObject.Model.ObjectType;
+import com.example.dpit2020navem.AddAnObject.Model.OwnedObject;
 import com.example.dpit2020navem.Help.HelpActivity;
 import com.example.dpit2020navem.HomePage.MainActivity;
 import com.example.dpit2020navem.ObjectTypeDetailes.ObjectTypeDetailesActivity;
@@ -33,8 +33,8 @@ public class ObjectMenuActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView sideMenu;
-    ListView objectsListView;
-    List<Object> objectList;
+    ListView ownedObjectsListView;
+    List<OwnedObject> ownedObjectList;
     Bundle bundle;
     Button buttonAddAnObject;
 
@@ -125,17 +125,17 @@ public class ObjectMenuActivity extends AppCompatActivity {
     }
 
     private void setUpObjectListAdapter(){
-        objectsListView = findViewById(R.id.lvObjectList);
-        objectList = new ArrayList<>();
+        ownedObjectsListView = findViewById(R.id.lvObjectList);
+        ownedObjectList = new ArrayList<>();
 
         bundle = getIntent().getExtras();
         if (bundle != null) {
             ObjectType objectType = (ObjectType) bundle.get("Object");
-            objectList = objectType.getObjectList();
+            ownedObjectList = objectType.getOwnedObjectList();
         }
 
-        ObjectListAdapter adapter = new ObjectListAdapter(this, R.layout.layout_object_menu, objectList);
-        objectsListView.setAdapter(adapter);
+        ObjectListAdapter adapter = new ObjectListAdapter(this, R.layout.layout_object_menu, ownedObjectList);
+        ownedObjectsListView.setAdapter(adapter);
     }
 
 }

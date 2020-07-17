@@ -1,4 +1,4 @@
-package com.example.dpit2020navem.OwnedObjectsList;
+package com.example.dpit2020navem.AddAnObject.Model;
 
 public class OwnedObject {
     private Long ownedObjectId;

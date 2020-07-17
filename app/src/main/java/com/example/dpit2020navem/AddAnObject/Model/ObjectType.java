@@ -10,13 +10,13 @@ public class ObjectType implements Serializable {
     private String objectTypeName;
     private int objectTypePicture;
     private Integer objectTypeDisinfectionTime;//seconds
-    private List<Object> objectList;
+    private List<OwnedObject> ownedObjectList;
 
-    public ObjectType(String objectTypeName, int objectTypePicture, Integer objectTypeDisinfectionTime, List<Object> objectList) {
+    public ObjectType(String objectTypeName, int objectTypePicture, Integer objectTypeDisinfectionTime, List<OwnedObject> ownedObjectList) {
         this.objectTypeName = objectTypeName;
         this.objectTypePicture = objectTypePicture;
         this.objectTypeDisinfectionTime = objectTypeDisinfectionTime;
-        this.objectList = objectList;
+        this.ownedObjectList = ownedObjectList;
     }
 
     public String getObjectTypeName() {
@@ -43,11 +43,11 @@ public class ObjectType implements Serializable {
         this.objectTypeDisinfectionTime = objectTypeDisinfectionTime;
     }
 
-    public List<Object> getObjectList() {
-        return objectList;
+    public List<OwnedObject> getOwnedObjectList() {
+        return ownedObjectList;
     }
 
-    public void setObjectList(List<Object> objectList) {
-        this.objectList = objectList;
+    public void setOwnedObjectList(List<OwnedObject> ownedObjectList) {
+        this.ownedObjectList = ownedObjectList;
     }
 }
