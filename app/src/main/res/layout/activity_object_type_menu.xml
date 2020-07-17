@@ -61,7 +61,7 @@
             android:fontFamily="@font/fenix"
             app:layout_constraintEnd_toEndOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:srcCompat="@drawable/ic_launcher_foreground"
+            app:srcCompat="@drawable/adn_logo"
             tools:ignore="VectorDrawableCompat" />
 
         <ListView
