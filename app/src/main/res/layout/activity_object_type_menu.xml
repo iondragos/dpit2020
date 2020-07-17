@@ -30,7 +30,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/fenix"
-            android:background="@drawable/menu_icon"
+            android:background="@drawable/menu_icon_white"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +43,7 @@
             android:layout_marginRight="24dp"
             android:text="Rayvion"
             android:fontFamily="@font/fenix"
-            android:textColor="#000000"
+            android:textColor="@color/text_color"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
