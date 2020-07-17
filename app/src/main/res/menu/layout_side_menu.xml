@@ -6,30 +6,37 @@
         <item
             android:id="@+id/homePage"
             android:icon="@drawable/home_page"
+            android:fontFamily="@font/fenix"
             android:title="Home Page" />
         <item
             android:id="@+id/addAnObject"
+            android:fontFamily="@font/fenix"
             android:title="Add an Object"
             android:icon="@drawable/add_an_object"/>
         <item
             android:id="@+id/ownedObjectList"
             android:title="Owned Object List"
+            android:fontFamily="@font/fenix"
             android:icon="@drawable/owned_object_list"/>
         <item
             android:id="@+id/objectTypeDetailes"
             android:title="Object Type Detailes"
+            android:fontFamily="@font/fenix"
             android:icon="@drawable/object_type_details"/>
         <item
             android:id="@+id/UVCinfo"
             android:title="UVC info"
+            android:fontFamily="@font/fenix"
             android:icon="@drawable/uvc_info"/>
         <item
             android:id="@+id/settings"
             android:title="Settings"
+            android:fontFamily="@font/fenix"
             android:icon="@drawable/settings"/>
         <item
             android:id="@+id/help"
             android:title="Help"
+            android:fontFamily="@font/fenix"
             android:icon="@drawable/help"/>
 
     </group>

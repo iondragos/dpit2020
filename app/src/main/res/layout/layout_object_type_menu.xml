@@ -17,6 +17,7 @@
         android:layout_weight="55"
         android:gravity="center|center_horizontal|center_vertical"
         android:text="ImageView"
+        android:fontFamily="@font/fenix"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,6 +33,7 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#000000"
+        android:fontFamily="@font/fenix"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/ivObjectTypePicture"
@@ -42,6 +44,7 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginEnd="5dp"
+        android:fontFamily="@font/fenix"
         android:layout_marginRight="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivObjectTypePicture"

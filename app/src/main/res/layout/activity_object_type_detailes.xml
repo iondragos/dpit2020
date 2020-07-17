@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
+    android:fontFamily="@font/fenix"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:background="#6600cc"
+            android:background="@drawable/gradient_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,6 +51,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:text="Navem"
+            android:fontFamily="@font/fenix"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -62,6 +64,7 @@
             android:layout_width="132dp"
             android:layout_height="67dp"
             android:text="Object Type Detailes"
+            android:fontFamily="@font/fenix"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
