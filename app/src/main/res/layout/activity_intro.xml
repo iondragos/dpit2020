@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Intro.IntroActivity"
+    android:fontFamily="@font/fenix"
     android:background="#ffffff">
 
 
@@ -28,6 +29,7 @@
         android:layout_marginRight="32dp"
         android:layout_marginBottom="8dp"
         android:text="Skip"
+        android:fontFamily="@font/fenix"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -55,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:text="Get Started"
+        android:fontFamily="@font/fenix"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

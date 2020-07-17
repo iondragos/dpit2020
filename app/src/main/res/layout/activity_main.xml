@@ -5,18 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
+    android:fontFamily="@font/fenix"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/gradient1"
         tools:context=".HomePage.MainActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:background="#6600cc"
+            android:background="@drawable/gradient_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +45,7 @@
             app:layout_constraintTop_toTopOf="@+id/toolbar"
             app:srcCompat="@drawable/ic_launcher_foreground"
             tools:ignore="VectorDrawableCompat" />
+
         <TextView
             android:id="@+id/appName"
             android:layout_width="wrap_content"
@@ -50,6 +53,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:text="Navem"
+            android:fontFamily="@font/fenix"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -62,7 +66,7 @@
             android:id="@+id/designJmecher"
             android:layout_width="140dp"
             android:layout_height="136dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="68dp"
             android:background="@drawable/test"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -77,11 +81,13 @@
             android:layout_marginLeft="60dp"
             android:layout_marginTop="60dp"
             android:text="ON/OFF"
+            android:fontFamily="@font/fenix"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/designJmecher" />
 
         <TextView
             android:id="@+id/boxState"
+            android:fontFamily="@font/fenix"
             android:layout_width="151dp"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"

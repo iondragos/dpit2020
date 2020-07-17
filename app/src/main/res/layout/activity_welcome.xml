@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Intro.WelcomeActivity"
-    android:background="#6600cc">
+    android:fontFamily="@font/fenix"
+    android:background="@drawable/gradient_toolbar">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

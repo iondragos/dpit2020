@@ -124,31 +124,34 @@ public class HelpActivity extends AppCompatActivity {
         listQuestions = new ArrayList<>();
         listAnswers = new HashMap<>();
 
-        listQuestions.add("Cati cai pot fi inhamati la caruta?");
-        listQuestions.add("Cine bate la fereastra mea?");
-        listQuestions.add("Is this a kind of message you want to send out?");
-        listQuestions.add("Ce-ai baut?");
+        listQuestions.add("What should I do if the UVC light is not working?");
+        listQuestions.add("What should I do if the box is not closing properly?");
+        listQuestions.add("What can I do if an object type i need is not in the list?");
+        listQuestions.add("Who worked on this project?");
+        listQuestions.add("How can I contact you?");
 
         List<String> list1 = new ArrayList<>();
-        list1.add("minim doi cai");
-        list1.add("maxim sasa cai");
+        list1.add("If the light is not working, try resetting the box multiple times and check that the led is not burnt. Otherwise, contact us.");
 
         List<String> list2 = new ArrayList<>();
-        list2.add("o gagica cu politia");
+        list2.add("Check on the app that the box is opened and make sure the switch is not broken, in which case you should call us.");
 
         List<String> list3 = new ArrayList<>();
-        list3.add("yes");
+        list3.add("Check the object type details, you can add your own object type with time.");
 
         List<String> list4 = new ArrayList<>();
-        list4.add("tat ce s-o putut inafara de");
-        list4.add("5 beri");
-        list4.add("2 cidruri");
-        list4.add("si cateva shoturi");
+        list4.add("This app was made by Team Navem formed by Ignat Alex, Ion Dragos, Abdallah Laith, Vaduva Mara, Hantig Lorena and Ordean Mihnea within the DPIT Association.");
+
+        List<String> list5 = new ArrayList<>();
+        list5.add("You can contact us on the phone or email:");
+        list5.add("navemdpit@gmail.com");
+        list5.add("+40746551087");
 
         listAnswers.put(listQuestions.get(0),list1);
         listAnswers.put(listQuestions.get(1),list2);
         listAnswers.put(listQuestions.get(2),list3);
         listAnswers.put(listQuestions.get(3),list4);
+        listAnswers.put(listQuestions.get(4),list5);
     }
 
 }
