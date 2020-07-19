@@ -7,7 +7,7 @@
             android:id="@+id/homePage"
             android:icon="@drawable/home_page"
             android:fontFamily="@font/javanese"
-            android:title="Home Page" />
+            android:title="Main Page" />
         <item
             android:id="@+id/addAnObject"
             android:fontFamily="@font/javanese"
@@ -25,7 +25,7 @@
             android:icon="@drawable/object_type_details"/>
         <item
             android:id="@+id/UVCinfo"
-            android:title="UVC info"
+            android:title="UVC Info"
             android:fontFamily="@font/javanese"
             android:icon="@drawable/uvc_info"/>
         <item

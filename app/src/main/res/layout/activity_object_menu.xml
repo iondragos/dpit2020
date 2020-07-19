@@ -65,6 +65,7 @@
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
+            android:paddingTop="22.5dp"
             android:text="Add an Object"
             android:fontFamily="@font/javanese"
             android:textSize="24sp"
@@ -74,14 +75,15 @@
 
         <Button
             android:id="@+id/buttonAddAnObject"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="61dp"
+            android:layout_height="56dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="15dp"
-            android:text="ADD"
+            android:paddingTop="15dp"
             android:fontFamily="@font/javanese"
+            android:text="ADD"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="@+id/textView" />
