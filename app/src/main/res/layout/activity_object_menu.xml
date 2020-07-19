@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:fontFamily="@font/fenix"
+    android:fontFamily="@font/javanese"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,22 +33,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/appName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:text="Rayvion"
-            android:fontFamily="@font/fenix"
-            android:textColor="@color/text_color"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-            app:layout_constraintEnd_toStartOf="@+id/appLogo"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.444" />
 
         <ImageView
             android:id="@+id/appLogo"
@@ -82,7 +66,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
             android:text="Add an Object"
-            android:fontFamily="@font/fenix"
+            android:fontFamily="@font/javanese"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,10 +81,25 @@
             android:layout_marginRight="15dp"
             android:layout_marginBottom="15dp"
             android:text="ADD"
-            android:fontFamily="@font/fenix"
+            android:fontFamily="@font/javanese"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="192dp"
+            android:layout_height="36dp"
+            android:text="Object addition"
+            android:textColor="#ffffff"
+            android:paddingTop="6dp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/javanese"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+            app:layout_constraintEnd_toStartOf="@+id/appLogo"
+            app:layout_constraintStart_toEndOf="@+id/buttonSideMenu"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -108,6 +107,7 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/sideMenu"
+        android:fontFamily="@font/javanese"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"

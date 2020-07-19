@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
+    android:fontFamily="@font/javanese"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +19,7 @@
             android:layout_height="60dp"
             android:background="@drawable/gradient_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
-            android:fontFamily="@font/fenix"
+            android:fontFamily="@font/javanese"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +31,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/menu_icon_white"
-            android:fontFamily="@font/fenix"
+            android:fontFamily="@font/javanese"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,31 +42,17 @@
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-            android:fontFamily="@font/fenix"
+            android:fontFamily="@font/javanese"
             app:layout_constraintEnd_toEndOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
             app:srcCompat="@drawable/logo_white_vector_circled"
             tools:ignore="VectorDrawableCompat" />
-        <TextView
-            android:id="@+id/appName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Rayvion"
-            android:fontFamily="@font/fenix"
-            android:textColor="@color/text_color"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-            app:layout_constraintEnd_toStartOf="@+id/appLogo"
-            app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:fontFamily="@font/fenix"
+            android:fontFamily="@font/javanese"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -83,11 +70,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:fontFamily="@font/fenix"
+                    android:fontFamily="@font/javanese"
                     android:scaleType="fitStart"
                     android:src="@drawable/uvc_info_background"></ImageView>
             </LinearLayout>
         </ScrollView>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="192dp"
+            android:layout_height="36dp"
+            android:text="UVC Info"
+            android:textColor="#ffffff"
+            android:paddingTop="6dp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/javanese"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+            app:layout_constraintEnd_toStartOf="@+id/appLogo"
+            app:layout_constraintStart_toEndOf="@+id/buttonSideMenu"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -95,6 +97,7 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/sideMenu"
+        android:fontFamily="@font/javanese"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
