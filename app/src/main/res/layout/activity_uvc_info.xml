@@ -44,7 +44,7 @@
             android:fontFamily="@font/fenix"
             app:layout_constraintEnd_toEndOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:srcCompat="@drawable/adn_logo"
+            app:srcCompat="@drawable/logo_white_vector_circled"
             tools:ignore="VectorDrawableCompat" />
         <TextView
             android:id="@+id/appName"
