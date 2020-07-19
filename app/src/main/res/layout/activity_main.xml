@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient1"
+        android:background="@drawable/background_purple_to_blue"
         tools:context=".HomePage.MainActivity">
 
         <androidx.appcompat.widget.Toolbar
