@@ -20,7 +20,7 @@
         <activity android:name=".OwnedObjectsList.OwnedObjectsListActivity" />
         <activity android:name=".AddAnObject.Activity.ObjectMenuActivity" />
         <activity android:name=".AddAnObject.Activity.ObjectTypeMenuActivity" />
-        <activity android:name=".Intro.WelcomeActivity">
+        <activity android:name=".Intro.WelcomeActivity" android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
