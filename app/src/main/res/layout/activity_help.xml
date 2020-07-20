@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:fontFamily="@font/fenix"
+    android:fontFamily="@font/javanese"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,25 +42,27 @@
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toEndOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:srcCompat="@drawable/ic_launcher_foreground"
+            app:srcCompat="@drawable/logo_white_vector_circled"
             tools:ignore="VectorDrawableCompat" />
+
         <TextView
-            android:id="@+id/appName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Rayvion"
-            android:fontFamily="@font/fenix"
-            android:textColor="@color/text_color"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:id="@+id/textView3"
+            android:layout_width="192dp"
+            android:layout_height="36dp"
+            android:text="Help"
+            android:textColor="#ffffff"
+            android:paddingTop="6dp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/javanese"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toStartOf="@+id/appLogo"
-            app:layout_constraintTop_toTopOf="@+id/toolbar" />
+            app:layout_constraintStart_toEndOf="@+id/buttonSideMenu"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ExpandableListView
             android:id="@+id/questionsAnswersList"
+            android:fontFamily="@font/javanese"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -74,6 +76,7 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/sideMenu"
+        android:fontFamily="@font/javanese"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
