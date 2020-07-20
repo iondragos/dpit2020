@@ -162,12 +162,12 @@ public class ObjectTypeMenuActivity extends AppCompatActivity {
         createOwnedObjectList();
 
         objectTypeList = new ArrayList<>();
-        objectTypeList.add(new ObjectType("Phones",R.drawable.test,3000,phonesList));
-        objectTypeList.add(new ObjectType("Wallets",R.drawable.test,3000,walletsList));
-        objectTypeList.add(new ObjectType("Keys",R.drawable.test,3000,keysList));
-        objectTypeList.add(new ObjectType("Glasses",R.drawable.test,3000,glassesList));
-        objectTypeList.add(new ObjectType("Watches",R.drawable.test,3000,watchesList));
-        objectTypeList.add(new ObjectType("Headphones",R.drawable.test,3000,headphonesList));
+        objectTypeList.add(new ObjectType("Phones",R.drawable.phone,3000,phonesList));
+        objectTypeList.add(new ObjectType("Wallets",R.drawable.wallet,3000,walletsList));
+        objectTypeList.add(new ObjectType("Keys",R.drawable.keys,3000,keysList));
+        objectTypeList.add(new ObjectType("Glasses",R.drawable.glasses,3000,glassesList));
+        objectTypeList.add(new ObjectType("Watches",R.drawable.watch,3000,watchesList));
+        objectTypeList.add(new ObjectType("Headphones",R.drawable.headphones,3000,headphonesList));
     }
 
     private void setUpObjectTypeListAdapter(){
