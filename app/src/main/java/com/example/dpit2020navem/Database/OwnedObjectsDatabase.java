@@ -84,7 +84,7 @@ public class OwnedObjectsDatabase extends SQLiteAssetHelper {
         String sqlTable = "OwnedObjectsDetail";
 
         qb.setTables(sqlTable);
-        String selection = String.format("ObjectType=%d", ownedObjectType);
+        String selection = String.format("ObjectType='%s'", ownedObjectType);
 
         Cursor c = qb.query(db, sqlSelect, selection, null, null, null, null);
 
