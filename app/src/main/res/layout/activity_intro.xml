@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Intro.IntroActivity"
-    android:fontFamily="@font/javanese"
+    android:fontFamily="@font/linden_hill"
     android:background="#ffffff">
 
 
@@ -28,9 +28,8 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="8dp"
-        android:paddingTop="15dp"
+        android:fontFamily="@font/linden_hill"
         android:text="Skip"
-        android:fontFamily="@font/javanese"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -58,9 +57,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        android:paddingTop="15dp"
         android:text="Get Started"
-        android:fontFamily="@font/javanese"
+        android:fontFamily="@font/linden_hill"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

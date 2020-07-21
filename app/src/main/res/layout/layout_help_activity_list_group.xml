@@ -9,7 +9,7 @@
         android:id="@+id/question"
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
         android:textSize="16dp"
-        android:fontFamily="@font/javanese"
+        android:fontFamily="@font/linden_hill"
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

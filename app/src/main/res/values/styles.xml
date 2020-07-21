@@ -7,5 +7,10 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowDisablePreview">true</item>
     </style>
+
+    <style name="Style_TextView">
+        <item name="fontFamily">@font/linden_hill</item>
+    </style>
+
 </resources>
 
