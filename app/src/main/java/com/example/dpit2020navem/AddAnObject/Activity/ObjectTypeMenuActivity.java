@@ -149,13 +149,6 @@ public class ObjectTypeMenuActivity extends AppCompatActivity {
         glassesList = new ArrayList<>();
         watchesList = new ArrayList<>();
         headphonesList = new ArrayList<>();
-
-        /*phonesList = (List<OwnedObject>) database.getObjectsByObjectType("Phones");
-        walletsList = (List<OwnedObject>) database.getObjectsByObjectType("Wallets");
-        keysList = (List<OwnedObject>) database.getObjectsByObjectType("Keys");
-        glassesList = (List<OwnedObject>) database.getObjectsByObjectType("Glasses");
-        watchesList = (List<OwnedObject>) database.getObjectsByObjectType("Watches");
-        headphonesList = (List<OwnedObject>) database.getObjectsByObjectType("Headphones");*/
     }
 
     private void createObjectTypeListMenu(){

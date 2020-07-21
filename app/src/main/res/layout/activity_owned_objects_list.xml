@@ -48,17 +48,6 @@
             app:srcCompat="@drawable/logo_white_vector_circled"
             tools:ignore="VectorDrawableCompat" />
 
-        <Button
-            android:id="@+id/buttonDeleteAllObjects"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:paddingTop="15dp"
-            android:text="Delete all Objects"
-            android:fontFamily="@font/javanese"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textView3"

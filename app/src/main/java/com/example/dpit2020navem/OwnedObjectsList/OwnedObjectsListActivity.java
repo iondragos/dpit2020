@@ -27,8 +27,6 @@ public class OwnedObjectsListActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView sideMenu;
-    Button buttonDeleteAllObjects;
-    OwnedObjectsDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +35,6 @@ public class OwnedObjectsListActivity extends AppCompatActivity {
 
         setUpSideMenu();
         openSideMenu();
-        cleanOwnedObjectsList();
 
     }
 
@@ -104,16 +101,4 @@ public class OwnedObjectsListActivity extends AppCompatActivity {
         });
     }
 
-    private void cleanOwnedObjectsList(){
-        database = new OwnedObjectsDatabase(this);
-
-        buttonDeleteAllObjects = findViewById(R.id.buttonDeleteAllObjects);
-
-        buttonDeleteAllObjects.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                database.cleanOwnedObjectsDatabase();
-            }
-        });
-    }
 }

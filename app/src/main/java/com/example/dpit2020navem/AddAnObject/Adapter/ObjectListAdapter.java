@@ -29,6 +29,7 @@ public class ObjectListAdapter extends ArrayAdapter<OwnedObject> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         String ownedObjectName = getItem(position).getOwnedObjectName();
+        Long ownedObjectId = getItem(position).getOwnedObjectId();
         Integer ownedObjectRemainingDisinfectionTime  = getItem(position).getOwnedObjectDisinfectionTime();
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
