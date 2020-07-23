@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 
 import com.example.dpit2020navem.AddAnObject.Activity.ObjectTypeMenuActivity;
 import com.example.dpit2020navem.Help.HelpActivity;
+import com.example.dpit2020navem.Help.QuestionsAnswearsListAdapter;
 import com.example.dpit2020navem.HomePage.MainActivity;
 import com.example.dpit2020navem.OwnedObjectsList.OwnedObjectsListActivity;
 import com.example.dpit2020navem.R;
@@ -20,12 +22,20 @@ import com.example.dpit2020navem.Settings.SettingsActivity;
 import com.example.dpit2020navem.UvcInfo.UvcInfoActivity;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class ObjectTypeDetailesActivity extends AppCompatActivity {
 
     Button buttonSideMenu;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView sideMenu;
+    private ExpandableListView objectTypeDetailesListView;
+    private ObjectTypeDetailesListAdapter objectTypeDetailesListAdapter;
+    private List<ListHeader> listType;
+    private HashMap< ListHeader , List<String> > listDetailes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +44,7 @@ public class ObjectTypeDetailesActivity extends AppCompatActivity {
 
         setUpSideMenu();
         openSideMenu();
+        setUpObjectTypeDetailesListView();
 
     }
 
@@ -98,5 +109,49 @@ public class ObjectTypeDetailesActivity extends AppCompatActivity {
                 drawerLayout.openDrawer(sideMenu);
             }
         });
+    }
+
+    private void setUpObjectTypeDetailesListView(){
+        objectTypeDetailesListView = (ExpandableListView)findViewById(R.id.objectTypeDetailesList);
+        initializeObjectTypeDetailesList();
+        objectTypeDetailesListAdapter = new ObjectTypeDetailesListAdapter(this,listType,listDetailes);
+        objectTypeDetailesListView.setAdapter(objectTypeDetailesListAdapter);
+    }
+
+    private void initializeObjectTypeDetailesList(){
+        listType = new ArrayList<>();
+        listDetailes = new HashMap<>();
+
+        listType.add(new ListHeader("Phones",R.drawable.phone));
+        listType.add(new ListHeader("Wallets",R.drawable.wallet));
+        listType.add(new ListHeader("Keys",R.drawable.keys));
+        listType.add(new ListHeader("Glasses",R.drawable.glasses));
+        listType.add(new ListHeader("Watches",R.drawable.watch));
+        listType.add(new ListHeader("Headphones",R.drawable.headphones));
+
+        List<String> list1 = new ArrayList<>();
+        list1.add("phone detailes");
+
+        List<String> list2 = new ArrayList<>();
+        list2.add("wallet detailes");
+
+        List<String> list3 = new ArrayList<>();
+        list3.add("key detailes");
+
+        List<String> list4 = new ArrayList<>();
+        list4.add("glasses detailes");
+
+        List<String> list5 = new ArrayList<>();
+        list5.add("watch detailes");
+
+        List<String> list6 = new ArrayList<>();
+        list6.add("headphones detailes");
+
+        listDetailes.put(listType.get(0),list1);
+        listDetailes.put(listType.get(1),list2);
+        listDetailes.put(listType.get(2),list3);
+        listDetailes.put(listType.get(3),list4);
+        listDetailes.put(listType.get(4),list5);
+        listDetailes.put(listType.get(5),list6);
     }
 }
