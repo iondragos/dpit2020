@@ -7,7 +7,7 @@
             android:id="@+id/homePage"
             android:icon="@drawable/home_page"
             android:fontFamily="@font/javanese"
-            android:title="Main Page" />
+            android:title="Home Page" />
         <item
             android:id="@+id/addAnObject"
             android:fontFamily="@font/javanese"

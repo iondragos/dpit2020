@@ -14,7 +14,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:text="TextView"
-        android:fontFamily="@font/javanese"
+        android:fontFamily="@font/linden_hill"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

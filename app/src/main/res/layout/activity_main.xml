@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:fontFamily="@font/javanese"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fontFamily="@font/linden_hill">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -34,6 +34,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/appLogo"
             android:layout_width="40dp"
@@ -65,21 +66,19 @@
             android:layout_marginStart="60dp"
             android:layout_marginLeft="60dp"
             android:layout_marginTop="60dp"
-            android:paddingTop="12dp"
+            android:fontFamily="@font/linden_hill"
             android:text="ON/OFF"
-            android:fontFamily="@font/javanese"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/designJmecher" />
 
         <TextView
             android:id="@+id/boxState"
-            android:fontFamily="@font/javanese"
-            android:paddingTop="12dp"
             android:layout_width="151dp"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="60dp"
+            android:fontFamily="@font/linden_hill"
             android:gravity="center_horizontal|center_vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.153"
@@ -90,12 +89,11 @@
             android:id="@+id/textView3"
             android:layout_width="192dp"
             android:layout_height="36dp"
-            android:text="Main page"
-            android:textColor="#ffffff"
-            android:paddingTop="6dp"
-            android:gravity="center"
             android:layout_centerHorizontal="true"
-            android:fontFamily="@font/javanese"
+            android:fontFamily="@font/linden_hill"
+            android:gravity="center"
+            android:text="Home page"
+            android:textColor="#ffffff"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toStartOf="@+id/appLogo"
             app:layout_constraintStart_toEndOf="@+id/buttonSideMenu"
@@ -106,10 +104,11 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/sideMenu"
-        android:fontFamily="@font/javanese"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:fontFamily="@font/linden_hill"
+        app:itemTextAppearance="@style/Style_TextView"
         app:menu="@menu/layout_side_menu"></com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
