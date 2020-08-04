@@ -9,8 +9,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -53,6 +56,7 @@ public class ObjectMenuActivity extends AppCompatActivity {
     TextView warning;
     Long newObjectId;
     String newObjectName;
+    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,7 @@ public class ObjectMenuActivity extends AppCompatActivity {
         setUpObjectListAdapter();
         setUpLayoutCreateObjectName();
         nameTheObject();
+        removeWarningIfTyping();
 
     }
 
@@ -184,6 +189,18 @@ public class ObjectMenuActivity extends AppCompatActivity {
         return objectName;
     }
 
+    private boolean validateName(String name){
+        boolean valid = true;
+
+        for(int i = 0 ; i < allObjects.size() ; i++){
+            if(allObjects.get(i).getOwnedObjectName().equals(name)){
+                valid = false;
+            }
+        }
+
+        return valid;
+    }
+
 
     private void nameTheObject(){
         buttonAddAnObject = findViewById(R.id.buttonAddAnObject);
@@ -191,6 +208,10 @@ public class ObjectMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 warning = findViewById(R.id.warning);
+                etObjectName = findViewById(R.id.etObjectName);
+
+                warning.setText("");
+                etObjectName.setText("");
 
                 layoutCreateObjectName.setVisibility(View.VISIBLE);
                 buttonAddAnObject.setVisibility(View.INVISIBLE);
@@ -208,12 +229,22 @@ public class ObjectMenuActivity extends AppCompatActivity {
             public void onClick(View view) {
                 newObjectId = createNewObjectId();
                 newObjectName = createNewObjectName();
+                boolean valid = validateName(newObjectName);
 
                 warning.setText("");
 
+                etObjectName.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        warning.setText("");
+                    }
+                });
+
                 if(newObjectName.equals("")){
-                    warning.setText("Invalid name");
-                }else{
+                    warning.setText("Please name the object.");
+                }else if(valid == false){
+                    warning.setText("This name already exist.");
+                } else{
                     warning.setText("");
 
                     ownedObject = new OwnedObject();
@@ -228,6 +259,7 @@ public class ObjectMenuActivity extends AppCompatActivity {
                     ObjectListAdapter adapter = new ObjectListAdapter(context, R.layout.layout_object_menu, ownedObjectList);
                     ownedObjectsListView.setAdapter(adapter);
 
+                    closeKeyboard();
                     layoutCreateObjectName.setVisibility(View.INVISIBLE);
                     buttonAddAnObject.setVisibility(View.VISIBLE);
                 }
@@ -236,12 +268,39 @@ public class ObjectMenuActivity extends AppCompatActivity {
         });
     }
 
+    private void removeWarningIfTyping(){
+        handler = new Handler();
+        etObjectName = findViewById(R.id.etObjectName);
+        warning = findViewById(R.id.warning);
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                String name = etObjectName.getText().toString();
+                if(!name.equals("")){
+                    warning.setText("");
+                }
+                handler.postDelayed(this, 100);
+            }
+        });
+
+    }
+
     public void onBackPressed() {
         if(layoutCreateObjectName.getVisibility() == View.VISIBLE){
             layoutCreateObjectName.setVisibility(View.INVISIBLE);
             buttonAddAnObject.setVisibility(View.VISIBLE);
+            closeKeyboard();
         }else{
             finish();
+        }
+    }
+
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
