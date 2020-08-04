@@ -51,18 +51,15 @@ public class IntroActivity extends AppCompatActivity {
 
     private void setUpIntroScreenItemsList(){
         introScreenItems = new ArrayList<>();
-        introScreenItems.add(new IntroScreenItem("1",R.drawable.slide_one_cropped));
-        introScreenItems.add(new IntroScreenItem("2",R.drawable.slide_two_cropped));
-        introScreenItems.add(new IntroScreenItem("3",R.drawable.slide_three_cropped));
-        introScreenItems.add(new IntroScreenItem("4",R.drawable.slide_four_cropped));
+        introScreenItems.add(new IntroScreenItem("Welcome to the app! To begin your journey, get your everyday objects ready and register them in the app.",R.drawable.slide_one_cropped));
+        introScreenItems.add(new IntroScreenItem("Open your UVC powered case and insert the objects you want to disinfect. Power the box manually or select the objects from the app and turn it on.",R.drawable.slide_two_cropped));
+        introScreenItems.add(new IntroScreenItem("As the timer starts, you can check the status on your phone or on the case display. As it reaches the end, your items should be virus-free.",R.drawable.slide_three_cropped));
+        introScreenItems.add(new IntroScreenItem("That's it! You now have a clean and ready to use inventory of objects, keeping you away from infections. Keep it safe.",R.drawable.slide_four_cropped));
     }
 
     private void setUpIntroScreenPager(){
         introScreenPager = findViewById(R.id.introScreenPager);
         introViewPagerAdapter = new IntroViewPagerAdapter(this, introScreenItems);
-        //final int pageMargin = (int) TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 8, getResources() .getDisplayMetrics());
-        //introScreenPager.setPageMargin(pageMargin);
-        //introScreenPager.setPageMargin(-50);
         introScreenPager.setAdapter(introViewPagerAdapter);
 
 
