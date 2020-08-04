@@ -50,7 +50,6 @@ public class ObjectMenuActivity extends AppCompatActivity {
     ConstraintLayout layoutCreateObjectName;
     EditText etObjectName;
     Button buttonAddAnObjectWithName;
-    TextView textViewAddObject;
     TextView warning;
     Long newObjectId;
     String newObjectName;
@@ -191,12 +190,10 @@ public class ObjectMenuActivity extends AppCompatActivity {
         buttonAddAnObject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textViewAddObject = findViewById(R.id.textViewAddObject);
                 warning = findViewById(R.id.warning);
 
                 layoutCreateObjectName.setVisibility(View.VISIBLE);
                 buttonAddAnObject.setVisibility(View.INVISIBLE);
-                textViewAddObject.setVisibility(View.INVISIBLE);
 
                 buttonAddAnObjectWithName = findViewById(R.id.buttonAddAnObjectWithName);
 
@@ -233,7 +230,6 @@ public class ObjectMenuActivity extends AppCompatActivity {
 
                     layoutCreateObjectName.setVisibility(View.INVISIBLE);
                     buttonAddAnObject.setVisibility(View.VISIBLE);
-                    textViewAddObject.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -244,7 +240,6 @@ public class ObjectMenuActivity extends AppCompatActivity {
         if(layoutCreateObjectName.getVisibility() == View.VISIBLE){
             layoutCreateObjectName.setVisibility(View.INVISIBLE);
             buttonAddAnObject.setVisibility(View.VISIBLE);
-            textViewAddObject.setVisibility(View.VISIBLE);
         }else{
             finish();
         }
