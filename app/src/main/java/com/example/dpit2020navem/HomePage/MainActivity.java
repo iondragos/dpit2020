@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
     Button buttonChangeBoxState;
     TextView boxState;
     boolean open;
+    TextView timeRemaining;
+    Button startButton;
+    CountDownTimer countDownTimer;
+    long timeLeftMilliseconds = 600000;
+    boolean timerRunning;
 
 
     @Override
@@ -42,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setUpSideMenu();
         openSideMenu();
         changeBoxState();
+        appTimer();
 
     }
 
@@ -128,4 +135,60 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void appTimer(){
+        timeRemaining = findViewById(R.id.timeRemaining);
+        startButton = findViewById(R.id.startButton);
+        timerRunning = true;
+
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                startStop();
+            }
+        });
+
+    }
+    public void startStop() {
+        if (timerRunning) {
+            startTimer();
+        } else {
+            stopTimer();
+        }
+    }
+    public void startTimer() {
+        countDownTimer = new CountDownTimer(timeLeftMilliseconds ,1000) {
+            @Override
+            public void onTick(long l) {
+                timeLeftMilliseconds = l;
+                updateTimer();
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
+        startButton.setText("PAUSE");
+        timerRunning = false;
+
+    }
+    public void stopTimer() {
+        countDownTimer.cancel();
+        startButton.setText("START");
+        timerRunning = true;
+    }
+    public void updateTimer() {
+        int minutes = (int) timeLeftMilliseconds / 60000;
+        int seconds = (int) timeLeftMilliseconds % 60000 / 1000;
+        String timeLeftText;
+
+        timeLeftText = "" + minutes;
+        timeLeftText += " : ";
+        if (seconds < 10) timeLeftText += "0";
+        timeLeftText += seconds;
+
+        timeRemaining.setText(timeLeftText);
+    }
+
+
 }
