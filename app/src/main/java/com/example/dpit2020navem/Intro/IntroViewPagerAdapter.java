@@ -4,12 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.example.dpit2020navem.Intro.IntroScreenItem;
 import com.example.dpit2020navem.R;
 
 import java.util.List;
@@ -31,9 +31,11 @@ public class IntroViewPagerAdapter extends PagerAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layoutIntroScreen = inflater.inflate(R.layout.layout_intro_screen, null);
 
-        TextView introTitle = layoutIntroScreen.findViewById(R.id.introTitle);//edit
+        TextView introText = layoutIntroScreen.findViewById(R.id.introText);
+        ImageView introPicture = layoutIntroScreen.findViewById(R.id.introBackgroud);
 
-        introTitle.setText(introScreenItems.get(position).getTitle());//edit
+        introText.setText(introScreenItems.get(position).getIntroText());
+        introPicture.setImageResource(introScreenItems.get(position).getIntroPicture());
 
         container.addView(layoutIntroScreen);
 
