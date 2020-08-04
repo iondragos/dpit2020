@@ -165,8 +165,15 @@ public class ObjectMenuActivity extends AppCompatActivity {
     private Long createNewObjectId(){
         allObjects = new ArrayList<>();
         allObjects = database.getOwnedObjects();
+        Long max = -1L;
 
-        Long objectId = Long.valueOf(allObjects.size() + 1);
+        for(int i = 0 ; i < allObjects.size() ; i++){
+            if(allObjects.get(i).getOwnedObjectId() > max) {
+                max = allObjects.get(i).getOwnedObjectId();
+            }
+        }
+
+        Long objectId = Long.valueOf(max + 1L);
         return  objectId;
     }
 
