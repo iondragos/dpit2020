@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -50,14 +51,18 @@ public class IntroActivity extends AppCompatActivity {
 
     private void setUpIntroScreenItemsList(){
         introScreenItems = new ArrayList<>();
-        introScreenItems.add(new IntroScreenItem("1"));
-        introScreenItems.add(new IntroScreenItem("2"));
-        introScreenItems.add(new IntroScreenItem("3"));
+        introScreenItems.add(new IntroScreenItem("1",R.drawable.slide_one));
+        introScreenItems.add(new IntroScreenItem("2",R.drawable.slide_two));
+        introScreenItems.add(new IntroScreenItem("3",R.drawable.slide_three));
+        introScreenItems.add(new IntroScreenItem("4",R.drawable.slide_four));
     }
 
     private void setUpIntroScreenPager(){
         introScreenPager = findViewById(R.id.introScreenPager);
         introViewPagerAdapter = new IntroViewPagerAdapter(this, introScreenItems);
+        //final int pageMargin = (int) TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 8, getResources() .getDisplayMetrics());
+        //introScreenPager.setPageMargin(pageMargin);
+        //introScreenPager.setPageMargin(-50);
         introScreenPager.setAdapter(introViewPagerAdapter);
 
 
