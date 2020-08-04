@@ -51,10 +51,10 @@ public class IntroActivity extends AppCompatActivity {
 
     private void setUpIntroScreenItemsList(){
         introScreenItems = new ArrayList<>();
-        introScreenItems.add(new IntroScreenItem("1",R.drawable.slide_one));
-        introScreenItems.add(new IntroScreenItem("2",R.drawable.slide_two));
-        introScreenItems.add(new IntroScreenItem("3",R.drawable.slide_three));
-        introScreenItems.add(new IntroScreenItem("4",R.drawable.slide_four));
+        introScreenItems.add(new IntroScreenItem("1",R.drawable.slide_one_cropped));
+        introScreenItems.add(new IntroScreenItem("2",R.drawable.slide_two_cropped));
+        introScreenItems.add(new IntroScreenItem("3",R.drawable.slide_three_cropped));
+        introScreenItems.add(new IntroScreenItem("4",R.drawable.slide_four_cropped));
     }
 
     private void setUpIntroScreenPager(){
