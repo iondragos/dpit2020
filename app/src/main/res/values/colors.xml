@@ -11,4 +11,6 @@
     <color name="intro_title_color">#7840f7</color>
     <color name="intro_description_color">#656565</color>
     <color name="text_color">#ffffff</color>
+
+    <color name="secondColor">#a42eff</color>
 </resources>
