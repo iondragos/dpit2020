@@ -12,17 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_purple_to_blue"
+        android:clickable="true"
         tools:context=".HomePage.MainActivity">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:background="@drawable/gradient_toolbar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/buttonSideMenu"
@@ -34,6 +25,28 @@
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonChangeBoxState"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/linden_hill"
+            android:text="ON/OFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/designJmecher" />
+
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:text="START"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
         <ImageView
             android:id="@+id/appLogo"
@@ -47,7 +60,6 @@
             app:srcCompat="@drawable/logo_white_vector_circled"
             tools:ignore="VectorDrawableCompat" />
 
-
         <ImageView
             android:id="@+id/designJmecher"
             android:layout_width="140dp"
@@ -59,24 +71,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-        <Button
-            android:id="@+id/buttonChangeBoxState"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="60dp"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="60dp"
-            android:fontFamily="@font/linden_hill"
-            android:text="ON/OFF"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/designJmecher" />
-
         <TextView
             android:id="@+id/boxState"
             android:layout_width="151dp"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/linden_hill"
             android:gravity="center_horizontal|center_vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -102,24 +102,73 @@
             android:id="@+id/timeRemaining"
             android:layout_width="130dp"
             android:layout_height="55dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginBottom="20dp"
             android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/startButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/boxState"
-            app:layout_constraintVertical_bias="0.071" />
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/startButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="START"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <TextView
+            android:id="@+id/openOwnedObjectList"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/secondColor"
+            android:fontFamily="@font/linden_hill"
+            android:gravity="center"
+            android:text="Select objects for disinfection"
+            android:textColor="#ffffff"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timeRemaining"
-            app:layout_constraintVertical_bias="0.488" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonChangeBoxState" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:background="@drawable/gradient_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ListView
+            android:id="@+id/ownedObjectsListMainPage"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:background="#FFFFFF"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/openOwnedObjectList">
+
+        </ListView>
+
+        <TextView
+            android:id="@+id/openObjectsThatWillBeDisinfectedList"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:text="See what objects will be disinfected"
+            android:background="@color/secondColor"
+            android:fontFamily="@font/linden_hill"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/openOwnedObjectList" />
+
+        <ListView
+            android:id="@+id/objectsThatWillBeDisinfectedListMainPage"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:background="#FFFFFF"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/openObjectsThatWillBeDisinfectedList" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -12,9 +12,14 @@ import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.dpit2020navem.AddAnObject.Activity.ObjectTypeMenuActivity;
+import com.example.dpit2020navem.AddAnObject.Adapter.ObjectListAdapter;
+import com.example.dpit2020navem.AddAnObject.Model.ObjectType;
+import com.example.dpit2020navem.AddAnObject.Model.OwnedObject;
+import com.example.dpit2020navem.Database.OwnedObjectsDatabase;
 import com.example.dpit2020navem.Help.HelpActivity;
 import com.example.dpit2020navem.ObjectTypeDetailes.ObjectTypeDetailesActivity;
 import com.example.dpit2020navem.OwnedObjectsList.OwnedObjectsListActivity;
@@ -23,6 +28,9 @@ import com.example.dpit2020navem.Settings.SettingsActivity;
 import com.example.dpit2020navem.UvcInfo.UvcInfoActivity;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView sideMenu;
+    OwnedObjectsDatabase database;
+    ListView ownedObjectsMainPageListView;
+    List<OwnedObject> ownedObjectMainPageList;
     Button buttonChangeBoxState;
     TextView boxState;
     boolean open;
@@ -47,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
         setUpSideMenu();
         openSideMenu();
+        setUpOwnedObjectsListAdapter();
+        openCloseOwnedObjectsListAdapter();
         changeBoxState();
         appTimer();
 
@@ -111,6 +124,35 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.openDrawer(sideMenu);
+            }
+        });
+    }
+
+    private void setUpOwnedObjectsListAdapter(){
+        database = new OwnedObjectsDatabase(this);
+        ownedObjectsMainPageListView = findViewById(R.id.ownedObjectsListMainPage);
+        ownedObjectMainPageList = new ArrayList<>();
+
+        ownedObjectMainPageList = database.getOwnedObjects();
+
+        OwnedObjectsListMainPageAdapter adapter = new OwnedObjectsListMainPageAdapter(this, R.layout.layout_home_page_owned_objects_list, ownedObjectMainPageList);
+        ownedObjectsMainPageListView.setAdapter(adapter);
+    }
+
+    private void openCloseOwnedObjectsListAdapter(){
+        TextView openOwnedObjectList = findViewById(R.id.openOwnedObjectList);
+        ownedObjectsMainPageListView = findViewById(R.id.ownedObjectsListMainPage);
+
+
+        openOwnedObjectList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ownedObjectsMainPageListView.getVisibility() == View.INVISIBLE) {
+                    ownedObjectsMainPageListView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    ownedObjectsMainPageListView.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }
