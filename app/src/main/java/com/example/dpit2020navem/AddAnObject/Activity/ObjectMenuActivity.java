@@ -252,6 +252,7 @@ public class ObjectMenuActivity extends AppCompatActivity {
                     ownedObject.setOwnedObjectType(objectType.getObjectTypeName());
                     ownedObject.setOwnedObjectName(newObjectName);
                     ownedObject.setOwnedObjectDisinfectionTime(3000);
+                    ownedObject.setIsOwnedObjectInBox(0);
 
                     database.addToOwnedObjectsDatabase(ownedObject);
 

@@ -18,12 +18,12 @@
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:text="detailes"
-        app:layout_constraintEnd_toStartOf="@+id/ownedObjectsListMainPageRemove"
+        app:layout_constraintEnd_toStartOf="@+id/ownedObjectsListMainPageAdd"
         app:layout_constraintStart_toEndOf="@+id/ownedObjectsListMainPageName"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/ownedObjectsListMainPageRemove"
+        android:id="@+id/ownedObjectsListMainPageAdd"
         android:layout_width="60dp"
         android:layout_height="30dp"
         android:text="ADD"

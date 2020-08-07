@@ -133,6 +133,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/openObjectsThatWillBeDisinfectedList"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/secondColor"
+            android:clickable="true"
+            android:fontFamily="@font/linden_hill"
+            android:gravity="center"
+            android:text="See what objects will be disinfected"
+            android:textColor="#ffffff"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/openOwnedObjectList" />
+
         <ListView
             android:id="@+id/ownedObjectsListMainPage"
             android:layout_width="300dp"
@@ -144,21 +160,6 @@
             app:layout_constraintTop_toBottomOf="@+id/openOwnedObjectList">
 
         </ListView>
-
-        <TextView
-            android:id="@+id/openObjectsThatWillBeDisinfectedList"
-            android:layout_width="300dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:text="See what objects will be disinfected"
-            android:background="@color/secondColor"
-            android:fontFamily="@font/linden_hill"
-            android:gravity="center"
-            android:textColor="#ffffff"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/openOwnedObjectList" />
 
         <ListView
             android:id="@+id/objectsThatWillBeDisinfectedListMainPage"

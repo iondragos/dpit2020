@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     OwnedObjectsDatabase database;
     ListView ownedObjectsMainPageListView;
     List<OwnedObject> ownedObjectMainPageList;
+    ListView objectsThatWillBeDisinfectedListView;
+    List<OwnedObject> objectsThatWillBeDisinfectedList;
     Button buttonChangeBoxState;
     TextView boxState;
     boolean open;
@@ -60,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         openSideMenu();
         setUpOwnedObjectsListAdapter();
         openCloseOwnedObjectsListAdapter();
+        setUpObjectsThatWillBeDisinfectedListAdapter();
+        openCloseObjectsThatWillBeDisinfectedListAdapter();
         changeBoxState();
         appTimer();
 
@@ -133,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         ownedObjectsMainPageListView = findViewById(R.id.ownedObjectsListMainPage);
         ownedObjectMainPageList = new ArrayList<>();
 
-        ownedObjectMainPageList = database.getOwnedObjects();
+        ownedObjectMainPageList = database.getObjectsByIsObjectInBox(0);
 
         OwnedObjectsListMainPageAdapter adapter = new OwnedObjectsListMainPageAdapter(this, R.layout.layout_home_page_owned_objects_list, ownedObjectMainPageList);
         ownedObjectsMainPageListView.setAdapter(adapter);
@@ -149,9 +153,39 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(ownedObjectsMainPageListView.getVisibility() == View.INVISIBLE) {
                     ownedObjectsMainPageListView.setVisibility(View.VISIBLE);
+                    objectsThatWillBeDisinfectedListView.setVisibility(View.INVISIBLE);
                 }
                 else {
                     ownedObjectsMainPageListView.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+    }
+
+    private void setUpObjectsThatWillBeDisinfectedListAdapter(){
+        database = new OwnedObjectsDatabase(this);
+        objectsThatWillBeDisinfectedListView = findViewById(R.id.objectsThatWillBeDisinfectedListMainPage);
+        objectsThatWillBeDisinfectedList = new ArrayList<>();
+
+        objectsThatWillBeDisinfectedList = database.getObjectsByIsObjectInBox(1);
+
+        ObjectsThatWillBeDisinfectedListMainPageAdapter adapter = new ObjectsThatWillBeDisinfectedListMainPageAdapter(this, R.layout.layout_home_page_objects_that_will_be_disinfected_list, objectsThatWillBeDisinfectedList);
+        objectsThatWillBeDisinfectedListView.setAdapter(adapter);
+    }
+
+    private void openCloseObjectsThatWillBeDisinfectedListAdapter(){
+        TextView openObjectsThatWillBeDisinfectedList = findViewById(R.id.openObjectsThatWillBeDisinfectedList);
+        objectsThatWillBeDisinfectedListView = findViewById(R.id.objectsThatWillBeDisinfectedListMainPage);
+
+
+        openObjectsThatWillBeDisinfectedList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(objectsThatWillBeDisinfectedListView.getVisibility() == View.INVISIBLE) {
+                    objectsThatWillBeDisinfectedListView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    objectsThatWillBeDisinfectedListView.setVisibility(View.INVISIBLE);
                 }
             }
         });

@@ -25,7 +25,7 @@ public class OwnedObjectsDatabase extends SQLiteAssetHelper {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
-        String[] sqlSelect = {"ObjectId", "ObjectType", "ObjectName", "ObjectDisinfectionTime"};
+        String[] sqlSelect = {"ObjectId", "ObjectType", "ObjectName", "ObjectDisinfectionTime", "IsObjectInBox"};
         String sqlTable = "OwnedObjectsDetail";
 
         qb.setTables(sqlTable);
@@ -50,17 +50,19 @@ public class OwnedObjectsDatabase extends SQLiteAssetHelper {
         ownedObject.setOwnedObjectType(c.getString(c.getColumnIndex("ObjectType")));
         ownedObject.setOwnedObjectName(c.getString(c.getColumnIndex("ObjectName")));
         ownedObject.setOwnedObjectDisinfectionTime(c.getInt(c.getColumnIndex("ObjectDisinfectionTime")));
+        ownedObject.setIsOwnedObjectInBox(c.getInt(c.getColumnIndex("IsObjectInBox")));
 
         return ownedObject;
     }
 
     public void addToOwnedObjectsDatabase(OwnedObject ownedObject) {
         SQLiteDatabase db = getReadableDatabase();
-        String query = String.format("INSERT INTO OwnedObjectsDetail(ObjectId,ObjectType,ObjectName,ObjectDisinfectionTime) VALUES('%s','%s','%s','%s');",
+        String query = String.format("INSERT INTO OwnedObjectsDetail(ObjectId,ObjectType,ObjectName,ObjectDisinfectionTime,IsObjectInBox) VALUES('%s','%s','%s','%s','%s');",
                 ownedObject.getOwnedObjectId(),
                 ownedObject.getOwnedObjectType(),
                 ownedObject.getOwnedObjectName(),
-                ownedObject.getOwnedObjectDisinfectionTime());
+                ownedObject.getOwnedObjectDisinfectionTime(),
+                ownedObject.getIsOwnedObjectInBox());
         db.execSQL(query);
     }
 
@@ -76,15 +78,61 @@ public class OwnedObjectsDatabase extends SQLiteAssetHelper {
         db.execSQL(query);
     }
 
+    public OwnedObject getObjectsByObjectId(Long ObjectId) {
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {"ObjectId", "ObjectType", "ObjectName", "ObjectDisinfectionTime","IsObjectInBox"};
+        String sqlTable = "OwnedObjectsDetail";
+
+        qb.setTables(sqlTable);
+        String selection = String.format("ObjectId=%d", ObjectId);
+
+        Cursor c = qb.query(db, sqlSelect, selection, null, null, null, null);
+
+        OwnedObject ownedObject = null;
+        if (c.moveToFirst()) {
+
+            ownedObject = extractOwnedObjectsFromCursor(c);
+
+        }
+
+        return ownedObject;
+    }
+
     public List<OwnedObject> getObjectsByObjectType(String ownedObjectType) {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
-        String[] sqlSelect = {"ObjectId", "ObjectType", "ObjectName", "ObjectDisinfectionTime"};
+        String[] sqlSelect = {"ObjectId", "ObjectType", "ObjectName", "ObjectDisinfectionTime","IsObjectInBox"};
         String sqlTable = "OwnedObjectsDetail";
 
         qb.setTables(sqlTable);
         String selection = String.format("ObjectType='%s'", ownedObjectType);
+
+        Cursor c = qb.query(db, sqlSelect, selection, null, null, null, null);
+
+        List<OwnedObject> result = new ArrayList<>();
+        if (c.moveToFirst()) {
+            do {
+                OwnedObject ownedObject = extractOwnedObjectsFromCursor(c);
+
+                result.add(ownedObject);
+            } while (c.moveToNext());
+        }
+
+        return result;
+    }
+
+    public List<OwnedObject> getObjectsByIsObjectInBox(Integer isObjectInBox) {
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {"ObjectId", "ObjectType", "ObjectName", "ObjectDisinfectionTime","IsObjectInBox"};
+        String sqlTable = "OwnedObjectsDetail";
+
+        qb.setTables(sqlTable);
+        String selection = String.format("IsObjectInBox=%d", isObjectInBox);
 
         Cursor c = qb.query(db, sqlSelect, selection, null, null, null, null);
 
