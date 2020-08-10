@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dpit2020navem.AddAnObject.Activity.ObjectTypeMenuActivity;
 import com.example.dpit2020navem.AddAnObject.Adapter.ObjectListAdapter;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OwnedObjectsListMainPageAdapter.AddButtonListener, ObjectsThatWillBeDisinfectedListMainPageAdapter.RemoveButtonListener{
 
     Button buttonSideMenu;
     DrawerLayout drawerLayout;
@@ -41,8 +42,10 @@ public class MainActivity extends AppCompatActivity {
     OwnedObjectsDatabase database;
     ListView ownedObjectsMainPageListView;
     List<OwnedObject> ownedObjectMainPageList;
+    OwnedObjectsListMainPageAdapter ownedObjectsListMainPageAdapter;
     ListView objectsThatWillBeDisinfectedListView;
     List<OwnedObject> objectsThatWillBeDisinfectedList;
+    ObjectsThatWillBeDisinfectedListMainPageAdapter objectsThatWillBeDisinfectedListMainPageAdapter;
     Button buttonChangeBoxState;
     TextView boxState;
     boolean open;
@@ -139,8 +142,9 @@ public class MainActivity extends AppCompatActivity {
 
         ownedObjectMainPageList = database.getObjectsByIsObjectInBox(0);
 
-        OwnedObjectsListMainPageAdapter adapter = new OwnedObjectsListMainPageAdapter(this, R.layout.layout_home_page_owned_objects_list, ownedObjectMainPageList);
-        ownedObjectsMainPageListView.setAdapter(adapter);
+        ownedObjectsListMainPageAdapter = new OwnedObjectsListMainPageAdapter(this, R.layout.layout_home_page_owned_objects_list, ownedObjectMainPageList);
+        ownedObjectsListMainPageAdapter.setAddButtonListener(MainActivity.this);
+        ownedObjectsMainPageListView.setAdapter(ownedObjectsListMainPageAdapter);
     }
 
     private void openCloseOwnedObjectsListAdapter(){
@@ -162,6 +166,25 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void OnButtonAddClickListener(int position, OwnedObject ownedObjectAdded) {
+        ownedObjectsListMainPageAdapter.clear();
+        objectsThatWillBeDisinfectedListMainPageAdapter.clear();
+
+        Long ownedObjectId = ownedObjectAdded.getOwnedObjectId();
+        OwnedObject ownedObject = database.getObjectsByObjectId(ownedObjectId);
+        database.removeObjectFromOwnedObjectsDatabase(ownedObjectId);
+        ownedObject.setIsOwnedObjectInBox(1);
+        database.addToOwnedObjectsDatabase(ownedObject);
+
+        ownedObjectsListMainPageAdapter.addAll(database.getObjectsByIsObjectInBox(0));
+        ownedObjectsListMainPageAdapter.notifyDataSetChanged();
+        objectsThatWillBeDisinfectedListMainPageAdapter.addAll(database.getObjectsByIsObjectInBox(1));
+        objectsThatWillBeDisinfectedListMainPageAdapter.notifyDataSetChanged();
+
+        Toast.makeText(this, "Object added to box.", Toast.LENGTH_LONG).show();
+    }
+
     private void setUpObjectsThatWillBeDisinfectedListAdapter(){
         database = new OwnedObjectsDatabase(this);
         objectsThatWillBeDisinfectedListView = findViewById(R.id.objectsThatWillBeDisinfectedListMainPage);
@@ -169,8 +192,9 @@ public class MainActivity extends AppCompatActivity {
 
         objectsThatWillBeDisinfectedList = database.getObjectsByIsObjectInBox(1);
 
-        ObjectsThatWillBeDisinfectedListMainPageAdapter adapter = new ObjectsThatWillBeDisinfectedListMainPageAdapter(this, R.layout.layout_home_page_objects_that_will_be_disinfected_list, objectsThatWillBeDisinfectedList);
-        objectsThatWillBeDisinfectedListView.setAdapter(adapter);
+        objectsThatWillBeDisinfectedListMainPageAdapter = new ObjectsThatWillBeDisinfectedListMainPageAdapter(this, R.layout.layout_home_page_objects_that_will_be_disinfected_list, objectsThatWillBeDisinfectedList);
+        objectsThatWillBeDisinfectedListMainPageAdapter.setRemoveButtonListener(MainActivity.this);
+        objectsThatWillBeDisinfectedListView.setAdapter(objectsThatWillBeDisinfectedListMainPageAdapter);
     }
 
     private void openCloseObjectsThatWillBeDisinfectedListAdapter(){
@@ -189,6 +213,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void OnButtonRemoveClickListener(int position, OwnedObject ownedObjectRemoved) {
+        ownedObjectsListMainPageAdapter.clear();
+        objectsThatWillBeDisinfectedListMainPageAdapter.clear();
+
+        Long ownedObjectId = ownedObjectRemoved.getOwnedObjectId();
+        OwnedObject ownedObject = database.getObjectsByObjectId(ownedObjectId);
+        database.removeObjectFromOwnedObjectsDatabase(ownedObjectId);
+        ownedObject.setIsOwnedObjectInBox(0);
+        database.addToOwnedObjectsDatabase(ownedObject);
+
+        ownedObjectsListMainPageAdapter.addAll(database.getObjectsByIsObjectInBox(0));
+        ownedObjectsListMainPageAdapter.notifyDataSetChanged();
+        objectsThatWillBeDisinfectedListMainPageAdapter.addAll(database.getObjectsByIsObjectInBox(1));
+        objectsThatWillBeDisinfectedListMainPageAdapter.notifyDataSetChanged();
+
+        Toast.makeText(this, "Object removed from box.", Toast.LENGTH_LONG).show();
     }
 
     private void changeBoxState(){
@@ -265,6 +308,5 @@ public class MainActivity extends AppCompatActivity {
 
         timeRemaining.setText(timeLeftText);
     }
-
 
 }

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -23,6 +22,8 @@ public class OwnedObjectsListMainPageAdapter extends ArrayAdapter<OwnedObject> {
     private Context mContext;
     int mResource;
     OwnedObjectsDatabase database;
+    AddButtonListener addButtonListener;
+
 
     public OwnedObjectsListMainPageAdapter(Context context, int resource, List<OwnedObject> objects) {
         super(context, resource, objects);
@@ -33,11 +34,9 @@ public class OwnedObjectsListMainPageAdapter extends ArrayAdapter<OwnedObject> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         String ownedObjectName = getItem(position).getOwnedObjectName();
-        final Long ownedObjectId = getItem(position).getOwnedObjectId();
         Integer ownedObjectDisinfectionTime  = getItem(position).getOwnedObjectDisinfectionTime();
-        Integer isOwnedObjectInBox  = getItem(position).getIsOwnedObjectInBox();
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
@@ -50,23 +49,26 @@ public class OwnedObjectsListMainPageAdapter extends ArrayAdapter<OwnedObject> {
         ownedObjectsListMainPageName.setText(ownedObjectName);
         ownedObjectsListMainPageDetailes.setText("Disinfection time: " + ownedObjectDisinfectionTime);
 
+        final OwnedObject ownedObjectAdded = getItem(position);
         ownedObjectsListMainPageAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clear();
-
-                OwnedObject ownedObject = database.getObjectsByObjectId(ownedObjectId);
-                database.removeObjectFromOwnedObjectsDatabase(ownedObjectId);
-                ownedObject.setIsOwnedObjectInBox(1);
-                database.addToOwnedObjectsDatabase(ownedObject);
-
-                addAll(database.getObjectsByIsObjectInBox(0));
-                notifyDataSetChanged();
-
-                Toast.makeText(mContext, "Object added to box.", Toast.LENGTH_LONG).show();
+                if(addButtonListener != null){
+                    addButtonListener.OnButtonAddClickListener(position, ownedObjectAdded);
+                }
             }
         });
 
         return convertView;
+    }
+
+    public interface AddButtonListener
+    {
+        void OnButtonAddClickListener(int position, OwnedObject ownedObjectAdded);
+    }
+
+    public void setAddButtonListener(AddButtonListener listener)
+    {
+        this.addButtonListener = listener;
     }
 }

@@ -23,6 +23,7 @@ public class ObjectsThatWillBeDisinfectedListMainPageAdapter extends ArrayAdapte
     private Context mContext;
     int mResource;
     OwnedObjectsDatabase database;
+    RemoveButtonListener removeButtonListener;
 
     public ObjectsThatWillBeDisinfectedListMainPageAdapter(Context context, int resource, List<OwnedObject> objects) {
         super(context, resource, objects);
@@ -33,11 +34,9 @@ public class ObjectsThatWillBeDisinfectedListMainPageAdapter extends ArrayAdapte
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         String ownedObjectName = getItem(position).getOwnedObjectName();
-        final Long ownedObjectId = getItem(position).getOwnedObjectId();
         Integer ownedObjectDisinfectionTime  = getItem(position).getOwnedObjectDisinfectionTime();
-        Integer isOwnedObjectInBox  = getItem(position).getIsOwnedObjectInBox();
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
@@ -50,23 +49,26 @@ public class ObjectsThatWillBeDisinfectedListMainPageAdapter extends ArrayAdapte
         ownedObjectsListMainPageName.setText(ownedObjectName);
         ownedObjectsListMainPageDetailes.setText("Disinfection time: " + ownedObjectDisinfectionTime);
 
+        final OwnedObject ownedObjectRemoved = getItem(position);
         objectsThatWillBeDisinfectedListMainPageRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clear();
-
-                OwnedObject ownedObject = database.getObjectsByObjectId(ownedObjectId);
-                database.removeObjectFromOwnedObjectsDatabase(ownedObjectId);
-                ownedObject.setIsOwnedObjectInBox(0);
-                database.addToOwnedObjectsDatabase(ownedObject);
-
-                addAll(database.getObjectsByIsObjectInBox(1));
-                notifyDataSetChanged();
-
-                Toast.makeText(mContext, "Object removed from box.", Toast.LENGTH_LONG).show();
+                if(removeButtonListener != null){
+                    removeButtonListener.OnButtonRemoveClickListener(position, ownedObjectRemoved);
+                }
             }
         });
 
         return convertView;
+    }
+
+    public interface RemoveButtonListener
+    {
+        void OnButtonRemoveClickListener(int position, OwnedObject ownedObjectRemoved);
+    }
+
+    public void setRemoveButtonListener(ObjectsThatWillBeDisinfectedListMainPageAdapter.RemoveButtonListener listener)
+    {
+        this.removeButtonListener = listener;
     }
 }
