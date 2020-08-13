@@ -28,14 +28,14 @@
 
         <Button
             android:id="@+id/buttonChangeBoxState"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="50dp"
-            android:layout_marginStart="60dp"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/linden_hill"
             android:text="ON/OFF"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/designJmecher" />
+            app:layout_constraintTop_toBottomOf="@+id/boxStatePicture" />
 
         <Button
             android:id="@+id/startButton"
@@ -61,28 +61,14 @@
             tools:ignore="VectorDrawableCompat" />
 
         <ImageView
-            android:id="@+id/designJmecher"
-            android:layout_width="140dp"
-            android:layout_height="136dp"
-            android:layout_marginTop="68dp"
-            android:background="@drawable/test"
+            android:id="@+id/boxStatePicture"
+            android:layout_width="200dp"
+            android:layout_height="169dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-        <TextView
-            android:id="@+id/boxState"
-            android:layout_width="151dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/linden_hill"
-            android:gravity="center_horizontal|center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.153"
-            app:layout_constraintStart_toEndOf="@+id/buttonChangeBoxState"
-            app:layout_constraintTop_toBottomOf="@+id/designJmecher" />
 
         <TextView
             android:id="@+id/textView3"

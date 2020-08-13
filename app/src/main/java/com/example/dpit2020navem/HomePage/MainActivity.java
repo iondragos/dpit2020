@@ -12,6 +12,7 @@ import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     List<OwnedObject> objectsThatWillBeDisinfectedList;
     ObjectsThatWillBeDisinfectedListMainPageAdapter objectsThatWillBeDisinfectedListMainPageAdapter;
     Button buttonChangeBoxState;
-    TextView boxState;
+    ImageView boxStatePicture;
     boolean open;
     TextView timeRemaining;
     Button startButton;
@@ -236,20 +237,20 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
 
     private void changeBoxState(){
         buttonChangeBoxState = findViewById(R.id.buttonChangeBoxState);
-        boxState = findViewById(R.id.boxState);
+        boxStatePicture = findViewById(R.id.boxStatePicture);
         open = false;
-        boxState.setText("box closed");
+        boxStatePicture.setImageResource(R.drawable.closed_case);
 
         buttonChangeBoxState.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(open == false) {
                     open = true;
-                    boxState.setText("box opened");
+                    boxStatePicture.setImageResource(R.drawable.opened_case);
                 }
                 else {
                     open = false;
-                    boxState.setText("box closed");
+                    boxStatePicture.setImageResource(R.drawable.closed_case);
                 }
             }
         });
