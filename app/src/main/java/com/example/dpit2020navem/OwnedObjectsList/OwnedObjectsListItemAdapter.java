@@ -56,7 +56,8 @@ public class OwnedObjectsListItemAdapter extends RecyclerView.Adapter<OwnedObjec
         layoutManager.setInitialPrefetchItemCount(objectType.getOwnedObjectList().size());
 
         // Create sub item view adapter
-        subItemAdapter = new OwnedObjectsListSubItemAdapter(objectType.getOwnedObjectList(),context);
+        subItemAdapter = new OwnedObjectsListSubItemAdapter(objectType.getOwnedObjectList(), context);
+        subItemAdapter.setDeleteButtonListener((OwnedObjectsListSubItemAdapter.DeleteButtonListener) context);
 
 
         itemViewHolder.ownedObjects.setLayoutManager(layoutManager);
@@ -81,6 +82,5 @@ public class OwnedObjectsListItemAdapter extends RecyclerView.Adapter<OwnedObjec
             ownedObjects = itemView.findViewById(R.id.ownedObjects);
         }
     }
-
 
 }

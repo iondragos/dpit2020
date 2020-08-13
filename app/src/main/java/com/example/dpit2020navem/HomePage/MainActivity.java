@@ -254,10 +254,25 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
             }
         });
     }
+    private long boxDisinfectionTime(){
+        database = new OwnedObjectsDatabase(this);
+        List<OwnedObject> objectsCurentlyDisinfeted = database.getObjectsByIsObjectInBox(1);
+
+        long disinfectionTime = 0;
+        for(int i = 0 ; i < objectsCurentlyDisinfeted.size() ; i++){
+            if(objectsCurentlyDisinfeted.get(i).getOwnedObjectDisinfectionTime() > disinfectionTime){
+                disinfectionTime = objectsCurentlyDisinfeted.get(i).getOwnedObjectDisinfectionTime();
+            }
+        }
+
+        return  disinfectionTime;
+    }
+
     private void appTimer(){
         timeRemaining = findViewById(R.id.timeRemaining);
         startButton = findViewById(R.id.startButton);
         timerRunning = true;
+
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -275,6 +290,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         }
     }
     public void startTimer() {
+        timeLeftMilliseconds = boxDisinfectionTime();
         countDownTimer = new CountDownTimer(timeLeftMilliseconds ,1000) {
             @Override
             public void onTick(long l) {

@@ -18,6 +18,7 @@ import com.example.dpit2020navem.AddAnObject.Model.ObjectType;
 import com.example.dpit2020navem.AddAnObject.Model.OwnedObject;
 import com.example.dpit2020navem.Database.OwnedObjectsDatabase;
 import com.example.dpit2020navem.HomePage.MainActivity;
+import com.example.dpit2020navem.HomePage.OwnedObjectsListMainPageAdapter;
 import com.example.dpit2020navem.Intro.IntroActivity;
 import com.example.dpit2020navem.R;
 
@@ -29,6 +30,7 @@ public class OwnedObjectsListSubItemAdapter extends RecyclerView.Adapter<OwnedOb
     private List<OwnedObject> ownedObjectsList;
     Context context;
     OwnedObjectsDatabase database;
+    DeleteButtonListener deleteButtonListener;
 
 
     OwnedObjectsListSubItemAdapter(List<OwnedObject> ownedObjectsList, Context context) {
@@ -48,18 +50,15 @@ public class OwnedObjectsListSubItemAdapter extends RecyclerView.Adapter<OwnedOb
 
     @Override
     public void onBindViewHolder(@NonNull final SubItemViewHolder subItemViewHolder,final int i) {
-        final OwnedObject ownedObject = ownedObjectsList.get(i);
-        subItemViewHolder.ownedObjectName.setText(ownedObject.getOwnedObjectName());
+        final OwnedObject ownedObjectDeleted = ownedObjectsList.get(i);
+        subItemViewHolder.ownedObjectName.setText(ownedObjectDeleted.getOwnedObjectName());
 
         subItemViewHolder.buttonDeleteObject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                database.removeObjectFromOwnedObjectsDatabase(ownedObject.getOwnedObjectId());
-
-                /*ownedObjectsList.clear();
-                ownedObjectsList.addAll(database.getObjectsByObjectType(ownedObject.getOwnedObjectType()));
-                notifyItemRemoved(i);*/
-
+                if(deleteButtonListener != null){
+                    deleteButtonListener.OnButtonDeleteClickListener(i, ownedObjectDeleted);
+                }
             }
         });
 
@@ -83,4 +82,15 @@ public class OwnedObjectsListSubItemAdapter extends RecyclerView.Adapter<OwnedOb
         }
 
     }
+
+    public interface DeleteButtonListener
+    {
+        void OnButtonDeleteClickListener(int position, OwnedObject ownedObjectDeleted);
+    }
+
+    public void setDeleteButtonListener(OwnedObjectsListSubItemAdapter.DeleteButtonListener listener)
+    {
+        this.deleteButtonListener = listener;
+    }
+
 }
