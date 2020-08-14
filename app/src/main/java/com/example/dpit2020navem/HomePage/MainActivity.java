@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -30,6 +31,7 @@ import com.example.dpit2020navem.Settings.SettingsActivity;
 import com.example.dpit2020navem.UvcInfo.UvcInfoActivity;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     CountDownTimer countDownTimer;
     long timeLeftMilliseconds = 600000;
     boolean timerRunning;
+    BluetoothSocket btSocket = null;
 
 
     @Override
@@ -247,14 +250,51 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
                 if(open == false) {
                     open = true;
                     boxStatePicture.setImageResource(R.drawable.opened_case);
+                    turnOnBox();
                 }
                 else {
                     open = false;
                     boxStatePicture.setImageResource(R.drawable.closed_case);
+                    turnOffBox();
                 }
             }
         });
     }
+    private void turnOffBox()
+    {
+        if (btSocket!=null)
+        {
+            try
+            {
+                btSocket.getOutputStream().write("0".toString().getBytes());
+            }
+            catch (IOException e)
+            {
+                msg("Error");
+            }
+        }
+    }
+
+    private void turnOnBox()
+    {
+        if (btSocket!=null)
+        {
+            try
+            {
+                btSocket.getOutputStream().write("1".toString().getBytes());
+            }
+            catch (IOException e)
+            {
+                msg("Error");
+            }
+        }
+    }
+
+    private void msg(String s)
+    {
+        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+    }
+
     private long boxDisinfectionTime(){
         database = new OwnedObjectsDatabase(this);
         List<OwnedObject> objectsCurentlyDisinfeted = database.getObjectsByIsObjectInBox(1);
