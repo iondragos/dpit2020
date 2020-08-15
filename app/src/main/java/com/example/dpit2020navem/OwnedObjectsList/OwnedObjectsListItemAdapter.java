@@ -2,6 +2,8 @@ package com.example.dpit2020navem.OwnedObjectsList;
 
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,8 +22,10 @@ import com.example.dpit2020navem.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import static androidx.recyclerview.widget.RecyclerView.HORIZONTAL;
 
-public class OwnedObjectsListItemAdapter extends RecyclerView.Adapter<OwnedObjectsListItemAdapter.ItemViewHolder> {
+
+public class OwnedObjectsListItemAdapter extends RecyclerView.Adapter<OwnedObjectsListItemAdapter.ItemViewHolder>{
 
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     List<ObjectType> ownedObjectsList;
@@ -60,9 +64,13 @@ public class OwnedObjectsListItemAdapter extends RecyclerView.Adapter<OwnedObjec
         subItemAdapter.setDeleteButtonListener((OwnedObjectsListSubItemAdapter.DeleteButtonListener) context);
 
 
+        DividerItemDecoration divider = new DividerItemDecoration(itemViewHolder.ownedObjects.getContext(), DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(context, R.drawable.horizontal_line));
+
         itemViewHolder.ownedObjects.setLayoutManager(layoutManager);
         itemViewHolder.ownedObjects.setAdapter(subItemAdapter);
         itemViewHolder.ownedObjects.setRecycledViewPool(viewPool);
+        itemViewHolder.ownedObjects.addItemDecoration(divider);
     }
 
     @Override

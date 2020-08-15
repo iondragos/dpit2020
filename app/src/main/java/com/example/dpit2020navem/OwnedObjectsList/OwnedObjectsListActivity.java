@@ -53,15 +53,6 @@ public class OwnedObjectsListActivity extends AppCompatActivity implements Owned
         openSideMenu();
         setUpOwnedObjectsList();
 
-        /*buttonDeleteObject = findViewById(R.id.buttonDeleteObject);
-        buttonDeleteObject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                database.removeObjectFromOwnedObjectsDatabase(ownedObjectsListByType.get(1).getOwnedObjectList().get(2).getOwnedObjectId());
-                setUpOwnedObjectsList();
-            }
-        });*/
-
     }
 
 
