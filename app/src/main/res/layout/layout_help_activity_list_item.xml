@@ -5,14 +5,12 @@
 
     <TextView
         android:id="@+id/answer"
-        android:layout_margin="4dp"
-        android:elevation="3dp"
         android:textSize="16dp"
         android:padding="8dp"
         android:fontFamily="@font/linden_hill"
-        android:background="@drawable/background_owned_objects_list_sub_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="#000000"/>
+        android:textColor="#000000"
+        android:background="#ffffff"/>
 
 </LinearLayout>
