@@ -7,9 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.bluetooth.BluetoothSocket;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.IBinder;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +25,7 @@ import com.example.dpit2020navem.AddAnObject.Activity.ObjectTypeMenuActivity;
 import com.example.dpit2020navem.AddAnObject.Adapter.ObjectListAdapter;
 import com.example.dpit2020navem.AddAnObject.Model.ObjectType;
 import com.example.dpit2020navem.AddAnObject.Model.OwnedObject;
+import com.example.dpit2020navem.Bluetooth.BluetoothService;
 import com.example.dpit2020navem.Database.OwnedObjectsDatabase;
 import com.example.dpit2020navem.Help.HelpActivity;
 import com.example.dpit2020navem.ObjectTypeDetailes.ObjectTypeDetailesActivity;
@@ -58,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     long timeLeftMilliseconds = 600000;
     boolean timerRunning;
     BluetoothSocket btSocket = null;
+    BluetoothService bluetoothService;
+    boolean mBounded;
 
 
     @Override
@@ -73,7 +79,48 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         openCloseObjectsThatWillBeDisinfectedListAdapter();
         changeBoxState();
         appTimer();
+        setUpBluetooth();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Intent mIntent = new Intent(this, MainActivity.class);
+        bindService(mIntent, mConnection, BIND_AUTO_CREATE);
+    };
+
+    ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Toast.makeText(MainActivity.this, "Service is disconnected", Toast.LENGTH_SHORT).show();
+            mBounded = false;
+            bluetoothService = null;
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Toast.makeText(MainActivity.this, "Service is connected", Toast.LENGTH_SHORT).show();
+            mBounded = true;
+            BluetoothService.LocalBinder mLocalBinder = (BluetoothService.LocalBinder)service;
+            bluetoothService = mLocalBinder.getBluetoothService();
+        }
+    };
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mBounded) {
+            unbindService(mConnection);
+            mBounded = false;
+        }
+    };
+
+    private void setUpBluetooth(){
+        bluetoothService.bluetoothConnection(MainActivity.this);
+
+        bluetoothService.connectionBT(MainActivity.this);
     }
 
     private void setUpSideMenu(){
@@ -262,37 +309,12 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     }
     private void turnOffBox()
     {
-        if (btSocket!=null)
-        {
-            try
-            {
-                btSocket.getOutputStream().write("0".toString().getBytes());
-            }
-            catch (IOException e)
-            {
-                msg("Error");
-            }
-        }
+        bluetoothService.writeBluetooth("0");
     }
 
     private void turnOnBox()
     {
-        if (btSocket!=null)
-        {
-            try
-            {
-                btSocket.getOutputStream().write("1".toString().getBytes());
-            }
-            catch (IOException e)
-            {
-                msg("Error");
-            }
-        }
-    }
-
-    private void msg(String s)
-    {
-        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+        bluetoothService.writeBluetooth("1");
     }
 
     private long boxDisinfectionTime(){

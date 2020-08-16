@@ -21,18 +21,16 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class BluetoothService extends Service{
-    private NotificationManager mNM;
     BluetoothAdapter myBluetooth = null;
-    BluetoothSocket btSocket = null;
+    public BluetoothSocket btSocket = null;
     ProgressDialog progress;
     boolean isBtConnected = false;
     String address;
-    static String EXTRA_ADDRESS = "device_address";
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     //private int NOTIFICATION = R.string.local_service_started;
 
     public class LocalBinder extends Binder {
-        BluetoothService getBluetoothService() {
+        public BluetoothService getBluetoothService() {
             return BluetoothService.this;
         }
     }
@@ -54,8 +52,6 @@ public class BluetoothService extends Service{
 
     @Override
     public void onCreate() {
-        mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-
         // Display a notification about us starting.  We put an icon in the status bar.
         //showNotification();
     }
@@ -68,7 +64,7 @@ public class BluetoothService extends Service{
 
     private final IBinder mBinder = new LocalBinder();
 
-    private void bluetoothConection(Activity activity){
+    public void bluetoothConnection(Activity activity){
         myBluetooth = BluetoothAdapter.getDefaultAdapter();
 
         if(myBluetooth == null)
@@ -86,9 +82,9 @@ public class BluetoothService extends Service{
 
     }
 
-    private void getDeviceMacAddress(){
-        String info = myBluetooth.getAddress();
-        address = info.substring(info.length() - 17);
+    private String getDeviceMacAddress(){
+        address = " ";
+        return  address;
     }
 
     private void msg(String s)
@@ -96,21 +92,8 @@ public class BluetoothService extends Service{
         Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
     }
 
-    private void Disconnect()
-    {
-        if (btSocket!=null) //If the btSocket is busy
-        {
-            try
-            {
-                btSocket.close(); //close connection
-            }
-            catch (IOException e)
-            { msg("Error");}
-        }
 
-    }
-
-    private class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
+    public class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
     {
         private boolean ConnectSuccess = true;//if it's here, it's almost connected
         Context context;
@@ -133,7 +116,7 @@ public class BluetoothService extends Service{
                 if (btSocket == null || !isBtConnected)
                 {
                     myBluetooth = BluetoothAdapter.getDefaultAdapter();//get the mobile bluetooth device
-                    BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);//connects to the device's address and checks if it's available
+                    BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(getDeviceMacAddress());//connects to the device's address and checks if it's available
                     btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
                     BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
                     btSocket.connect();//start connection
@@ -160,6 +143,38 @@ public class BluetoothService extends Service{
                 isBtConnected = true;
             }
             progress.dismiss();
+        }
+    }
+
+    public void connectionBT(Context context){
+        new ConnectBT(context).execute();
+    }
+
+    private void Disconnect()
+    {
+        if (btSocket!=null) //If the btSocket is busy
+        {
+            try
+            {
+                btSocket.close(); //close connection
+            }
+            catch (IOException e)
+            { msg("Error");}
+        }
+
+    }
+
+    public void writeBluetooth(String s){
+        if (btSocket!=null)
+        {
+            try
+            {
+                btSocket.getOutputStream().write(s.getBytes());
+            }
+            catch (IOException e)
+            {
+                msg("Error");
+            }
         }
     }
 }
