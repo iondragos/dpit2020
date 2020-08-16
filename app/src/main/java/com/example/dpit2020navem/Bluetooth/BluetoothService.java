@@ -1,6 +1,6 @@
-package com.example.dpit2020navem.Settings;
+package com.example.dpit2020navem.Bluetooth;
 
-import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.app.Service;
@@ -13,16 +13,11 @@ import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-
-import com.example.dpit2020navem.R;
 
 import java.io.IOException;
-import java.util.Set;
 import java.util.UUID;
 
 public class BluetoothService extends Service{
@@ -73,7 +68,7 @@ public class BluetoothService extends Service{
 
     private final IBinder mBinder = new LocalBinder();
 
-    private void bluetoothConection(){
+    private void bluetoothConection(Activity activity){
         myBluetooth = BluetoothAdapter.getDefaultAdapter();
 
         if(myBluetooth == null)
@@ -86,7 +81,7 @@ public class BluetoothService extends Service{
         {
             //Ask to the user turn the bluetooth on
             Intent turnBTon = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            //startActivityForResult(turnBTon,1);
+            activity.startActivityForResult(turnBTon,1);
         }
 
     }
@@ -117,12 +112,17 @@ public class BluetoothService extends Service{
 
     private class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
     {
-        private boolean ConnectSuccess = true; //if it's here, it's almost connected
+        private boolean ConnectSuccess = true;//if it's here, it's almost connected
+        Context context;
+
+        public ConnectBT(Context context) {
+            this.context = context;
+        }
 
         @Override
         protected void onPreExecute()
         {
-            //progress = ProgressDialog.show(SettingsActivity, "Connecting...", "Please wait!!!");  //show a progress dialog
+            progress = ProgressDialog.show(context, "Connecting...", "Please wait!!!");  //show a progress dialog
         }
 
         @Override

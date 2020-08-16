@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service android:name=".Bluetooth.BluetoothService"/>
         <activity android:name=".Settings.SettingsActivity" />
         <activity android:name=".Help.HelpActivity" />
         <activity android:name=".UvcInfo.UvcInfoActivity" />
