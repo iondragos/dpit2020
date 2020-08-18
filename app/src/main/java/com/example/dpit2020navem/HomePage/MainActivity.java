@@ -283,6 +283,9 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         });
 
     }
+
+
+    
     public void startStop() {
         if (timerRunning) {
             startTimer();
