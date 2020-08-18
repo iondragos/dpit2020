@@ -15,6 +15,7 @@ import com.example.dpit2020navem.AddAnObject.Activity.ObjectTypeMenuActivity;
 import com.example.dpit2020navem.Database.OwnedObjectsDatabase;
 import com.example.dpit2020navem.Help.HelpActivity;
 import com.example.dpit2020navem.HomePage.MainActivity;
+import com.example.dpit2020navem.Map.MapActivity;
 import com.example.dpit2020navem.ObjectTypeDetailes.ObjectTypeDetailesActivity;
 import com.example.dpit2020navem.OwnedObjectsList.OwnedObjectsListActivity;
 import com.example.dpit2020navem.R;
@@ -29,6 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
     NavigationView sideMenu;
     Button buttonDeleteAllObjects;
     OwnedObjectsDatabase database;
+    Button buttonMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
         setUpSideMenu();
         openSideMenu();
         cleanOwnedObjectsList();
+        openMap();
 
     }
 
@@ -114,6 +117,18 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 database.cleanOwnedObjectsDatabase();
+            }
+        });
+    }
+
+    private void openMap(){
+        buttonMap = findViewById(R.id.buttonMap);
+
+        buttonMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingsActivity.this, MapActivity.class);
+                startActivity(intent);
             }
         });
     }
