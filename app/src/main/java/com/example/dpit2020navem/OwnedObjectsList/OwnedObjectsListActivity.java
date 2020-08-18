@@ -34,7 +34,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OwnedObjectsListActivity extends AppCompatActivity {
+public class OwnedObjectsListActivity extends AppCompatActivity implements OwnedObjectsListSubItemAdapter.DeleteButtonListener{
 
     Button buttonSideMenu;
     DrawerLayout drawerLayout;
@@ -43,7 +43,6 @@ public class OwnedObjectsListActivity extends AppCompatActivity {
     List<ObjectType> ownedObjectsListByType;
     OwnedObjectsDatabase database;
     OwnedObjectsListItemAdapter ownedObjectsListItemAdapter;
-    Button buttonDeleteObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +52,6 @@ public class OwnedObjectsListActivity extends AppCompatActivity {
         setUpSideMenu();
         openSideMenu();
         setUpOwnedObjectsList();
-
-        /*buttonDeleteObject = findViewById(R.id.buttonDeleteObject);
-        buttonDeleteObject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                database.removeObjectFromOwnedObjectsDatabase(ownedObjectsListByType.get(1).getOwnedObjectList().get(2).getOwnedObjectId());
-                setUpOwnedObjectsList();
-            }
-        });*/
 
     }
 
@@ -175,4 +165,11 @@ public class OwnedObjectsListActivity extends AppCompatActivity {
         return  ownedObjectsListByType;
     }
 
+    @Override
+    public void OnButtonDeleteClickListener(int position, OwnedObject ownedObjectDeleted) {
+        Long ownedObjectId = ownedObjectDeleted.getOwnedObjectId();
+        database.removeObjectFromOwnedObjectsDatabase(ownedObjectId);
+
+        setUpOwnedObjectsList();
+    }
 }

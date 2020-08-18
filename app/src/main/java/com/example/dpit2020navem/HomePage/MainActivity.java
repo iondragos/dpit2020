@@ -12,6 +12,7 @@ import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     List<OwnedObject> objectsThatWillBeDisinfectedList;
     ObjectsThatWillBeDisinfectedListMainPageAdapter objectsThatWillBeDisinfectedListMainPageAdapter;
     Button buttonChangeBoxState;
-    TextView boxState;
+    ImageView boxStatePicture;
     boolean open;
     TextView timeRemaining;
     Button startButton;
@@ -236,28 +237,43 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
 
     private void changeBoxState(){
         buttonChangeBoxState = findViewById(R.id.buttonChangeBoxState);
-        boxState = findViewById(R.id.boxState);
+        boxStatePicture = findViewById(R.id.boxStatePicture);
         open = false;
-        boxState.setText("box closed");
+        boxStatePicture.setImageResource(R.drawable.closed_case);
 
         buttonChangeBoxState.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(open == false) {
                     open = true;
-                    boxState.setText("box opened");
+                    boxStatePicture.setImageResource(R.drawable.opened_case);
                 }
                 else {
                     open = false;
-                    boxState.setText("box closed");
+                    boxStatePicture.setImageResource(R.drawable.closed_case);
                 }
             }
         });
     }
+    private long boxDisinfectionTime(){
+        database = new OwnedObjectsDatabase(this);
+        List<OwnedObject> objectsCurentlyDisinfeted = database.getObjectsByIsObjectInBox(1);
+
+        long disinfectionTime = 0;
+        for(int i = 0 ; i < objectsCurentlyDisinfeted.size() ; i++){
+            if(objectsCurentlyDisinfeted.get(i).getOwnedObjectDisinfectionTime() > disinfectionTime){
+                disinfectionTime = objectsCurentlyDisinfeted.get(i).getOwnedObjectDisinfectionTime();
+            }
+        }
+
+        return  disinfectionTime;
+    }
+
     private void appTimer(){
         timeRemaining = findViewById(R.id.timeRemaining);
         startButton = findViewById(R.id.startButton);
         timerRunning = true;
+
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,6 +294,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         }
     }
     public void startTimer() {
+        timeLeftMilliseconds = boxDisinfectionTime();
         countDownTimer = new CountDownTimer(timeLeftMilliseconds ,1000) {
             @Override
             public void onTick(long l) {

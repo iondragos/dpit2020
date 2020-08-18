@@ -24,6 +24,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/appLogo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/linden_hill"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+            app:layout_constraintEnd_toEndOf="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="@+id/toolbar"
+            app:srcCompat="@drawable/logo_white_vector_circled"
+            tools:ignore="VectorDrawableCompat" />
+
         <Button
             android:id="@+id/buttonSideMenu"
             android:layout_width="35dp"
@@ -35,53 +47,31 @@
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent" />
-        <ImageView
-            android:id="@+id/appLogo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:fontFamily="@font/linden_hill"
-            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-            app:layout_constraintEnd_toEndOf="@+id/toolbar"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:srcCompat="@drawable/logo_white_vector_circled"
-            tools:ignore="VectorDrawableCompat" />
-
-        <Button
-            android:id="@+id/buttonDeleteAllObjects"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:text="Delete all Objects"
-            android:fontFamily="@font/linden_hill"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="192dp"
             android:layout_height="36dp"
-            android:text="Settings"
-            android:textColor="#ffffff"
-            android:gravity="center"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/linden_hill"
+            android:gravity="center"
+            android:text="Map"
+            android:textColor="#ffffff"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toStartOf="@+id/appLogo"
             app:layout_constraintStart_toEndOf="@+id/buttonSideMenu"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/buttonMap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="map"
-            app:layout_constraintBottom_toTopOf="@+id/buttonDeleteAllObjects"
+        <fragment
+            android:id="@+id/map"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
