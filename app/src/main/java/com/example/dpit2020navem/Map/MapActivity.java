@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -143,8 +144,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         //Toast.makeText(getApplicationContext(), selectedPoint.toString(), Toast.LENGTH_SHORT).show();
                         map.clear();
                         markersDatabase.removeMarkerFromMarkersDatabase(1L);
+
+                        int height = 100;
+                        int width = 100;
+                        BitmapDrawable bitmapDrawable = (BitmapDrawable)getResources().getDrawable(R.drawable.home_map_icon);
+                        Bitmap bitmap = bitmapDrawable.getBitmap();
+                        Bitmap smallMarker = Bitmap.createScaledBitmap(bitmap, width, height, false);
+
                         settedHomeLocation = new MarkerOptions().position(selectedPoint)
-                                .title("Home").icon(BitmapDescriptorFactory.fromResource(R.drawable.home_page));
+                                .title("Home").icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
                         settedHome = map.addMarker(settedHomeLocation);
 
                         MyMarker myMarker = new MyMarker();
@@ -182,8 +190,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
                 map.clear();
                 markersDatabase.removeMarkerFromMarkersDatabase(1L);
+
+                int height = 100;
+                int width = 100;
+                BitmapDrawable bitmapDrawable = (BitmapDrawable)getResources().getDrawable(R.drawable.home_map_icon);
+                Bitmap bitmap = bitmapDrawable.getBitmap();
+                Bitmap smallMarker = Bitmap.createScaledBitmap(bitmap, width, height, false);
+
                 settedHomeLocation = new MarkerOptions().position(currentLatLng)
-                        .title("Home").icon(BitmapDescriptorFactory.fromResource(R.drawable.home_page));
+                        .title("Home").icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
                 settedHome = map.addMarker(settedHomeLocation);
 
                 MyMarker myMarker = new MyMarker();
@@ -294,9 +309,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         markersList = markersDatabase.getMarkers();
 
         for(int i = 0 ; i <markersList.size() ; i++){
+            int height = 100;
+            int width = 100;
+            BitmapDrawable bitmapDrawable = (BitmapDrawable)getResources().getDrawable(R.drawable.home_map_icon);
+            Bitmap bitmap = bitmapDrawable.getBitmap();
+            Bitmap smallMarker = Bitmap.createScaledBitmap(bitmap, width, height, false);
+
             MyMarker myMarker = markersList.get(i);
             MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(myMarker.getMarkerLatitude(),myMarker.getMarkerLongitude()))
-                    .title(myMarker.getMarkerName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.home_page));
+                    .title(myMarker.getMarkerName()).icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
             map.addMarker(markerOptions);
         }
