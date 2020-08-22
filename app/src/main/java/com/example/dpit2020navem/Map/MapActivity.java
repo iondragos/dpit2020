@@ -58,7 +58,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap map;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    Location currentLocation;
     Button buttonSelectHomeLocation;
+    Button buttonSelectHomeCurrentLocation;
     Button buttonCancelSelection;
     MarkerOptions homeLocationPoint;
     Marker homeLocation;
@@ -67,7 +69,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     LatLng homeLatLng;
     MarkersDatabase markersDatabase;
     List<MyMarker> markersList;
-    Handler handler;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,6 +88,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         buttonSelectHomeLocation.setVisibility(View.INVISIBLE);
         buttonCancelSelection = findViewById(R.id.buttonCancelSelection);
         buttonCancelSelection.setVisibility(View.INVISIBLE);
+        buttonSelectHomeCurrentLocation = findViewById(R.id.buttonSelectHomeCurrentLocation);
+        buttonSelectHomeCurrentLocation.setVisibility(View.VISIBLE);
     }
 
     public void onBackPressed() {
@@ -110,6 +114,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             map.getUiSettings().setMyLocationButtonEnabled(false);
 
             selectHomeLocation();
+            selectHomeCurrentLocation();
             addMapMarkers();
 
         }
@@ -130,6 +135,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                 buttonSelectHomeLocation.setVisibility(View.VISIBLE);
                 buttonCancelSelection.setVisibility(View.VISIBLE);
+                buttonSelectHomeCurrentLocation.setVisibility(View.INVISIBLE);
 
                 buttonSelectHomeLocation.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -152,6 +158,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                         buttonSelectHomeLocation.setVisibility(View.INVISIBLE);
                         buttonCancelSelection.setVisibility(View.INVISIBLE);
+                        buttonSelectHomeCurrentLocation.setVisibility(View.VISIBLE);
                     }
                 });
 
@@ -161,8 +168,31 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         homeLocation.remove();
                         buttonSelectHomeLocation.setVisibility(View.INVISIBLE);
                         buttonCancelSelection.setVisibility(View.INVISIBLE);
+                        buttonSelectHomeCurrentLocation.setVisibility(View.VISIBLE);
                     }
                 });
+            }
+        });
+    }
+
+    private void selectHomeCurrentLocation(){
+        buttonSelectHomeCurrentLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                map.clear();
+                markersDatabase.removeMarkerFromMarkersDatabase(1L);
+                settedHomeLocation = new MarkerOptions().position(currentLatLng)
+                        .title("Home").icon(BitmapDescriptorFactory.fromResource(R.drawable.home_page));
+                settedHome = map.addMarker(settedHomeLocation);
+
+                MyMarker myMarker = new MyMarker();
+                myMarker.setMarkerId(1L);
+                myMarker.setMarkerLatitude(currentLatLng.latitude);
+                myMarker.setMarkerLongitude(currentLatLng.longitude);
+                myMarker.setMarkerName("Home");
+                myMarker.setMarkerPicture(R.id.homePage);
+                markersDatabase.addToMarkersDatabase(myMarker);
             }
         });
     }
@@ -181,7 +211,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     public void onComplete(@NonNull Task task) {
                         if(task.isSuccessful()){
                             Log.d(TAG, "onComplete: found location!");
-                            Location currentLocation = (Location) task.getResult();
+                            currentLocation = (Location) task.getResult();
 
                             if(currentLocation != null){
                                 moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
