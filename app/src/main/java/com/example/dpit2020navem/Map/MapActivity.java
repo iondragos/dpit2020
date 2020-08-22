@@ -11,13 +11,20 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.dpit2020navem.Database.MarkersDatabase;
 import com.example.dpit2020navem.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -25,17 +32,20 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
+import com.google.maps.android.clustering.ClusterManager;
+import com.google.maps.android.ui.IconGenerator;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -44,17 +54,42 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-    private static final float DEFAULT_ZOOM = 15f;
+    private static final float DEFAULT_ZOOM = 18f;
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap map;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    Button buttonSelectHomeLocation;
+    Button buttonCancelSelection;
+    MarkerOptions homeLocationPoint;
+    Marker homeLocation;
+    MarkerOptions settedHomeLocation;
+    Marker settedHome;
+    LatLng homeLatLng;
+    MarkersDatabase markersDatabase;
+    List<MyMarker> markersList;
+    Handler handler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        markersDatabase = new MarkersDatabase(this);
 
+        setUpButtons();
         getLocationPermission();
+
+
+    }
+
+    private void setUpButtons() {
+        buttonSelectHomeLocation = findViewById(R.id.buttonSelectHomeLocation);
+        buttonSelectHomeLocation.setVisibility(View.INVISIBLE);
+        buttonCancelSelection = findViewById(R.id.buttonCancelSelection);
+        buttonCancelSelection.setVisibility(View.INVISIBLE);
+    }
+
+    public void onBackPressed() {
+        finish();
     }
 
     @Override
@@ -74,7 +109,62 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             map.setMyLocationEnabled(true);
             map.getUiSettings().setMyLocationButtonEnabled(false);
 
+            selectHomeLocation();
+            addMapMarkers();
+
         }
+    }
+
+    private void selectHomeLocation(){
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+            @Override
+            public void onMapClick(final LatLng selectedPoint) {
+
+                homeLocationPoint = new MarkerOptions().position(selectedPoint).title("Selcted point");
+                if(homeLocation != null){
+                    homeLocation.remove();
+                }
+                homeLocation = map.addMarker(homeLocationPoint);
+
+
+                buttonSelectHomeLocation.setVisibility(View.VISIBLE);
+                buttonCancelSelection.setVisibility(View.VISIBLE);
+
+                buttonSelectHomeLocation.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Toast.makeText(getApplicationContext(), selectedPoint.toString(), Toast.LENGTH_SHORT).show();
+                        map.clear();
+                        markersDatabase.removeMarkerFromMarkersDatabase(1L);
+                        settedHomeLocation = new MarkerOptions().position(selectedPoint)
+                                .title("Home").icon(BitmapDescriptorFactory.fromResource(R.drawable.home_page));
+                        settedHome = map.addMarker(settedHomeLocation);
+
+                        MyMarker myMarker = new MyMarker();
+                        myMarker.setMarkerId(1L);
+                        myMarker.setMarkerLatitude(selectedPoint.latitude);
+                        myMarker.setMarkerLongitude(selectedPoint.longitude);
+                        myMarker.setMarkerName("Home");
+                        myMarker.setMarkerPicture(R.id.homePage);
+                        markersDatabase.addToMarkersDatabase(myMarker);
+
+
+                        buttonSelectHomeLocation.setVisibility(View.INVISIBLE);
+                        buttonCancelSelection.setVisibility(View.INVISIBLE);
+                    }
+                });
+
+                buttonCancelSelection.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        homeLocation.remove();
+                        buttonSelectHomeLocation.setVisibility(View.INVISIBLE);
+                        buttonCancelSelection.setVisibility(View.INVISIBLE);
+                    }
+                });
+            }
+        });
     }
 
     private void getDeviceLocation(){
@@ -93,8 +183,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             Log.d(TAG, "onComplete: found location!");
                             Location currentLocation = (Location) task.getResult();
 
-                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                    DEFAULT_ZOOM);
+                            if(currentLocation != null){
+                                moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
+                                        DEFAULT_ZOOM);
+                            }
+
 
                         }else{
                             Log.d(TAG, "onComplete: current location is null");
@@ -166,4 +259,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         }
     }
+
+    private void addMapMarkers(){
+        markersList = markersDatabase.getMarkers();
+
+        for(int i = 0 ; i <markersList.size() ; i++){
+            MyMarker myMarker = markersList.get(i);
+            MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(myMarker.getMarkerLatitude(),myMarker.getMarkerLongitude()))
+                    .title(myMarker.getMarkerName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.home_page));
+
+            map.addMarker(markerOptions);
+        }
+
+    }
+
+
 }

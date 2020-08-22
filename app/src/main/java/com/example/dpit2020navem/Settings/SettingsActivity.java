@@ -2,14 +2,22 @@ package com.example.dpit2020navem.Settings;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.dpit2020navem.AddAnObject.Activity.ObjectTypeMenuActivity;
 import com.example.dpit2020navem.Database.OwnedObjectsDatabase;
@@ -127,9 +135,53 @@ public class SettingsActivity extends AppCompatActivity {
         buttonMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SettingsActivity.this, MapActivity.class);
-                startActivity(intent);
+                if(checkIfLocationIsTurnedOn(SettingsActivity.this) == true) {
+                    Intent intent = new Intent(SettingsActivity.this, MapActivity.class);
+                    startActivity(intent);
+                }else{
+                    //Toast.makeText(SettingsActivity.this, "Location is turned off.", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder notifyLocationServices = new AlertDialog.Builder(SettingsActivity.this);
+                    notifyLocationServices.setTitle("Switch on Location Services");
+                    notifyLocationServices.setMessage("Location Services must be turned on to complete this action. Also please take note that if on a very weak network connection,  such as 'E' Mobile Data or 'Very weak Wifi-Connections' it may take even 15 mins to load. If on a very weak network connection as stated above, location returned to application may be null or nothing and cause the application to crash.");
+                    notifyLocationServices.setPositiveButton("Ok, Open Settings", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent openLocationSettings = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            SettingsActivity.this.startActivity(openLocationSettings);
+                            finish();
+                        }
+                    });
+                    notifyLocationServices.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+                    notifyLocationServices.show();
+
+                }
             }
         });
+    }
+
+    private boolean checkIfLocationIsTurnedOn(Context context){
+        int locationMode = 0;
+        String locationProviders;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            try {
+                locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+
+            } catch (Settings.SettingNotFoundException e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return locationMode != Settings.Secure.LOCATION_MODE_OFF;
+
+        }else{
+            locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+            return !TextUtils.isEmpty(locationProviders);
+        }
     }
 }

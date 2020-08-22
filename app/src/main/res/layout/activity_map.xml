@@ -72,6 +72,39 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             android:name="com.google.android.gms.maps.SupportMapFragment"/>
 
+        <Button
+            android:id="@+id/buttonSelectHomeLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/rounded_button_color_5700d4"
+            android:fontFamily="@font/linden_hill"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="Select this location as home"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/buttonCancelSelection"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/rounded_button_color_5700d4"
+            android:fontFamily="@font/linden_hill"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="Cancel"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toTopOf="@+id/buttonSelectHomeLocation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
