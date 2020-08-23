@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         openCloseObjectsThatWillBeDisinfectedListAdapter();
         changeBoxState();
         appTimer();
-        setUpBluetooth();
+        //setUpBluetooth();
 
     }
 
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     protected void onStart() {
         super.onStart();
 
-        Intent mIntent = new Intent(this, MainActivity.class);
+        Intent mIntent = new Intent(this, BluetoothService.class);
         bindService(mIntent, mConnection, BIND_AUTO_CREATE);
     };
 
@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
             mBounded = true;
             BluetoothService.LocalBinder mLocalBinder = (BluetoothService.LocalBinder)service;
             bluetoothService = mLocalBinder.getBluetoothService();
+            setUpBluetooth();
         }
     };
 
@@ -309,12 +310,12 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     }
     private void turnOffBox()
     {
-        bluetoothService.writeBluetooth("0");
+        bluetoothService.writeBluetooth("1951off");
     }
 
     private void turnOnBox()
     {
-        bluetoothService.writeBluetooth("1");
+        bluetoothService.writeBluetooth("1951on");
     }
 
     private long boxDisinfectionTime(){

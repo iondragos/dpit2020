@@ -23,12 +23,13 @@ import java.util.UUID;
 public class BluetoothService extends Service{
     BluetoothAdapter myBluetooth = null;
     public BluetoothSocket btSocket = null;
-    ProgressDialog progress;
+    //ProgressDialog progress;
     boolean isBtConnected = false;
     String address;
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     //private int NOTIFICATION = R.string.local_service_started;
 
+    private final IBinder binder = new LocalBinder();
     public class LocalBinder extends Binder {
         public BluetoothService getBluetoothService() {
             return BluetoothService.this;
@@ -56,10 +57,9 @@ public class BluetoothService extends Service{
         //showNotification();
     }
 
-    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return binder;
     }
 
     private final IBinder mBinder = new LocalBinder();
@@ -83,7 +83,7 @@ public class BluetoothService extends Service{
     }
 
     private String getDeviceMacAddress(){
-        address = " ";
+        address = "A4:CF:12:73:84:A2";
         return  address;
     }
 
@@ -105,7 +105,7 @@ public class BluetoothService extends Service{
         @Override
         protected void onPreExecute()
         {
-            progress = ProgressDialog.show(context, "Connecting...", "Please wait!!!");  //show a progress dialog
+            //progress = ProgressDialog.show(context, "Connecting...", "Please wait!!!");  //show a progress dialog
         }
 
         @Override
@@ -142,7 +142,7 @@ public class BluetoothService extends Service{
                 msg("Connected.");
                 isBtConnected = true;
             }
-            progress.dismiss();
+            //progress.dismiss();
         }
     }
 
