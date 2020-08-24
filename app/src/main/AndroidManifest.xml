@@ -17,9 +17,7 @@
         <activity android:name=".OwnedObjectsList.OwnedObjectsListActivity" />
         <activity android:name=".AddAnObject.Activity.ObjectMenuActivity" />
         <activity android:name=".AddAnObject.Activity.ObjectTypeMenuActivity" />
-        <activity
-            android:name=".Intro.WelcomeActivity"
-            android:theme="@style/AppTheme">
+        <activity android:name=".Intro.WelcomeActivity" android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,6 +36,8 @@
 
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
+
+        <service android:name=".Bluetooth.BluetoothService" />
     </application>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -45,5 +45,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
 </manifest>

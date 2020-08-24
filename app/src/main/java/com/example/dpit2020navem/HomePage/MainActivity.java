@@ -6,9 +6,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.bluetooth.BluetoothSocket;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.IBinder;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +25,7 @@ import com.example.dpit2020navem.AddAnObject.Activity.ObjectTypeMenuActivity;
 import com.example.dpit2020navem.AddAnObject.Adapter.ObjectListAdapter;
 import com.example.dpit2020navem.AddAnObject.Model.ObjectType;
 import com.example.dpit2020navem.AddAnObject.Model.OwnedObject;
+import com.example.dpit2020navem.Bluetooth.BluetoothService;
 import com.example.dpit2020navem.Database.OwnedObjectsDatabase;
 import com.example.dpit2020navem.Help.HelpActivity;
 import com.example.dpit2020navem.ObjectTypeDetailes.ObjectTypeDetailesActivity;
@@ -30,6 +35,7 @@ import com.example.dpit2020navem.Settings.SettingsActivity;
 import com.example.dpit2020navem.UvcInfo.UvcInfoActivity;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     CountDownTimer countDownTimer;
     long timeLeftMilliseconds = 600000;
     boolean timerRunning;
+    BluetoothSocket btSocket = null;
+    BluetoothService bluetoothService;
+    boolean mBounded;
 
 
     @Override
@@ -70,7 +79,49 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         openCloseObjectsThatWillBeDisinfectedListAdapter();
         changeBoxState();
         appTimer();
+        //setUpBluetooth();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Intent mIntent = new Intent(this, BluetoothService.class);
+        bindService(mIntent, mConnection, BIND_AUTO_CREATE);
+    };
+
+    ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Toast.makeText(MainActivity.this, "Service is disconnected", Toast.LENGTH_SHORT).show();
+            mBounded = false;
+            bluetoothService = null;
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Toast.makeText(MainActivity.this, "Service is connected", Toast.LENGTH_SHORT).show();
+            mBounded = true;
+            BluetoothService.LocalBinder mLocalBinder = (BluetoothService.LocalBinder)service;
+            bluetoothService = mLocalBinder.getBluetoothService();
+            setUpBluetooth();
+        }
+    };
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mBounded) {
+            unbindService(mConnection);
+            mBounded = false;
+        }
+    };
+
+    private void setUpBluetooth(){
+        bluetoothService.bluetoothConnection(MainActivity.this);
+
+        bluetoothService.connectionBT(MainActivity.this);
     }
 
     private void setUpSideMenu(){
@@ -247,14 +298,26 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
                 if(open == false) {
                     open = true;
                     boxStatePicture.setImageResource(R.drawable.opened_case);
+                    turnOnBox();
                 }
                 else {
                     open = false;
                     boxStatePicture.setImageResource(R.drawable.closed_case);
+                    turnOffBox();
                 }
             }
         });
     }
+    private void turnOffBox()
+    {
+        bluetoothService.writeBluetooth("r");
+    }
+
+    private void turnOnBox()
+    {
+        bluetoothService.writeBluetooth("s0500");
+    }
+
     private long boxDisinfectionTime(){
         database = new OwnedObjectsDatabase(this);
         List<OwnedObject> objectsCurentlyDisinfeted = database.getObjectsByIsObjectInBox(1);
