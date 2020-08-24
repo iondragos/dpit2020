@@ -310,12 +310,12 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     }
     private void turnOffBox()
     {
-        bluetoothService.writeBluetooth("1951off");
+        bluetoothService.writeBluetooth("r");
     }
 
     private void turnOnBox()
     {
-        bluetoothService.writeBluetooth("1951on");
+        bluetoothService.writeBluetooth("s0500");
     }
 
     private long boxDisinfectionTime(){

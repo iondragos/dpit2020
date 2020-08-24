@@ -83,7 +83,7 @@ public class BluetoothService extends Service{
     }
 
     private String getDeviceMacAddress(){
-        address = "A4:CF:12:73:84:A2";
+        address = "00:19:08:35:F7:17";
         return  address;
     }
 
