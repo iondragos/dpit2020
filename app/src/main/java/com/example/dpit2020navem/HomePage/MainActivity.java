@@ -4,6 +4,7 @@ package com.example.dpit2020navem.HomePage;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.bluetooth.BluetoothSocket;
@@ -12,7 +13,9 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.IBinder;
+import android.text.Layout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -47,21 +50,22 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView sideMenu;
     OwnedObjectsDatabase database;
+    ConstraintLayout layoutOwnedObjectsList;
+    Button closeOwnedObjectsList;
     ListView ownedObjectsMainPageListView;
     List<OwnedObject> ownedObjectMainPageList;
     OwnedObjectsListMainPageAdapter ownedObjectsListMainPageAdapter;
+    ConstraintLayout layoutSelectedObjectsList;
+    Button closeSelectedObjectsList;
     ListView objectsThatWillBeDisinfectedListView;
     List<OwnedObject> objectsThatWillBeDisinfectedList;
     ObjectsThatWillBeDisinfectedListMainPageAdapter objectsThatWillBeDisinfectedListMainPageAdapter;
-    Button buttonChangeBoxState;
     ImageView boxStatePicture;
     boolean open;
     TextView timeRemaining;
     Button startButton;
     CountDownTimer countDownTimer;
     long timeLeftMilliseconds = 600000;
-    boolean timerRunning;
-    BluetoothSocket btSocket = null;
     BluetoothService bluetoothService;
     boolean mBounded;
 
@@ -78,9 +82,20 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         setUpObjectsThatWillBeDisinfectedListAdapter();
         openCloseObjectsThatWillBeDisinfectedListAdapter();
         changeBoxState();
-        appTimer();
-        //setUpBluetooth();
+        setUpTimer();
 
+    }
+
+    public void onBackPressed() {
+        if(layoutOwnedObjectsList.getVisibility() == View.VISIBLE){
+            layoutOwnedObjectsList.setVisibility(View.INVISIBLE);
+            startButton.setVisibility(View.VISIBLE);
+        }else if(layoutSelectedObjectsList.getVisibility() == View.VISIBLE){
+             layoutSelectedObjectsList.setVisibility(View.INVISIBLE);
+             startButton.setVisibility(View.VISIBLE);
+        }else{
+            finish();
+        }
     }
 
     @Override
@@ -201,19 +216,23 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
 
     private void openCloseOwnedObjectsListAdapter(){
         TextView openOwnedObjectList = findViewById(R.id.openOwnedObjectList);
-        ownedObjectsMainPageListView = findViewById(R.id.ownedObjectsListMainPage);
+        layoutOwnedObjectsList = findViewById(R.id.ownedObjectsLayoutMainPage);
+        closeOwnedObjectsList = findViewById(R.id.buttonCloseOwnedObjectsList);
 
 
         openOwnedObjectList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ownedObjectsMainPageListView.getVisibility() == View.INVISIBLE) {
-                    ownedObjectsMainPageListView.setVisibility(View.VISIBLE);
-                    objectsThatWillBeDisinfectedListView.setVisibility(View.INVISIBLE);
-                }
-                else {
-                    ownedObjectsMainPageListView.setVisibility(View.INVISIBLE);
-                }
+                layoutOwnedObjectsList.setVisibility(View.VISIBLE);
+                startButton.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        closeOwnedObjectsList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layoutOwnedObjectsList.setVisibility(View.INVISIBLE);
+                startButton.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -234,6 +253,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         objectsThatWillBeDisinfectedListMainPageAdapter.addAll(database.getObjectsByIsObjectInBox(1));
         objectsThatWillBeDisinfectedListMainPageAdapter.notifyDataSetChanged();
 
+        setUpTimer();
         Toast.makeText(this, "Object added to box.", Toast.LENGTH_LONG).show();
     }
 
@@ -251,18 +271,23 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
 
     private void openCloseObjectsThatWillBeDisinfectedListAdapter(){
         TextView openObjectsThatWillBeDisinfectedList = findViewById(R.id.openObjectsThatWillBeDisinfectedList);
-        objectsThatWillBeDisinfectedListView = findViewById(R.id.objectsThatWillBeDisinfectedListMainPage);
+        layoutSelectedObjectsList = findViewById(R.id.objectsThatWillBeDisinfectedLayoutMainPage);
+        closeSelectedObjectsList = findViewById(R.id.buttonCloseSelectedObjectsList);
 
 
         openObjectsThatWillBeDisinfectedList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(objectsThatWillBeDisinfectedListView.getVisibility() == View.INVISIBLE) {
-                    objectsThatWillBeDisinfectedListView.setVisibility(View.VISIBLE);
-                }
-                else {
-                    objectsThatWillBeDisinfectedListView.setVisibility(View.INVISIBLE);
-                }
+                layoutSelectedObjectsList.setVisibility(View.VISIBLE);
+                startButton.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        closeSelectedObjectsList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layoutSelectedObjectsList.setVisibility(View.INVISIBLE);
+                startButton.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -283,40 +308,36 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         objectsThatWillBeDisinfectedListMainPageAdapter.addAll(database.getObjectsByIsObjectInBox(1));
         objectsThatWillBeDisinfectedListMainPageAdapter.notifyDataSetChanged();
 
+        setUpTimer();
         Toast.makeText(this, "Object removed from box.", Toast.LENGTH_LONG).show();
     }
 
     private void changeBoxState(){
-        buttonChangeBoxState = findViewById(R.id.buttonChangeBoxState);
+        startButton = findViewById(R.id.startButton);
         boxStatePicture = findViewById(R.id.boxStatePicture);
-        open = false;
-        boxStatePicture.setImageResource(R.drawable.closed_case);
+        open = true;
+        boxStatePicture.setImageResource(R.drawable.opened_case);
+        timeRemaining = findViewById(R.id.timeRemaining);
 
-        buttonChangeBoxState.setOnClickListener(new View.OnClickListener() {
+        startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(open == false) {
-                    open = true;
-                    boxStatePicture.setImageResource(R.drawable.opened_case);
-                    turnOnBox();
-                }
-                else {
+                if(open == true) {
                     open = false;
                     boxStatePicture.setImageResource(R.drawable.closed_case);
+                    turnOnBox();
+                    startTimer();
+                }
+                else {
+                    open = true;
+                    boxStatePicture.setImageResource(R.drawable.opened_case);
                     turnOffBox();
+                    stopTimer();
                 }
             }
         });
     }
-    private void turnOffBox()
-    {
-        bluetoothService.writeBluetooth("r");
-    }
 
-    private void turnOnBox()
-    {
-        bluetoothService.writeBluetooth("s0500");
-    }
 
     private long boxDisinfectionTime(){
         database = new OwnedObjectsDatabase(this);
@@ -332,30 +353,40 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         return  disinfectionTime;
     }
 
-    private void appTimer(){
-        timeRemaining = findViewById(R.id.timeRemaining);
-        startButton = findViewById(R.id.startButton);
-        timerRunning = true;
-
-
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                startStop();
-            }
-        });
-
+    private void setUpTimer(){
+        timeLeftMilliseconds = boxDisinfectionTime();
+        updateTimer();
     }
 
 
-    
-    public void startStop() {
-        if (timerRunning) {
-            startTimer();
-        } else {
-            stopTimer();
+    private void turnOffBox()
+    {
+        bluetoothService.writeBluetooth("r");
+    }
+
+    private void turnOnBox()
+    {
+        long disinfectionTime = boxDisinfectionTime();
+        int minutes = (int) disinfectionTime / 60000;
+        int seconds = (int) disinfectionTime % 60000 / 1000;
+        String sMinutes;
+        String sSeconds;
+
+        if(minutes < 10){
+            sMinutes = "0" + minutes;
+        }else{
+            sMinutes = String.valueOf(minutes);
         }
+
+        if(seconds < 10){
+            sSeconds = "0" + seconds;
+        }else{
+            sSeconds = String.valueOf(seconds);
+        }
+
+        bluetoothService.writeBluetooth("s" + sMinutes + sSeconds);
     }
+
     public void startTimer() {
         timeLeftMilliseconds = boxDisinfectionTime();
         countDownTimer = new CountDownTimer(timeLeftMilliseconds ,1000) {
@@ -371,14 +402,14 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
             }
         }.start();
         startButton.setText("PAUSE");
-        timerRunning = false;
 
     }
     public void stopTimer() {
         countDownTimer.cancel();
+        setUpTimer();
         startButton.setText("START");
-        timerRunning = true;
     }
+
     public void updateTimer() {
         int minutes = (int) timeLeftMilliseconds / 60000;
         int seconds = (int) timeLeftMilliseconds % 60000 / 1000;

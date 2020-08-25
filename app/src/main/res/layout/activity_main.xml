@@ -6,19 +6,20 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fontFamily="@font/linden_hill">
+    android:fontFamily="@font/linden_hill"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_purple_to_blue"
+        android:background="#ffffff"
         android:clickable="true"
         tools:context=".HomePage.MainActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="230dp"
             android:background="@drawable/gradient_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -30,54 +31,35 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/menu_icon_white"
-            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/buttonChangeBoxState"
+            android:id="@+id/startButton"
             android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:background="@drawable/rounded_button_color_5700d4"
+            android:text="START"
             android:fontFamily="@font/linden_hill"
-            android:text="ON/OFF"
+            android:textColor="#ffffff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/boxStatePicture" />
-
-        <Button
-            android:id="@+id/startButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:text="START"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/timeRemaining" />
 
 
         <ImageView
             android:id="@+id/appLogo"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toEndOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
             app:srcCompat="@drawable/logo_white_vector_circled"
             tools:ignore="VectorDrawableCompat" />
-
-        <ImageView
-            android:id="@+id/boxStatePicture"
-            android:layout_width="200dp"
-            android:layout_height="169dp"
-            android:layout_marginTop="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 
         <TextView
@@ -85,77 +67,174 @@
             android:layout_width="192dp"
             android:layout_height="36dp"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/linden_hill"
             android:gravity="center"
             android:text="Home page"
             android:textColor="#ffffff"
-            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toStartOf="@+id/appLogo"
             app:layout_constraintStart_toEndOf="@+id/buttonSideMenu"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/timeRemaining"
-            android:layout_width="130dp"
-            android:layout_height="55dp"
-            android:layout_marginBottom="20dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/startButton"
+            android:layout_width="184dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="30dp"
+            android:elevation="10dp"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="50sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/openObjectsThatWillBeDisinfectedList" />
 
         <TextView
             android:id="@+id/openOwnedObjectList"
-            android:layout_width="300dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/secondColor"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/backgroud_main_page_gradient"
             android:fontFamily="@font/linden_hill"
             android:gravity="center"
             android:text="Select objects for disinfection"
             android:textColor="#ffffff"
-            android:textSize="17sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonChangeBoxState" />
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
         <TextView
             android:id="@+id/openObjectsThatWillBeDisinfectedList"
-            android:layout_width="300dp"
-            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-            android:background="@color/secondColor"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/backgroud_main_page_gradient"
             android:clickable="true"
             android:fontFamily="@font/linden_hill"
             android:gravity="center"
             android:text="See what objects will be disinfected"
             android:textColor="#ffffff"
-            android:textSize="17sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/openOwnedObjectList" />
 
-        <ListView
-            android:id="@+id/ownedObjectsListMainPage"
-            android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:background="#FFFFFF"
+        <ImageView
+            android:id="@+id/boxStatePicture"
+            android:layout_width="316dp"
+            android:layout_height="206dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="0dp"
+            android:layout_height="47dp"
+            android:background="@drawable/background_main_page_arc"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        </RelativeLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ownedObjectsLayoutMainPage"
+            android:layout_width="320dp"
+            android:layout_height="550dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/background_main_page_white"
+            android:elevation="10dp"
             android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/openOwnedObjectList">
+            app:layout_constraintTop_toTopOf="parent">
 
-        </ListView>
+            <Button
+                android:id="@+id/buttonCloseOwnedObjectsList"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_button_color_5700d4"
+                android:fontFamily="@font/linden_hill"
+                android:text="Close the list"
+                android:textColor="#ffffff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <ListView
-            android:id="@+id/objectsThatWillBeDisinfectedListMainPage"
-            android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:background="#FFFFFF"
+            <ListView
+                android:id="@+id/ownedObjectsListMainPage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                app:layout_constraintBottom_toTopOf="@+id/buttonCloseOwnedObjectsList"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </ListView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/objectsThatWillBeDisinfectedLayoutMainPage"
+            android:layout_width="320dp"
+            android:layout_height="550dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/background_main_page_white"
+            android:elevation="10dp"
             android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/openObjectsThatWillBeDisinfectedList" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/buttonCloseSelectedObjectsList"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_button_color_5700d4"
+                android:fontFamily="@font/linden_hill"
+                android:text="Close the list"
+                android:textColor="#ffffff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ListView
+                android:id="@+id/objectsThatWillBeDisinfectedListMainPage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                app:layout_constraintBottom_toTopOf="@+id/buttonCloseSelectedObjectsList"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

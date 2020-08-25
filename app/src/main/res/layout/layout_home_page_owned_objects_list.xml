@@ -7,9 +7,14 @@
 
     <TextView
         android:id="@+id/ownedObjectsListMainPageName"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="30dp"
+        android:gravity="center_vertical"
         android:text="name"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:paddingLeft="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/ownedObjectsListMainPageAdd"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -17,18 +22,18 @@
         android:id="@+id/ownedObjectsListMainPageDetailes"
         android:layout_width="0dp"
         android:layout_height="30dp"
+        android:gravity="center_vertical"
         android:text="detailes"
+        android:paddingLeft="10dp"
         app:layout_constraintEnd_toStartOf="@+id/ownedObjectsListMainPageAdd"
-        app:layout_constraintStart_toEndOf="@+id/ownedObjectsListMainPageName"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ownedObjectsListMainPageName" />
 
     <Button
         android:id="@+id/ownedObjectsListMainPageAdd"
         android:layout_width="60dp"
-        android:layout_height="30dp"
-        android:text="ADD"
-        android:textColor="#FF0000"
-        android:textSize="8sp"
+        android:layout_height="60dp"
+        android:background="@android:drawable/ic_menu_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
