@@ -177,4 +177,22 @@ public class BluetoothService extends Service{
             }
         }
     }
+
+    /*public String readBluetooth(){
+        String s = null;
+
+        if (btSocket!=null)
+        {
+            try
+            {
+                s = String.valueOf(btSocket.getInputStream().read());
+            }
+            catch (IOException e)
+            {
+                msg("Error");
+            }
+        }
+
+        return s;
+    }*/
 }
