@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         objectsThatWillBeDisinfectedListMainPageAdapter.notifyDataSetChanged();
 
         setUpTimer();
-        Toast.makeText(this, "Object added to box.", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Object added to box.", Toast.LENGTH_SHORT).show();
     }
 
     private void setUpObjectsThatWillBeDisinfectedListAdapter(){
@@ -309,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         objectsThatWillBeDisinfectedListMainPageAdapter.notifyDataSetChanged();
 
         setUpTimer();
-        Toast.makeText(this, "Object removed from box.", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Object removed from box.", Toast.LENGTH_SHORT).show();
     }
 
     private void changeBoxState(){
@@ -323,10 +323,14 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
             @Override
             public void onClick(View view) {
                 if(open == true) {
-                    open = false;
-                    boxStatePicture.setImageResource(R.drawable.closed_case);
-                    turnOnBox();
-                    startTimer();
+                    if(boxDisinfectionTime() == 0){
+                        Toast.makeText(MainActivity.this, "The box is empty.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        open = false;
+                        boxStatePicture.setImageResource(R.drawable.closed_case);
+                        turnOnBox();
+                        startTimer();
+                    }
                 }
                 else {
                     open = true;
