@@ -49,7 +49,15 @@ public class ObjectTypeMenuActivity extends AppCompatActivity {
     List<OwnedObject> keysList;
     List<OwnedObject> glassesList;
     List<OwnedObject> watchesList;
+    List<OwnedObject> laptopsList;
+    List<OwnedObject> camerasList;
     List<OwnedObject> headphonesList;
+    List<OwnedObject> miceList;
+    List<OwnedObject> chargersList;
+    List<OwnedObject> remotesList;
+    List<OwnedObject> accesoriesList;
+    List<OwnedObject> booksList;
+    List<OwnedObject> pensList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +156,16 @@ public class ObjectTypeMenuActivity extends AppCompatActivity {
         keysList = new ArrayList<>();
         glassesList = new ArrayList<>();
         watchesList = new ArrayList<>();
+        laptopsList = new ArrayList<>();
+        camerasList = new ArrayList<>();
         headphonesList = new ArrayList<>();
+        miceList = new ArrayList<>();
+        chargersList = new ArrayList<>();
+        remotesList = new ArrayList<>();
+        accesoriesList = new ArrayList<>();
+        booksList = new ArrayList<>();
+        pensList = new ArrayList<>();
+
     }
 
     private void createObjectTypeListMenu(){
@@ -160,7 +177,16 @@ public class ObjectTypeMenuActivity extends AppCompatActivity {
         objectTypeList.add(new ObjectType("Keys",R.drawable.keys,30000,keysList));
         objectTypeList.add(new ObjectType("Glasses",R.drawable.glasses,40000,glassesList));
         objectTypeList.add(new ObjectType("Watches",R.drawable.watch,50000,watchesList));
+        objectTypeList.add(new ObjectType("Laptops",R.drawable.headphones,60000,laptopsList));
+        objectTypeList.add(new ObjectType("Cameras",R.drawable.headphones,60000,camerasList));
         objectTypeList.add(new ObjectType("Headphones",R.drawable.headphones,60000,headphonesList));
+        objectTypeList.add(new ObjectType("Mice",R.drawable.headphones,60000,miceList));
+        objectTypeList.add(new ObjectType("Chargers/Cables",R.drawable.headphones,60000,chargersList));
+        objectTypeList.add(new ObjectType("Remotes/Joysticks",R.drawable.headphones,60000,remotesList));
+        objectTypeList.add(new ObjectType("Accesories",R.drawable.headphones,60000,accesoriesList));
+        objectTypeList.add(new ObjectType("Books",R.drawable.headphones,60000,booksList));
+        objectTypeList.add(new ObjectType("Pens",R.drawable.headphones,60000,pensList));
+
     }
 
     private void setUpObjectTypeListAdapter(){

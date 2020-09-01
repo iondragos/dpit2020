@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dpit2020navem.Database.MarkersDatabase;
@@ -43,6 +44,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.ui.IconGenerator;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,6 +72,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     LatLng homeLatLng;
     MarkersDatabase markersDatabase;
     List<MyMarker> markersList;
+    TextView distance;
+    LatLng location;
+    Handler handler;
 
 
     @Override
@@ -106,6 +111,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if (mLocationPermissionsGranted) {
             getDeviceLocation();
 
+
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -114,9 +120,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             map.setMyLocationEnabled(true);
             map.getUiSettings().setMyLocationButtonEnabled(false);
 
+
             selectHomeLocation();
             selectHomeCurrentLocation();
             addMapMarkers();
+            setUpDistanceTextView();
 
         }
     }
@@ -233,6 +241,34 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                         DEFAULT_ZOOM);
                             }
 
+                        }else{
+                            Log.d(TAG, "onComplete: current location is null");
+                            //Toast.makeText(MapActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        }catch (SecurityException e){
+            Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage() );
+        }
+    }
+
+    private void getDeviceLocation2(){
+        Log.d(TAG, "getDeviceLocation: getting the devices current location");
+
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        try{
+            if(mLocationPermissionsGranted){
+
+                final Task location = mFusedLocationProviderClient.getLastLocation();
+                location.addOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        if(task.isSuccessful()){
+                            Log.d(TAG, "onComplete: found location!");
+                            currentLocation = (Location) task.getResult();
+
 
                         }else{
                             Log.d(TAG, "onComplete: current location is null");
@@ -323,6 +359,57 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
 
     }
+
+    public double calculationByDistance(LatLng StartP, LatLng EndP) {
+        int Radius = 6371;// radius of earth in Km
+        double lat1 = StartP.latitude;
+        double lat2 = EndP.latitude;
+        double lon1 = StartP.longitude;
+        double lon2 = EndP.longitude;
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1))
+                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                * Math.sin(dLon / 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double valueResult = Radius * c;
+        double km = valueResult / 1;
+        DecimalFormat newFormat = new DecimalFormat("####");
+        int kmInDec = Integer.valueOf(newFormat.format(km));
+        double meter = valueResult % 1000;
+        int meterInDec = Integer.valueOf(newFormat.format(meter));
+        Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
+                + " Meter   " + meterInDec);
+
+        return meter * 1000;
+    }
+
+    public void setUpDistanceTextView(){
+        distance = findViewById(R.id.distance);
+
+        MyMarker homeMarker = markersDatabase.getMarkersByMarkerId(1L);
+        final LatLng home = new LatLng(homeMarker.getMarkerLatitude(), homeMarker.getMarkerLongitude());
+
+
+
+        handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                if(currentLocation != null){
+                    getDeviceLocation2();
+                    location = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    distance.setText(String.valueOf(calculationByDistance(home, location)));
+                }
+
+                handler.postDelayed(this, 100);
+            }
+        });
+
+    }
+
 
 
 }

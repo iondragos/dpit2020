@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 
+import com.example.dpit2020navem.AddAnObject.Model.OwnedObject;
 import com.example.dpit2020navem.Map.MyMarker;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -32,7 +33,7 @@ public class MarkersDatabase  extends SQLiteAssetHelper {
         List<MyMarker> result = new ArrayList<>();
         if (c.moveToFirst()) {
             do {
-                MyMarker myMarker = extractOwnedObjectsFromCursor(c);
+                MyMarker myMarker = extractMarkersFromCursor(c);
 
                 result.add(myMarker);
             } while (c.moveToNext());
@@ -41,7 +42,7 @@ public class MarkersDatabase  extends SQLiteAssetHelper {
         return result;
     }
 
-    private MyMarker extractOwnedObjectsFromCursor(Cursor c) {
+    private MyMarker extractMarkersFromCursor(Cursor c) {
 
         MyMarker myMarker = new MyMarker();
         myMarker.setMarkerId(c.getLong(c.getColumnIndex("MarkerId")));
@@ -76,4 +77,25 @@ public class MarkersDatabase  extends SQLiteAssetHelper {
         db.execSQL(query);
     }
 
+    public MyMarker getMarkersByMarkerId(Long MarkerId) {
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {"MarkerId", "MarkerLatitude", "MarkerLongitude", "MarkerName", "MarkerPicture"};
+        String sqlTable = "MarkersDetail";
+
+        qb.setTables(sqlTable);
+        String selection = String.format("MarkerId=%d", MarkerId);
+
+        Cursor c = qb.query(db, sqlSelect, selection, null, null, null, null);
+
+        MyMarker myMarker = null;
+        if (c.moveToFirst()) {
+
+            myMarker = extractMarkersFromCursor(c);
+
+        }
+
+        return myMarker;
+    }
 }

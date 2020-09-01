@@ -156,10 +156,50 @@ public class OwnedObjectsListActivity extends AppCompatActivity implements Owned
             ObjectType objectType5 = new ObjectType("Watches",R.drawable.watch,3000,ownedObjectsList5);
             ownedObjectsListByType.add(objectType5);
         }
-        List<OwnedObject> ownedObjectsList6 = database.getObjectsByObjectType("Headphones");
+        List<OwnedObject> ownedObjectsList6 = database.getObjectsByObjectType("Laptops");
         if(!ownedObjectsList6.isEmpty()){
-            ObjectType objectType6 = new ObjectType("Headphones",R.drawable.headphones,3000,ownedObjectsList6);
+            ObjectType objectType6 = new ObjectType("Laptops",R.drawable.headphones,3000,ownedObjectsList6);
             ownedObjectsListByType.add(objectType6);
+        }
+        List<OwnedObject> ownedObjectsList7 = database.getObjectsByObjectType("Cameras");
+        if(!ownedObjectsList7.isEmpty()){
+            ObjectType objectType7 = new ObjectType("Cameras",R.drawable.headphones,3000,ownedObjectsList7);
+            ownedObjectsListByType.add(objectType7);
+        }
+        List<OwnedObject> ownedObjectsList8 = database.getObjectsByObjectType("Headphones");
+        if(!ownedObjectsList8.isEmpty()){
+            ObjectType objectType8 = new ObjectType("Headphones",R.drawable.headphones,3000,ownedObjectsList8);
+            ownedObjectsListByType.add(objectType8);
+        }
+        List<OwnedObject> ownedObjectsList9 = database.getObjectsByObjectType("Mice");
+        if(!ownedObjectsList9.isEmpty()){
+            ObjectType objectType9 = new ObjectType("Mice",R.drawable.headphones,3000,ownedObjectsList9);
+            ownedObjectsListByType.add(objectType9);
+        }
+        List<OwnedObject> ownedObjectsList10 = database.getObjectsByObjectType("Chargers/Cables");
+        if(!ownedObjectsList10.isEmpty()){
+            ObjectType objectType10 = new ObjectType("Chargers/Cables",R.drawable.headphones,3000,ownedObjectsList10);
+            ownedObjectsListByType.add(objectType10);
+        }
+        List<OwnedObject> ownedObjectsList11 = database.getObjectsByObjectType("Remotes/Joysticks");
+        if(!ownedObjectsList11.isEmpty()){
+            ObjectType objectType11 = new ObjectType("Remotes/Joysticks",R.drawable.headphones,3000,ownedObjectsList11);
+            ownedObjectsListByType.add(objectType11);
+        }
+        List<OwnedObject> ownedObjectsList12 = database.getObjectsByObjectType("Accesories");
+        if(!ownedObjectsList12.isEmpty()){
+            ObjectType objectType12 = new ObjectType("Accesories",R.drawable.headphones,3000,ownedObjectsList12);
+            ownedObjectsListByType.add(objectType12);
+        }
+        List<OwnedObject> ownedObjectsList13 = database.getObjectsByObjectType("Books");
+        if(!ownedObjectsList13.isEmpty()){
+            ObjectType objectType13 = new ObjectType("Books",R.drawable.headphones,3000,ownedObjectsList13);
+            ownedObjectsListByType.add(objectType13);
+        }
+        List<OwnedObject> ownedObjectsList14 = database.getObjectsByObjectType("Pens");
+        if(!ownedObjectsList14.isEmpty()){
+            ObjectType objectType14 = new ObjectType("Pens",R.drawable.headphones,3000,ownedObjectsList14);
+            ownedObjectsListByType.add(objectType14);
         }
 
         return  ownedObjectsListByType;
