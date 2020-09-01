@@ -127,7 +127,15 @@ public class ObjectTypeDetailesActivity extends AppCompatActivity {
         listType.add(new ListHeader("Keys",R.drawable.keys));
         listType.add(new ListHeader("Glasses",R.drawable.glasses));
         listType.add(new ListHeader("Watches",R.drawable.watch));
+        listType.add(new ListHeader("Laptops",R.drawable.laptops));
+        listType.add(new ListHeader("Cameras",R.drawable.cameras));
         listType.add(new ListHeader("Headphones",R.drawable.headphones));
+        listType.add(new ListHeader("Mice",R.drawable.mice));
+        listType.add(new ListHeader("Chargers/Cables",R.drawable.chargers_cables));
+        listType.add(new ListHeader("Remotes/Joysticks",R.drawable.remotes_joysticks));
+        listType.add(new ListHeader("Accesories",R.drawable.accesories));
+        listType.add(new ListHeader("Books",R.drawable.books));
+        listType.add(new ListHeader("Pens",R.drawable.pens));
 
         List<String> list1 = new ArrayList<>();
         list1.add("phone detailes");
@@ -145,7 +153,31 @@ public class ObjectTypeDetailesActivity extends AppCompatActivity {
         list5.add("watch detailes");
 
         List<String> list6 = new ArrayList<>();
-        list6.add("headphones detailes");
+        list6.add("laptops detailes");
+
+        List<String> list7 = new ArrayList<>();
+        list7.add("cameras detailes");
+
+        List<String> list8 = new ArrayList<>();
+        list8.add("headphones detailes");
+
+        List<String> list9 = new ArrayList<>();
+        list9.add("mice detailes");
+
+        List<String> list10 = new ArrayList<>();
+        list10.add("chargers/cables detailes");
+
+        List<String> list11 = new ArrayList<>();
+        list11.add("remotes/joysticks detailes");
+
+        List<String> list12 = new ArrayList<>();
+        list12.add("accesories detailes");
+
+        List<String> list13 = new ArrayList<>();
+        list13.add("books detailes");
+
+        List<String> list14 = new ArrayList<>();
+        list14.add("pens detailes");
 
         listDetailes.put(listType.get(0),list1);
         listDetailes.put(listType.get(1),list2);
@@ -153,5 +185,14 @@ public class ObjectTypeDetailesActivity extends AppCompatActivity {
         listDetailes.put(listType.get(3),list4);
         listDetailes.put(listType.get(4),list5);
         listDetailes.put(listType.get(5),list6);
+        listDetailes.put(listType.get(6),list7);
+        listDetailes.put(listType.get(7),list8);
+        listDetailes.put(listType.get(8),list9);
+        listDetailes.put(listType.get(9),list10);
+        listDetailes.put(listType.get(10),list11);
+        listDetailes.put(listType.get(11),list12);
+        listDetailes.put(listType.get(12),list13);
+        listDetailes.put(listType.get(13),list14);
+
     }
 }
