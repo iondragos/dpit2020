@@ -5,12 +5,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothSocket;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -68,12 +75,16 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     long timeLeftMilliseconds = 600000;
     BluetoothService bluetoothService;
     boolean mBounded;
+    private NotificationManager notificationManager;
+    PendingIntent pendingIntent;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         setUpSideMenu();
         openSideMenu();
@@ -407,6 +418,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         }.start();
         startButton.setText("PAUSE");
 
+        sendOnChannel1();
     }
     public void stopTimer() {
         countDownTimer.cancel();
@@ -425,6 +437,30 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         timeLeftText += seconds;
 
         timeRemaining.setText(timeLeftText);
+    }
+
+    public void sendOnChannel1() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        String channelId = "channel_id_1";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel1 = new NotificationChannel(channelId, "Timer Notification", NotificationManager.IMPORTANCE_DEFAULT);
+            channel1.setDescription("Sent when disinfection is completed");
+            notificationManager.createNotificationChannel(channel1);
+        }
+
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.drawable.logo_white_app)
+                .setContentTitle("title")
+                .setContentText("message")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+        notificationManager.notify(1, notification.build());
     }
 
 }
