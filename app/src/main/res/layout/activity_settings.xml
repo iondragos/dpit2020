@@ -95,6 +95,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:itemTextAppearance="@style/Style_TextView"
+        app:headerLayout="@layout/layout_side_menu_header"
         app:menu="@menu/layout_side_menu"></com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
