@@ -47,7 +47,7 @@ public class ObjectsThatWillBeDisinfectedListMainPageAdapter extends ArrayAdapte
         Button objectsThatWillBeDisinfectedListMainPageRemove = convertView.findViewById(R.id.objectsThatWillBeDisinfectedListMainPageRemove);
 
         ownedObjectsListMainPageName.setText(ownedObjectName);
-        ownedObjectsListMainPageDetailes.setText("Disinfection time: " + ownedObjectDisinfectionTime);
+        ownedObjectsListMainPageDetailes.setText("Disinfection time: " + calculateMinutesSeconds(ownedObjectDisinfectionTime));
 
         final OwnedObject ownedObjectRemoved = getItem(position);
         objectsThatWillBeDisinfectedListMainPageRemove.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +60,27 @@ public class ObjectsThatWillBeDisinfectedListMainPageAdapter extends ArrayAdapte
         });
 
         return convertView;
+    }
+
+    private String calculateMinutesSeconds(Integer disinfectionTime){
+        String minutesSeconds = "";
+        Integer minutes, seconds;
+
+        disinfectionTime /= 1000;
+
+        minutes = disinfectionTime / 60;
+        seconds = disinfectionTime % 60;
+
+
+        if(seconds != 0 && minutes != 0){
+            minutesSeconds = minutes + "m " + seconds + "s";
+        }else if(seconds != 0 && minutes == 0){
+            minutesSeconds = seconds + "s";
+        }else if(seconds == 0 && minutes != 0){
+            minutesSeconds = minutes + "m";
+        }
+
+        return  minutesSeconds;
     }
 
     public interface RemoveButtonListener

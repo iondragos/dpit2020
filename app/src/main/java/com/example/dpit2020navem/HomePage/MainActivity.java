@@ -453,7 +453,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         }
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.logo_white_app)
+                .setSmallIcon(R.drawable.logo_white_notifications)
                 .setContentTitle("title")
                 .setContentText("message")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
