@@ -388,17 +388,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void setUpDistanceTextView(){
         distance = findViewById(R.id.distance);
 
-        MyMarker homeMarker = markersDatabase.getMarkersByMarkerId(1L);
-        final LatLng home = new LatLng(homeMarker.getMarkerLatitude(), homeMarker.getMarkerLongitude());
-
-
-
+        
         handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
 
                 if(currentLocation != null){
+                    MyMarker homeMarker = markersDatabase.getMarkersByMarkerId(1L);
+                    final LatLng home = new LatLng(homeMarker.getMarkerLatitude(), homeMarker.getMarkerLongitude());
+
                     getDeviceLocation2();
                     location = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
                     distance.setText(String.valueOf(calculationByDistance(home, location)));

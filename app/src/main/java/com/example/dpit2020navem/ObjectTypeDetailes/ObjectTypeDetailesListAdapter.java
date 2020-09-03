@@ -1,5 +1,6 @@
 package com.example.dpit2020navem.ObjectTypeDetailes;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -59,6 +60,7 @@ public class ObjectTypeDetailesListAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
         String headerTitle = (String)listType.get(i).getType();
@@ -72,6 +74,13 @@ public class ObjectTypeDetailesListAdapter extends BaseExpandableListAdapter {
         listHeaderType.setText(headerTitle);
         ImageView listHeaderPicture = (ImageView)view.findViewById(R.id.picture);
         listHeaderPicture.setImageResource(headerPicture);
+
+        if(b){
+            view.setBackgroundResource(android.R.color.transparent);
+        }else{
+            view.setBackgroundResource(R.color.white);
+        }
+
         return view;
     }
 
@@ -86,6 +95,7 @@ public class ObjectTypeDetailesListAdapter extends BaseExpandableListAdapter {
 
         TextView listChildDetail = (TextView)view.findViewById(R.id.detailes);
         listChildDetail.setText(childText);
+
         return view;
     }
 
