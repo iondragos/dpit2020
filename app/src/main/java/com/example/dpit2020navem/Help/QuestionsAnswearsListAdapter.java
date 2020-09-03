@@ -68,8 +68,14 @@ public class QuestionsAnswearsListAdapter extends BaseExpandableListAdapter {
             view = inflater.inflate(R.layout.layout_help_activity_list_group,null);
         }
         TextView listHeaderQuestion = (TextView)view.findViewById(R.id.question);
-        listHeaderQuestion.setTypeface(null, Typeface.BOLD);
         listHeaderQuestion.setText(headerTitle);
+
+        if(b){
+            view.setBackgroundResource(android.R.color.transparent);
+        }else{
+            view.setBackgroundResource(R.color.white);
+        }
+
         return view;
     }
 

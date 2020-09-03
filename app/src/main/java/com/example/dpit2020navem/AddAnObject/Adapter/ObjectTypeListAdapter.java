@@ -43,8 +43,29 @@ public class ObjectTypeListAdapter extends ArrayAdapter<ObjectType> {
 
         ivObjectTypePicture.setImageResource(objectTypePicture);
         tvObjectTypeName.setText(objectTypeName);
-        tvObjectTypeDisinfectionTime.setText("Disinfection time: " + objectTypeDisinfectionTime + "seconds");
+        tvObjectTypeDisinfectionTime.setText("Disinfection time: " + calculateMinutesSeconds(objectTypeDisinfectionTime));
 
         return convertView;
+    }
+
+    private String calculateMinutesSeconds(Integer disinfectionTime){
+        String minutesSeconds = "";
+        Integer minutes, seconds;
+
+        disinfectionTime /= 1000;
+
+        minutes = disinfectionTime / 60;
+        seconds = disinfectionTime % 60;
+
+
+        if(seconds != 0 && minutes != 0){
+            minutesSeconds = minutes + "m " + seconds + "s";
+        }else if(seconds != 0 && minutes == 0){
+            minutesSeconds = seconds + "s";
+        }else if(seconds == 0 && minutes != 0){
+            minutesSeconds = minutes + "m";
+        }
+
+        return  minutesSeconds;
     }
 }
