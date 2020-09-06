@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:fontFamily="@font/linden_hill"
+    android:fontFamily="@font/agency"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
             android:background="@drawable/gradient_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            android:fontFamily="@font/linden_hill"
+            android:fontFamily="@font/agency"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +29,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="10dp"
-            android:fontFamily="@font/linden_hill"
+            android:fontFamily="@font/agency"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toEndOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
@@ -43,7 +43,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/menu_icon_white"
-            android:fontFamily="@font/linden_hill"
+            android:fontFamily="@font/agency"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +53,7 @@
             android:layout_width="192dp"
             android:layout_height="36dp"
             android:layout_centerHorizontal="true"
-            android:fontFamily="@font/linden_hill"
+            android:fontFamily="@font/agency"
             android:gravity="center"
             android:text="Map"
             android:textColor="#ffffff"
@@ -79,7 +79,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/rounded_button_color_5700d4"
-            android:fontFamily="@font/linden_hill"
+            android:fontFamily="@font/agency"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="Select this location as home"
@@ -96,7 +96,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/rounded_button_color_5700d4"
-            android:fontFamily="@font/linden_hill"
+            android:fontFamily="@font/agency"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="Cancel"
@@ -113,7 +113,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/rounded_button_color_5700d4"
-            android:fontFamily="@font/linden_hill"
+            android:fontFamily="@font/agency"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="Select current location as home"
@@ -137,7 +137,7 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/sideMenu"
-        android:fontFamily="@font/linden_hill"
+        android:fontFamily="@font/agency"
         app:itemIconTint="#000000"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

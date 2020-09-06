@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:adjustViewBounds="true"
     android:background="#FFFFFF"
-    android:fontFamily="@font/linden_hill"
+    android:fontFamily="@font/agency"
     android:scaleType="fitCenter"
     tools:context=".Intro.IntroActivity">
 
@@ -18,7 +18,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="25dp"
         android:background="@drawable/rounded_button_color_5700d4"
-        android:fontFamily="@font/linden_hill"
+        android:fontFamily="@font/agency"
         android:text="Skip"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +30,7 @@
         android:layout_height="50dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/rounded_button_color_5700d4"
-        android:fontFamily="@font/linden_hill"
+        android:fontFamily="@font/agency"
         android:text="Get Started"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"

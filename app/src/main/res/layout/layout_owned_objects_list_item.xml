@@ -30,7 +30,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/linden_hill"
+                android:fontFamily="@font/agency"
                 android:gravity="center_vertical"
                 android:padding="12sp"
                 android:textColor="#000000"
