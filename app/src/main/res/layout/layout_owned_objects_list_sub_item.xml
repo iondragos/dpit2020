@@ -16,7 +16,7 @@
                     android:id="@+id/ownedObjectName"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:fontFamily="@font/linden_hill"
+                    android:fontFamily="@font/agency"
                     android:text="Sub item title"
                     android:gravity="center_vertical"
                     android:textColor="#000000"

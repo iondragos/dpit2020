@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:fontFamily="@font/linden_hill">
+    android:fontFamily="@font/agency">
 
 
     <ImageView
@@ -16,7 +16,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="55"
-        android:fontFamily="@font/linden_hill"
+        android:fontFamily="@font/agency"
         android:gravity="center|center_horizontal|center_vertical"
         android:text="ImageView"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +30,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_weight="45"
-        android:fontFamily="@font/linden_hill"
+        android:fontFamily="@font/agency"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#000000"
@@ -44,7 +44,7 @@
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
-        android:fontFamily="@font/linden_hill"
+        android:fontFamily="@font/agency"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivObjectTypePicture"
