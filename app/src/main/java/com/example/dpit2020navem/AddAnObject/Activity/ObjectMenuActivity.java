@@ -8,10 +8,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -57,6 +59,7 @@ public class ObjectMenuActivity extends AppCompatActivity {
     Long newObjectId;
     String newObjectName;
     Handler handler;
+    TextView tvObjectType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +151,7 @@ public class ObjectMenuActivity extends AppCompatActivity {
 
     private void setUpObjectListAdapter(){
         database = new OwnedObjectsDatabase(this);
+        tvObjectType = findViewById(R.id.objectType);
         ownedObjectsListView = findViewById(R.id.lvObjectList);
         ownedObjectList = new ArrayList<>();
 
@@ -156,6 +160,8 @@ public class ObjectMenuActivity extends AppCompatActivity {
             objectType = (ObjectType) bundle.get("Object");
             ownedObjectList = database.getObjectsByObjectType(objectType.getObjectTypeName());
         }
+
+        tvObjectType.setText(objectType.getObjectTypeName() + " Addition");
 
         ObjectListAdapter adapter = new ObjectListAdapter(this, R.layout.layout_object_menu, ownedObjectList);
         ownedObjectsListView.setAdapter(adapter);
