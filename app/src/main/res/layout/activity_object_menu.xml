@@ -9,10 +9,11 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/objectMenuLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".HomePage.MainActivity"
-        app:itemTextAppearance="@style/Style_TextView">
+        app:itemTextAppearance="@style/Style_TextView"
+        tools:context=".HomePage.MainActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -34,6 +35,19 @@
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonAddAnObject"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/rounded_button_color_5700d4"
+            android:fontFamily="@font/agency"
+            android:text="ADD AN OBJECT"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/appLogo"
@@ -59,19 +73,6 @@
 
         </ListView>
 
-        <Button
-            android:id="@+id/buttonAddAnObject"
-            android:layout_width="160dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/rounded_button_color_5700d4"
-            android:fontFamily="@font/agency"
-            android:text="ADD AN OBJECT"
-            android:textColor="#ffffff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <TextView
             android:id="@+id/objectType"
             android:layout_width="192dp"
@@ -90,8 +91,8 @@
             android:id="@+id/layoutCreateObjectName"
             android:layout_width="270dp"
             android:layout_height="360dp"
-            android:elevation="100dp"
             android:background="@drawable/background_main_page_white"
+            android:elevation="100dp"
             app:itemTextAppearance="@style/Style_TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -118,11 +119,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="8dp"
+                android:backgroundTint="#000000"
                 android:fontFamily="@font/agency"
                 android:hint="Enter object name"
                 android:inputType="textCapWords"
                 android:textColor="#000000"
-                android:backgroundTint="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
