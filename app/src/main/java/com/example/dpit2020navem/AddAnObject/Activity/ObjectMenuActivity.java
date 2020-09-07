@@ -222,8 +222,7 @@ public class ObjectMenuActivity extends AppCompatActivity {
                 warning.setText("");
                 etObjectName.setText("");
 
-                /*int color = getResources().getColor(R.color.black);
-                int color50percent = ColorUtils.setAlphaComponent(color, 128);*/
+                
                 objectMenuLayout = findViewById(R.id.objectMenuLayout);
                 Drawable d = getResources().getDrawable(R.color.black);
                 d.setAlpha(120);
