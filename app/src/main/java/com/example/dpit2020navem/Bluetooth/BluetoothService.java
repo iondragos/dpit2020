@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.dpit2020navem.HomePage.MainActivity;
+
 import java.io.IOException;
 import java.util.UUID;
 
@@ -83,8 +85,8 @@ public class BluetoothService extends Service{
     }
 
     private String getDeviceMacAddress(){
-        //address = "00:19:08:35:F7:17";  //correct box address
-        address = "98:D3:61:FD:6E:16";
+        address = "00:19:08:35:F7:17";  //correct box address
+        //address = "98:D3:61:FD:6E:16";
         return  address;
     }
 
@@ -97,11 +99,7 @@ public class BluetoothService extends Service{
     public class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
     {
         private boolean ConnectSuccess = true;//if it's here, it's almost connected
-        Context context;
 
-        public ConnectBT(Context context) {
-            this.context = context;
-        }
 
         @Override
         protected void onPreExecute()
@@ -148,7 +146,7 @@ public class BluetoothService extends Service{
     }
 
     public void connectionBT(Context context){
-        new ConnectBT(context).execute();
+        new ConnectBT().execute();
     }
 
     private void Disconnect()
@@ -179,7 +177,7 @@ public class BluetoothService extends Service{
         }
     }
 
-    /*public String readBluetooth(){
+    public String readBluetooth(){
         String s = null;
 
         if (btSocket!=null)
@@ -191,9 +189,10 @@ public class BluetoothService extends Service{
             catch (IOException e)
             {
                 msg("Error");
+                connectionBT(null);
             }
         }
 
         return s;
-    }*/
+    }
 }

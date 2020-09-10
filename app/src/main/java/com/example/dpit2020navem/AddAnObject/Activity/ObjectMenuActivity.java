@@ -62,7 +62,8 @@ public class ObjectMenuActivity extends AppCompatActivity {
     String newObjectName;
     Handler handler;
     TextView tvObjectType;
-    ConstraintLayout objectMenuLayout;
+    ConstraintLayout transparentLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +137,9 @@ public class ObjectMenuActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        transparentLayout = findViewById(R.id.transparentLayout);
+        transparentLayout.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -222,13 +226,13 @@ public class ObjectMenuActivity extends AppCompatActivity {
                 warning.setText("");
                 etObjectName.setText("");
 
-                
-                objectMenuLayout = findViewById(R.id.objectMenuLayout);
-                Drawable d = getResources().getDrawable(R.color.black);
-                d.setAlpha(120);
-                objectMenuLayout.setBackgroundDrawable(d);
+
+                transparentLayout = findViewById(R.id.transparentLayout);
+                transparentLayout.setVisibility(View.VISIBLE);
                 layoutCreateObjectName.setVisibility(View.VISIBLE);
                 buttonAddAnObject.setVisibility(View.INVISIBLE);
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                buttonSideMenu.setEnabled(false);
 
                 buttonAddAnObjectWithName = findViewById(R.id.buttonAddAnObjectWithName);
 
@@ -277,10 +281,10 @@ public class ObjectMenuActivity extends AppCompatActivity {
                     closeKeyboard();
                     layoutCreateObjectName.setVisibility(View.INVISIBLE);
                     buttonAddAnObject.setVisibility(View.VISIBLE);
-                    objectMenuLayout = findViewById(R.id.objectMenuLayout);
-                    Drawable d = getResources().getDrawable(R.color.black);
-                    d.setAlpha(0);
-                    objectMenuLayout.setBackgroundDrawable(d);
+                    transparentLayout = findViewById(R.id.transparentLayout);
+                    transparentLayout.setVisibility(View.INVISIBLE);
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                    buttonSideMenu.setEnabled(true);
                 }
 
             }
@@ -310,10 +314,10 @@ public class ObjectMenuActivity extends AppCompatActivity {
             layoutCreateObjectName.setVisibility(View.INVISIBLE);
             buttonAddAnObject.setVisibility(View.VISIBLE);
             closeKeyboard();
-            objectMenuLayout = findViewById(R.id.objectMenuLayout);
-            Drawable d = getResources().getDrawable(R.color.black);
-            d.setAlpha(0);
-            objectMenuLayout.setBackgroundDrawable(d);
+            transparentLayout = findViewById(R.id.transparentLayout);
+            transparentLayout.setVisibility(View.INVISIBLE);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            buttonSideMenu.setEnabled(true);
         }else{
             finish();
         }
