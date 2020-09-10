@@ -127,11 +127,13 @@ public class HelpActivity extends AppCompatActivity {
         listQuestions.add("What should I do if the UVC light is not working?");
         listQuestions.add("What should I do if the box is not closing properly?");
         listQuestions.add("What can I do if an object type i need is not in the list?");
+        listQuestions.add("How many objects can I disinfect at one time?");
+        listQuestions.add("How can I connect my device to the box?");
         listQuestions.add("Who worked on this project?");
         listQuestions.add("How can I contact you?");
 
         List<String> list1 = new ArrayList<>();
-        list1.add("If the light is not working, try resetting the box multiple times and check that the led is not burnt. Otherwise, contact us.");
+        list1.add("If the light is not working, try resetting the box by unplugging it multiple times and check that the led is not burnt. Otherwise, contact us.");
 
         List<String> list2 = new ArrayList<>();
         list2.add("Check on the app that the box is opened and make sure the switch is not broken, in which case you should call us.");
@@ -140,33 +142,41 @@ public class HelpActivity extends AppCompatActivity {
         list3.add("Check the object type details, you can add your own object type with time.");
 
         List<String> list4 = new ArrayList<>();
-        list4.add("This app was made within the DPIT Association and Fortech by Team Navem, formed by:");
-        list4.add("-Ignat Alex");
-        list4.add("-Ion Dragos");
-        list4.add("-Abdallah Laith");
-        list4.add("-Vaduva Mara");
-        list4.add("-Hantig Lorena");
-        list4.add("-Ordean Mihnea");
-        list4.add("-Riger Agota (mentor)");
+        list4.add("You can disinfect as many objects as you want at one time, but make sure that they don't cover each other in order to benefit of an efficient disinfection.");
 
         List<String> list5 = new ArrayList<>();
-        list5.add("You can contact us via phone or mail:");
-        list5.add("Team mail: navem@navem.co");
-        list5.add("Individual mails:");
-        list5.add("ignatalex@navem.co");
-        list5.add("iondragos@navem.co");
-        list5.add("abdallahlaith@navem.co");
-        list5.add("vaduvamara@navem.co");
-        list5.add("hantiglorena@navem.co");
-        list5.add("ordeanmihnea@navem.co");
-        list5.add("rigeragota@navem.co");
-        list5.add("Phone number: +40746551087");
+        list5.add("Perform a standard bluetooth connection.");
+
+        List<String> list6 = new ArrayList<>();
+        list6.add("This app was made within the DPIT Association and Fortech by Team Navem, formed by:");
+        list6.add("-Ignat Alex");
+        list6.add("-Ion Dragos");
+        list6.add("-Abdallah Laith");
+        list6.add("-Vaduva Mara");
+        list6.add("-Hantig Lorena");
+        list6.add("-Ordean Mihnea");
+        list6.add("-Riger Agota (mentor)");
+
+        List<String> list7 = new ArrayList<>();
+        list7.add("You can contact us via phone or mail:");
+        list7.add("Team mail: navem@navem.co");
+        list7.add("Individual mails:");
+        list7.add("ignatalex@navem.co");
+        list7.add("iondragos@navem.co");
+        list7.add("abdallahlaith@navem.co");
+        list7.add("vaduvamara@navem.co");
+        list7.add("hantiglorena@navem.co");
+        list7.add("ordeanmihnea@navem.co");
+        list7.add("rigeragota@navem.co");
+        list7.add("Phone number: +40746551087");
 
         listAnswers.put(listQuestions.get(0),list1);
         listAnswers.put(listQuestions.get(1),list2);
         listAnswers.put(listQuestions.get(2),list3);
         listAnswers.put(listQuestions.get(3),list4);
         listAnswers.put(listQuestions.get(4),list5);
+        listAnswers.put(listQuestions.get(5),list6);
+        listAnswers.put(listQuestions.get(6),list7);
     }
 
 }

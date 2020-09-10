@@ -418,7 +418,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         }.start();
         startButton.setText("PAUSE");
 
-        sendOnChannel1();
+
     }
     public void stopTimer() {
         countDownTimer.cancel();
@@ -437,6 +437,10 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         timeLeftText += seconds;
 
         timeRemaining.setText(timeLeftText);
+        if (timeLeftMilliseconds == 0)
+        {
+            sendOnChannel1();
+        }
     }
 
     public void sendOnChannel1() {
