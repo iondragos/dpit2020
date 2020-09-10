@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:fontFamily="@font/linden_hill"
+    android:fontFamily="@font/agency"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,7 +54,7 @@
             android:textColor="#ffffff"
             android:gravity="center"
             android:layout_centerHorizontal="true"
-            android:fontFamily="@font/linden_hill"
+            android:fontFamily="@font/agency"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toStartOf="@+id/appLogo"
             app:layout_constraintStart_toEndOf="@+id/buttonSideMenu"
@@ -66,7 +66,7 @@
             android:layout_height="0dp"
             android:divider="@android:color/transparent"
             android:dividerHeight="1dp"
-            android:fontFamily="@font/linden_hill"
+            android:fontFamily="@font/agency"
             app:itemTextAppearance="@style/Style_TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,6 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        app:headerLayout="@layout/layout_side_menu_header"
         app:menu="@menu/layout_side_menu"></com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

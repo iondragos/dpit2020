@@ -4,14 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.ColorUtils;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -57,6 +61,9 @@ public class ObjectMenuActivity extends AppCompatActivity {
     Long newObjectId;
     String newObjectName;
     Handler handler;
+    TextView tvObjectType;
+    ConstraintLayout transparentLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +137,9 @@ public class ObjectMenuActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        transparentLayout = findViewById(R.id.transparentLayout);
+        transparentLayout.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -148,6 +158,7 @@ public class ObjectMenuActivity extends AppCompatActivity {
 
     private void setUpObjectListAdapter(){
         database = new OwnedObjectsDatabase(this);
+        tvObjectType = findViewById(R.id.objectType);
         ownedObjectsListView = findViewById(R.id.lvObjectList);
         ownedObjectList = new ArrayList<>();
 
@@ -156,6 +167,8 @@ public class ObjectMenuActivity extends AppCompatActivity {
             objectType = (ObjectType) bundle.get("Object");
             ownedObjectList = database.getObjectsByObjectType(objectType.getObjectTypeName());
         }
+
+        tvObjectType.setText(objectType.getObjectTypeName() + " Addition");
 
         ObjectListAdapter adapter = new ObjectListAdapter(this, R.layout.layout_object_menu, ownedObjectList);
         ownedObjectsListView.setAdapter(adapter);
@@ -213,8 +226,13 @@ public class ObjectMenuActivity extends AppCompatActivity {
                 warning.setText("");
                 etObjectName.setText("");
 
+
+                transparentLayout = findViewById(R.id.transparentLayout);
+                transparentLayout.setVisibility(View.VISIBLE);
                 layoutCreateObjectName.setVisibility(View.VISIBLE);
                 buttonAddAnObject.setVisibility(View.INVISIBLE);
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                buttonSideMenu.setEnabled(false);
 
                 buttonAddAnObjectWithName = findViewById(R.id.buttonAddAnObjectWithName);
 
@@ -263,6 +281,10 @@ public class ObjectMenuActivity extends AppCompatActivity {
                     closeKeyboard();
                     layoutCreateObjectName.setVisibility(View.INVISIBLE);
                     buttonAddAnObject.setVisibility(View.VISIBLE);
+                    transparentLayout = findViewById(R.id.transparentLayout);
+                    transparentLayout.setVisibility(View.INVISIBLE);
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                    buttonSideMenu.setEnabled(true);
                 }
 
             }
@@ -292,6 +314,10 @@ public class ObjectMenuActivity extends AppCompatActivity {
             layoutCreateObjectName.setVisibility(View.INVISIBLE);
             buttonAddAnObject.setVisibility(View.VISIBLE);
             closeKeyboard();
+            transparentLayout = findViewById(R.id.transparentLayout);
+            transparentLayout.setVisibility(View.INVISIBLE);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            buttonSideMenu.setEnabled(true);
         }else{
             finish();
         }

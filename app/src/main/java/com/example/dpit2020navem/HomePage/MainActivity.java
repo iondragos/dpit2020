@@ -77,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     boolean mBounded;
     private NotificationManager notificationManager;
     PendingIntent pendingIntent;
+    Handler handlerBluetooth;
+    TextView textViewTitle;
 
 
     @Override
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         setContentView(R.layout.activity_main);
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        textViewTitle = findViewById(R.id.textViewTitle);
 
         setUpSideMenu();
         openSideMenu();
@@ -94,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         openCloseObjectsThatWillBeDisinfectedListAdapter();
         changeBoxState();
         setUpTimer();
+        //readBluetooth();
 
     }
 
@@ -443,6 +447,26 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         }
     }
 
+    public void readBluetooth(){
+        handlerBluetooth = new Handler();
+        handlerBluetooth.post(new Runnable() {
+            @Override
+            public void run() {
+                String s = null;
+
+                if(bluetoothService != null){
+                    s = bluetoothService.readBluetooth();
+                }
+
+                if(s != null){
+                    textViewTitle.setText(s);
+                }
+
+                handlerBluetooth.postDelayed(this, 100);
+            }
+        });
+    }
+
     public void sendOnChannel1() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -457,7 +481,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         }
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.logo_white_app)
+                .setSmallIcon(R.drawable.logo_white_notifications)
                 .setContentTitle("title")
                 .setContentText("message")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)

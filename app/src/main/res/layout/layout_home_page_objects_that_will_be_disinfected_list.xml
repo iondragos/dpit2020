@@ -33,7 +33,7 @@
         android:id="@+id/objectsThatWillBeDisinfectedListMainPageRemove"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:background="@android:drawable/presence_offline"
+        android:background="@drawable/remove_item"
         android:textSize="8sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

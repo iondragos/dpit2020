@@ -47,7 +47,7 @@ public class OwnedObjectsListMainPageAdapter extends ArrayAdapter<OwnedObject> {
         Button ownedObjectsListMainPageAdd = convertView.findViewById(R.id.ownedObjectsListMainPageAdd);
 
         ownedObjectsListMainPageName.setText(ownedObjectName);
-        ownedObjectsListMainPageDetailes.setText("Disinfection time: " + ownedObjectDisinfectionTime);
+        ownedObjectsListMainPageDetailes.setText("Disinfection time: " + calculateMinutesSeconds(ownedObjectDisinfectionTime));
 
         final OwnedObject ownedObjectAdded = getItem(position);
         ownedObjectsListMainPageAdd.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +60,27 @@ public class OwnedObjectsListMainPageAdapter extends ArrayAdapter<OwnedObject> {
         });
 
         return convertView;
+    }
+
+    private String calculateMinutesSeconds(Integer disinfectionTime){
+        String minutesSeconds = "";
+        Integer minutes, seconds;
+
+        disinfectionTime /= 1000;
+
+        minutes = disinfectionTime / 60;
+        seconds = disinfectionTime % 60;
+
+
+        if(seconds != 0 && minutes != 0){
+            minutesSeconds = minutes + "m " + seconds + "s";
+        }else if(seconds != 0 && minutes == 0){
+            minutesSeconds = seconds + "s";
+        }else if(seconds == 0 && minutes != 0){
+            minutesSeconds = minutes + "m";
+        }
+
+        return  minutesSeconds;
     }
 
     public interface AddButtonListener

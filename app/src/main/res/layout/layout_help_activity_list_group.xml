@@ -7,7 +7,7 @@
         android:id="@+id/question"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fontFamily="@font/linden_hill"
+        android:fontFamily="@font/agency"
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
         android:paddingTop="8dp"
         android:paddingRight="8dp"

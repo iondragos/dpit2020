@@ -3,11 +3,13 @@ package com.example.dpit2020navem.OwnedObjectsList;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.dpit2020navem.AddAnObject.Activity.ObjectMenuActivity;
 import com.example.dpit2020navem.AddAnObject.Activity.ObjectTypeMenuActivity;
@@ -43,6 +46,12 @@ public class OwnedObjectsListActivity extends AppCompatActivity implements Owned
     List<ObjectType> ownedObjectsListByType;
     OwnedObjectsDatabase database;
     OwnedObjectsListItemAdapter ownedObjectsListItemAdapter;
+    ConstraintLayout transparentLayout;
+    ConstraintLayout deleteObject;
+    TextView tvYes;
+    TextView tvNo;
+    TextView tvQuestion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +61,21 @@ public class OwnedObjectsListActivity extends AppCompatActivity implements Owned
         setUpSideMenu();
         openSideMenu();
         setUpOwnedObjectsList();
+        setUpDeleteLayout();
 
     }
 
+    public void onBackPressed() {
+        if(deleteObject.getVisibility() == View.VISIBLE){
+            deleteObject.setVisibility(View.INVISIBLE);
+            transparentLayout = findViewById(R.id.transparentLayout);
+            transparentLayout.setVisibility(View.INVISIBLE);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            buttonSideMenu.setEnabled(true);
+        }else{
+            finish();
+        }
+    }
 
     private void setUpSideMenu(){
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -205,11 +226,57 @@ public class OwnedObjectsListActivity extends AppCompatActivity implements Owned
         return  ownedObjectsListByType;
     }
 
+    private void setUpDeleteLayout(){
+        transparentLayout = findViewById(R.id.transparentLayout);
+        transparentLayout.setVisibility(View.INVISIBLE);
+        deleteObject = findViewById(R.id.deleteObject);
+        deleteObject.setVisibility(View.INVISIBLE);
+
+        tvYes = findViewById(R.id.tvYes);
+        tvNo = findViewById(R.id.tvNo);
+        tvQuestion = findViewById(R.id.tvQuestion);
+    }
+
     @Override
     public void OnButtonDeleteClickListener(int position, OwnedObject ownedObjectDeleted) {
-        Long ownedObjectId = ownedObjectDeleted.getOwnedObjectId();
-        database.removeObjectFromOwnedObjectsDatabase(ownedObjectId);
+        if(deleteObject.getVisibility() == View.INVISIBLE){
+            transparentLayout = findViewById(R.id.transparentLayout);
+            transparentLayout.setVisibility(View.VISIBLE);
+            deleteObject.setVisibility(View.VISIBLE);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            buttonSideMenu.setEnabled(false);
 
-        setUpOwnedObjectsList();
+            tvQuestion.setText("Are you sure you want to delete " + ownedObjectDeleted.getOwnedObjectName() + "?");
+
+            final Long ownedObjectId = ownedObjectDeleted.getOwnedObjectId();
+
+            tvYes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    database.removeObjectFromOwnedObjectsDatabase(ownedObjectId);
+
+                    setUpOwnedObjectsList();
+                    deleteObject.setVisibility(View.INVISIBLE);
+
+                    transparentLayout = findViewById(R.id.transparentLayout);
+                    transparentLayout.setVisibility(View.INVISIBLE);
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                    buttonSideMenu.setEnabled(true);
+
+                }
+            });
+
+            tvNo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteObject.setVisibility(View.INVISIBLE);
+
+                    transparentLayout = findViewById(R.id.transparentLayout);
+                    transparentLayout.setVisibility(View.INVISIBLE);
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                    buttonSideMenu.setEnabled(true);
+                }
+            });
+        }
     }
 }

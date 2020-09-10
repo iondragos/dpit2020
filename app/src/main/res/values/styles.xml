@@ -9,7 +9,7 @@
     </style>
 
     <style name="Style_TextView">
-        <item name="fontFamily">@font/linden_hill</item>
+        <item name="fontFamily">@font/agency</item>
     </style>
 
 </resources>
