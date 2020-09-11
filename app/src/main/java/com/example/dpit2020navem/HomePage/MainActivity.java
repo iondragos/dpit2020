@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         openCloseObjectsThatWillBeDisinfectedListAdapter();
         changeBoxState();
         setUpTimer();
-        //readBluetooth();
+        readBluetooth();
 
     }
 
@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
              layoutSelectedObjectsList.setVisibility(View.INVISIBLE);
              startButton.setVisibility(View.VISIBLE);
         }else{
+            bluetoothService.closeShandrama();
             finish();
         }
     }
@@ -344,7 +345,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
                         open = false;
                         boxStatePicture.setImageResource(R.drawable.closed_case);
                         turnOnBox();
-                        startTimer();
+                        startTimer(boxDisinfectionTime());
                     }
                 }
                 else {
@@ -406,8 +407,8 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         bluetoothService.writeBluetooth("s" + sMinutes + sSeconds);
     }
 
-    public void startTimer() {
-        timeLeftMilliseconds = boxDisinfectionTime();
+    public void startTimer(Long disinfectionTime) {
+        timeLeftMilliseconds = disinfectionTime;
         countDownTimer = new CountDownTimer(timeLeftMilliseconds ,1000) {
             @Override
             public void onTick(long l) {
@@ -448,17 +449,23 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         handlerBluetooth.post(new Runnable() {
             @Override
             public void run() {
-                String s = null;
+                String s = "";
 
                 if(bluetoothService != null){
-                    s = bluetoothService.readBluetooth();
+                    s += bluetoothService.readBluetooth();
+                    if(s == "s" || s == "r" || s == "e"){
+                        for(int i = 1;i <= 5;i++){
+                            s += bluetoothService.readBluetooth();
+                        }
+                    }
                 }
+
 
                 if(s != null){
-                    textViewTitle.setText(s);
+                    textViewTitle.setText(s.toString());
                 }
 
-                handlerBluetooth.postDelayed(this, 100);
+                handlerBluetooth.postDelayed(this, 1000);
             }
         });
     }

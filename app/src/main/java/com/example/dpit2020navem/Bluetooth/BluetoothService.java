@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import com.example.dpit2020navem.HomePage.MainActivity;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 public class BluetoothService extends Service{
@@ -29,6 +30,7 @@ public class BluetoothService extends Service{
     boolean isBtConnected = false;
     String address;
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    InputStream inputStream;
     //private int NOTIFICATION = R.string.local_service_started;
 
     private final IBinder binder = new LocalBinder();
@@ -85,7 +87,8 @@ public class BluetoothService extends Service{
     }
 
     private String getDeviceMacAddress(){
-        address = "00:19:08:35:F7:17";  //correct box address
+        address = "00:19:08:35:F7:17";  //BIG box address
+        //address = "98:D3:71:FD:77:F2";  //SMALL box address
         //address = "98:D3:61:FD:6E:16";
         return  address;
     }
@@ -119,6 +122,7 @@ public class BluetoothService extends Service{
                     btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
                     BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
                     btSocket.connect();//start connection
+                    inputStream = btSocket.getInputStream();
                 }
             }
             catch (IOException e)
@@ -177,22 +181,34 @@ public class BluetoothService extends Service{
         }
     }
 
-    public String readBluetooth(){
+    public String readBluetooth() {
         String s = null;
 
-        if (btSocket!=null)
-        {
-            try
+        try {
+            if (btSocket!=null  && inputStream != null && inputStream.available()>0 )
             {
-                s = String.valueOf(btSocket.getInputStream().read());
+                try
+                {
+                    s = String.valueOf(btSocket.getInputStream().read());
+                }
+                catch (IOException e)
+                {
+                    msg("Error");
+                    connectionBT(null);
+                }
             }
-            catch (IOException e)
-            {
-                msg("Error");
-                connectionBT(null);
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return s;
+    }
+
+    public void closeShandrama(){
+        try {
+            btSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
