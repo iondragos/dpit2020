@@ -237,6 +237,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <TextView
+            android:id="@+id/tvInfo"
+            android:layout_width="243dp"
+            android:layout_height="32dp"
+            android:textAlignment="center"
+            android:textColor="#FF0000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeRemaining" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

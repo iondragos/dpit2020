@@ -87,8 +87,8 @@ public class BluetoothService extends Service{
     }
 
     private String getDeviceMacAddress(){
-        address = "00:19:08:35:F7:17";  //BIG box address
-        //address = "98:D3:71:FD:77:F2";  //SMALL box address
+        //address = "00:19:08:35:F7:17";  //BIG box address
+        address = "98:D3:71:FD:77:F2";  //SMALL box address
         //address = "98:D3:61:FD:6E:16";
         return  address;
     }
@@ -182,14 +182,27 @@ public class BluetoothService extends Service{
     }
 
     public String readBluetooth() {
-        String s = null;
+        String s = "";
+
+        int bytes = 0; // Number of bytes.
+        byte ch;
+
 
         try {
             if (btSocket!=null  && inputStream != null && inputStream.available()>0 )
             {
                 try
                 {
-                    s = String.valueOf(btSocket.getInputStream().read());
+                    while((ch = (byte) inputStream.read())!='x') {
+                        bytes++;
+                        s += Character.toString((char) ch);
+                    }
+
+
+                    int ascii = s.charAt(0);
+                    if(ascii == 1){
+                        s = s.substring(1);
+                    }
                 }
                 catch (IOException e)
                 {

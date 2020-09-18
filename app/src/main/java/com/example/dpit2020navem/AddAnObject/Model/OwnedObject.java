@@ -6,6 +6,7 @@ public class OwnedObject {
     private String ownedObjectName;
     private Integer ownedObjectDisinfectionTime;
     private Integer isOwnedObjectInBox;
+    private String lastTimeDisinfected;
 
 
     public Long getOwnedObjectId() {
@@ -46,5 +47,13 @@ public class OwnedObject {
 
     public void setIsOwnedObjectInBox(Integer ownedObjectInBox) {
         isOwnedObjectInBox = ownedObjectInBox;
+    }
+
+    public String getLastTimeDisinfected() {
+        return lastTimeDisinfected;
+    }
+
+    public void setLastTimeDisinfected(String lastTimeDisinfected) {
+        this.lastTimeDisinfected = lastTimeDisinfected;
     }
 }
