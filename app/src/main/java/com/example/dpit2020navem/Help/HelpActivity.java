@@ -129,6 +129,8 @@ public class HelpActivity extends AppCompatActivity {
         listQuestions.add("What can I do if an object type i need is not in the list?");
         listQuestions.add("How many objects can I disinfect at one time?");
         listQuestions.add("How can I connect my device to the box?");
+        listQuestions.add("What transformations can my objects suffer because of the UVC light?");
+        listQuestions.add("Are there any risks when I'm using the box?");
         listQuestions.add("Who worked on this project?");
         listQuestions.add("How can I contact you?");
 
@@ -148,27 +150,33 @@ public class HelpActivity extends AppCompatActivity {
         list5.add("Perform a standard bluetooth connection.");
 
         List<String> list6 = new ArrayList<>();
-        list6.add("This app was made within the DPIT Association and Fortech by Team Navem, formed by:");
-        list6.add("-Ignat Alex");
-        list6.add("-Ion Dragos");
-        list6.add("-Abdallah Laith");
-        list6.add("-Vaduva Mara");
-        list6.add("-Hantig Lorena");
-        list6.add("-Ordean Mihnea");
-        list6.add("-Riger Agota (mentor)");
+        list6.add("Only plastic objects can suffer a slight discoloration.");
 
         List<String> list7 = new ArrayList<>();
-        list7.add("You can contact us via phone or mail:");
-        list7.add("Team mail: navem@navem.co");
-        list7.add("Individual mails:");
-        list7.add("ignatalex@navem.co");
-        list7.add("iondragos@navem.co");
-        list7.add("abdallahlaith@navem.co");
-        list7.add("vaduvamara@navem.co");
-        list7.add("hantiglorena@navem.co");
-        list7.add("ordeanmihnea@navem.co");
-        list7.add("rigeragota@navem.co");
-        list7.add("Phone number: +40746551087");
+        list7.add("No, as long as you don't expose yourself to the UVC light.");
+
+        List<String> list8 = new ArrayList<>();
+        list8.add("This app was made within the DPIT Association and Fortech by Team Navem, formed by:");
+        list8.add("-Ignat Alex");
+        list8.add("-Ion Dragos");
+        list8.add("-Abdallah Laith");
+        list8.add("-Vaduva Mara");
+        list8.add("-Hantig Lorena");
+        list8.add("-Ordean Mihnea");
+        list8.add("-Riger Agota (mentor)");
+
+        List<String> list9 = new ArrayList<>();
+        list9.add("You can contact us via phone or mail:");
+        list9.add("Team mail: navem@navem.co");
+        list9.add("Individual mails:");
+        list9.add("ignatalex@navem.co");
+        list9.add("iondragos@navem.co");
+        list9.add("abdallahlaith@navem.co");
+        list9.add("vaduvamara@navem.co");
+        list9.add("hantiglorena@navem.co");
+        list9.add("ordeanmihnea@navem.co");
+        list9.add("rigeragota@navem.co");
+        list9.add("Phone number: +40746551087");
 
         listAnswers.put(listQuestions.get(0),list1);
         listAnswers.put(listQuestions.get(1),list2);
@@ -177,6 +185,8 @@ public class HelpActivity extends AppCompatActivity {
         listAnswers.put(listQuestions.get(4),list5);
         listAnswers.put(listQuestions.get(5),list6);
         listAnswers.put(listQuestions.get(6),list7);
+        listAnswers.put(listQuestions.get(7),list8);
+        listAnswers.put(listQuestions.get(8),list9);
     }
 
 }
