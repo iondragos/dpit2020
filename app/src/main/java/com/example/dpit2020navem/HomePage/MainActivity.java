@@ -23,6 +23,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.Layout;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +39,8 @@ import com.example.dpit2020navem.AddAnObject.Model.OwnedObject;
 import com.example.dpit2020navem.Bluetooth.BluetoothService;
 import com.example.dpit2020navem.Database.OwnedObjectsDatabase;
 import com.example.dpit2020navem.Help.HelpActivity;
+import com.example.dpit2020navem.Intro.IntroActivity;
+import com.example.dpit2020navem.Intro.WelcomeActivity;
 import com.example.dpit2020navem.ObjectTypeDetailes.ObjectTypeDetailesActivity;
 import com.example.dpit2020navem.OwnedObjectsList.OwnedObjectsListActivity;
 import com.example.dpit2020navem.R;
@@ -46,8 +49,12 @@ import com.example.dpit2020navem.UvcInfo.UvcInfoActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity implements OwnedObjectsListMainPageAdapter.AddButtonListener, ObjectsThatWillBeDisinfectedListMainPageAdapter.RemoveButtonListener{
@@ -79,6 +86,9 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     PendingIntent pendingIntent;
     Handler handlerBluetooth;
     TextView textViewTitle;
+    TextView tvInfo;
+    String s;
+    boolean timerOn;
 
 
     @Override
@@ -88,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         textViewTitle = findViewById(R.id.textViewTitle);
+        tvInfo = findViewById(R.id.tvInfo);
+        timerOn = true;
 
         setUpSideMenu();
         openSideMenu();
@@ -97,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         openCloseObjectsThatWillBeDisinfectedListAdapter();
         changeBoxState();
         setUpTimer();
-        //readBluetooth();
+        readBluetooth();
 
     }
 
@@ -109,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
              layoutSelectedObjectsList.setVisibility(View.INVISIBLE);
              startButton.setVisibility(View.VISIBLE);
         }else{
+            bluetoothService.closeShandrama();
             finish();
         }
     }
@@ -342,14 +355,14 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
                         Toast.makeText(MainActivity.this, "The box is empty.", Toast.LENGTH_SHORT).show();
                     }else{
                         open = false;
-                        boxStatePicture.setImageResource(R.drawable.closed_case);
                         turnOnBox();
-                        startTimer();
+
+                        startTimer(boxDisinfectionTime());
+
                     }
                 }
                 else {
                     open = true;
-                    boxStatePicture.setImageResource(R.drawable.opened_case);
                     turnOffBox();
                     stopTimer();
                 }
@@ -406,8 +419,8 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         bluetoothService.writeBluetooth("s" + sMinutes + sSeconds);
     }
 
-    public void startTimer() {
-        timeLeftMilliseconds = boxDisinfectionTime();
+    public void startTimer(Long disinfectionTime) {
+        timeLeftMilliseconds = disinfectionTime;
         countDownTimer = new CountDownTimer(timeLeftMilliseconds ,1000) {
             @Override
             public void onTick(long l) {
@@ -441,10 +454,6 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         timeLeftText += seconds;
 
         timeRemaining.setText(timeLeftText);
-        if (timeLeftMilliseconds == 0)
-        {
-            sendOnChannel1();
-        }
     }
 
     public void readBluetooth(){
@@ -452,19 +461,82 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         handlerBluetooth.post(new Runnable() {
             @Override
             public void run() {
-                String s = null;
+                s = "";
 
                 if(bluetoothService != null){
                     s = bluetoothService.readBluetooth();
                 }
 
-                if(s != null){
+                if(s != null && s.length() > 0){
+                    textViewTitle.setText("");
+                    Log.i(null,s);
                     textViewTitle.setText(s);
+                    boxCommands(s);
                 }
+
 
                 handlerBluetooth.postDelayed(this, 100);
             }
         });
+    }
+
+    public void boxCommands(String s){
+        if(s.charAt(0) == 'e'){
+            timeRemaining.setText("ERROR");
+            tvInfo.setText("There has been a problem. Please check out the help section.");
+        }
+
+        if(s.charAt(1) == '1'){
+            boxStatePicture.setImageResource(R.drawable.closed_case);
+        }else if(s.charAt(1) == '0'){
+            boxStatePicture.setImageResource(R.drawable.opened_case);
+        }
+
+        if(s.charAt(2) == 0 && s.charAt(3) == 0 && s.charAt(4) == 0 && s.charAt(5) == 0){
+            //sendOnChannel1();
+
+            //setLastDisinfected();
+
+            //ownedObjectsListMainPageAdapter.addAll(database.getObjectsByIsObjectInBox(0));
+            //ownedObjectsListMainPageAdapter.notifyDataSetChanged();
+            //objectsThatWillBeDisinfectedListMainPageAdapter.addAll(database.getObjectsByIsObjectInBox(1));
+            //objectsThatWillBeDisinfectedListMainPageAdapter.notifyDataSetChanged();
+        }
+
+    }
+
+    private Long getBoxTimeWhenStart(){
+        if(s != null && s.length() > 0){
+            if(s.charAt(1) == '1'){
+                if(s.charAt(0) == 'r'){
+                    Long time;
+                    int min, sec;
+                    min = (Integer.valueOf(s.charAt(2)) * 10) + Integer.valueOf(s.charAt(3));
+                    sec = (Integer.valueOf(s.charAt(4)) * 10) + Integer.valueOf(s.charAt(5));
+                    time = Long.valueOf((min *60 + sec) * 1000);
+
+                    return time;
+                }
+            }
+        }
+        return null;
+    }
+
+    private String getCurrentDatetime(){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyyhhmm");
+        String dateTime = simpleDateFormat.format(calendar.getTime());
+        return  dateTime;
+    }
+
+    private void setLastDisinfected(){
+        for(int i = 0 ; i < objectsThatWillBeDisinfectedList.size() ; i++){
+            OwnedObject ownedObject = objectsThatWillBeDisinfectedList.get(i);
+            database.removeObjectFromOwnedObjectsDatabase(ownedObject.getOwnedObjectId());
+            ownedObject.setIsOwnedObjectInBox(0);
+            ownedObject.setLastTimeDisinfected(getCurrentDatetime());
+            database.addToOwnedObjectsDatabase(ownedObject);
+        }
     }
 
     public void sendOnChannel1() {

@@ -76,92 +76,92 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/transparentLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#80000000">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/deleteObject"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginTop="260dp"
-        android:layout_marginBottom="260dp"
-        android:background="@drawable/background_main_page_white"
-        android:elevation="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tvYes"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginBottom="10dp"
-            android:clickable="true"
-            android:fontFamily="@font/agency"
-            android:gravity="center"
-            android:text="YES"
-            android:textColor="#000000"
-            android:textSize="20sp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/transparentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#80000000"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tvNo"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="10dp"
-            android:clickable="true"
-            android:fontFamily="@font/agency"
-            android:gravity="center"
-            android:text="NO"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/tvQuestion"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/agency"
-            android:gravity="center"
-            android:text="Text View"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/tvYes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="1dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/intro_description_color"
-            android:text="TextView"
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/deleteObject"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:background="@drawable/background_main_page_white"
+            android:elevation="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvNo"
-            app:layout_constraintStart_toEndOf="@+id/tvYes"
-            app:layout_constraintTop_toBottomOf="@+id/tvQuestion" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvYes"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginBottom="10dp"
+                android:clickable="true"
+                android:fontFamily="@font/agency"
+                android:gravity="center"
+                android:text="YES"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvNo"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                android:clickable="true"
+                android:fontFamily="@font/agency"
+                android:gravity="center"
+                android:text="NO"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tvQuestion"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/agency"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvYes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/intro_description_color"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvNo"
+                app:layout_constraintStart_toEndOf="@+id/tvYes"
+                app:layout_constraintTop_toBottomOf="@+id/tvQuestion" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

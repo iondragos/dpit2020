@@ -25,7 +25,7 @@ public class OwnedObjectsDatabase extends SQLiteAssetHelper {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
-        String[] sqlSelect = {"ObjectId", "ObjectType", "ObjectName", "ObjectDisinfectionTime", "IsObjectInBox"};
+        String[] sqlSelect = {"ObjectId", "ObjectType", "ObjectName", "ObjectDisinfectionTime", "IsObjectInBox", "LastTimeDisinfected"};
         String sqlTable = "OwnedObjectsDetail";
 
         qb.setTables(sqlTable);
@@ -51,18 +51,20 @@ public class OwnedObjectsDatabase extends SQLiteAssetHelper {
         ownedObject.setOwnedObjectName(c.getString(c.getColumnIndex("ObjectName")));
         ownedObject.setOwnedObjectDisinfectionTime(c.getInt(c.getColumnIndex("ObjectDisinfectionTime")));
         ownedObject.setIsOwnedObjectInBox(c.getInt(c.getColumnIndex("IsObjectInBox")));
+        ownedObject.setLastTimeDisinfected(c.getString(c.getColumnIndex("LastTimeDisinfected")));
 
         return ownedObject;
     }
 
     public void addToOwnedObjectsDatabase(OwnedObject ownedObject) {
         SQLiteDatabase db = getReadableDatabase();
-        String query = String.format("INSERT INTO OwnedObjectsDetail(ObjectId,ObjectType,ObjectName,ObjectDisinfectionTime,IsObjectInBox) VALUES('%s','%s','%s','%s','%s');",
+        String query = String.format("INSERT INTO OwnedObjectsDetail(ObjectId,ObjectType,ObjectName,ObjectDisinfectionTime,IsObjectInBox,LastTimeDisinfected) VALUES('%s','%s','%s','%s','%s','%s');",
                 ownedObject.getOwnedObjectId(),
                 ownedObject.getOwnedObjectType(),
                 ownedObject.getOwnedObjectName(),
                 ownedObject.getOwnedObjectDisinfectionTime(),
-                ownedObject.getIsOwnedObjectInBox());
+                ownedObject.getIsOwnedObjectInBox(),
+                ownedObject.getLastTimeDisinfected());
         db.execSQL(query);
     }
 
@@ -82,7 +84,7 @@ public class OwnedObjectsDatabase extends SQLiteAssetHelper {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
-        String[] sqlSelect = {"ObjectId", "ObjectType", "ObjectName", "ObjectDisinfectionTime","IsObjectInBox"};
+        String[] sqlSelect = {"ObjectId", "ObjectType", "ObjectName", "ObjectDisinfectionTime","IsObjectInBox","LastTimeDisinfected"};
         String sqlTable = "OwnedObjectsDetail";
 
         qb.setTables(sqlTable);
@@ -104,7 +106,7 @@ public class OwnedObjectsDatabase extends SQLiteAssetHelper {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
-        String[] sqlSelect = {"ObjectId", "ObjectType", "ObjectName", "ObjectDisinfectionTime","IsObjectInBox"};
+        String[] sqlSelect = {"ObjectId", "ObjectType", "ObjectName", "ObjectDisinfectionTime","IsObjectInBox","LastTimeDisinfected"};
         String sqlTable = "OwnedObjectsDetail";
 
         qb.setTables(sqlTable);
@@ -128,7 +130,7 @@ public class OwnedObjectsDatabase extends SQLiteAssetHelper {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
-        String[] sqlSelect = {"ObjectId", "ObjectType", "ObjectName", "ObjectDisinfectionTime","IsObjectInBox"};
+        String[] sqlSelect = {"ObjectId", "ObjectType", "ObjectName", "ObjectDisinfectionTime","IsObjectInBox","LastTimeDisinfected"};
         String sqlTable = "OwnedObjectsDetail";
 
         qb.setTables(sqlTable);

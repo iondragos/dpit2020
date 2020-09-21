@@ -76,7 +76,7 @@ public class ObjectTypeDetailesListAdapter extends BaseExpandableListAdapter {
         listHeaderPicture.setImageResource(headerPicture);
 
         if(b){
-            view.setBackgroundResource(android.R.color.transparent);
+            view.setBackgroundResource(R.color.gray);
         }else{
             view.setBackgroundResource(R.color.white);
         }

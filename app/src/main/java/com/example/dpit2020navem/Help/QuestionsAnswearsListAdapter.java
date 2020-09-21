@@ -71,7 +71,7 @@ public class QuestionsAnswearsListAdapter extends BaseExpandableListAdapter {
         listHeaderQuestion.setText(headerTitle);
 
         if(b){
-            view.setBackgroundResource(android.R.color.transparent);
+            view.setBackgroundResource(R.color.gray);
         }else{
             view.setBackgroundResource(R.color.white);
         }

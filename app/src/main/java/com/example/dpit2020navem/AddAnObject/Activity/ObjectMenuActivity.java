@@ -36,7 +36,9 @@ import com.example.dpit2020navem.Settings.SettingsActivity;
 import com.example.dpit2020navem.UvcInfo.UvcInfoActivity;
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ObjectMenuActivity extends AppCompatActivity {
@@ -241,6 +243,13 @@ public class ObjectMenuActivity extends AppCompatActivity {
         });
     }
 
+    private String getCurrentDatetime(){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyyhhmm");
+        String dateTime = simpleDateFormat.format(calendar.getTime());
+        return  dateTime;
+    }
+
     private void addAnObject(){
         buttonAddAnObjectWithName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,6 +280,7 @@ public class ObjectMenuActivity extends AppCompatActivity {
                     ownedObject.setOwnedObjectName(newObjectName);
                     ownedObject.setOwnedObjectDisinfectionTime(objectType.getObjectTypeDisinfectionTime());
                     ownedObject.setIsOwnedObjectInBox(0);
+                    ownedObject.setLastTimeDisinfected(getCurrentDatetime());
 
                     database.addToOwnedObjectsDatabase(ownedObject);
 
