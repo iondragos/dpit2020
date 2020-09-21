@@ -87,8 +87,8 @@ public class BluetoothService extends Service{
     }
 
     private String getDeviceMacAddress(){
-        //address = "00:19:08:35:F7:17";  //BIG box address
-        address = "98:D3:71:FD:77:F2";  //SMALL box address
+        address = "00:19:08:35:F7:17";  //BIG box address
+        //address = "98:D3:71:FD:77:F2";  //SMALL box address
         //address = "98:D3:61:FD:6E:16";
         return  address;
     }

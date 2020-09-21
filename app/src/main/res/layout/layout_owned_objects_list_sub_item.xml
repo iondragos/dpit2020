@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="66dp"
+        android:layout_height="70dp"
         android:orientation="vertical"
         android:paddingLeft="12dp"
         android:paddingTop="12dp"
@@ -41,7 +41,7 @@
         <TextView
             android:id="@+id/lastTimeDisinfected"
             android:layout_width="0dp"
-            android:layout_height="18dp"
+            android:layout_height="22dp"
             android:fontFamily="@font/agency"
             android:text="Last time disinfected"
             android:textSize="16sp"

@@ -127,31 +127,31 @@ public class OwnedObjectsListSubItemAdapter extends RecyclerView.Adapter<OwnedOb
             }else{
                 if(monthsBetween > 0){
                     if(monthsBetween == 1){
-                        return "Disinfected:" + monthsBetween + "month ago";
+                        return "Disinfected: " + monthsBetween + " month ago";
                     }else{
-                        return "Disinfected:" + monthsBetween + "months ago";
+                        return "Disinfected: " + monthsBetween + " months ago";
                     }
 
                 }else{
                     if(daysBetween > 1){
                         if(daysBetween == 1){
-                            return "Disinfected:" + daysBetween + "day ago";
+                            return "Disinfected: " + daysBetween + " day ago";
                         }else{
-                            return "Disinfected:" + daysBetween + "days ago";
+                            return "Disinfected: " + daysBetween + " days ago";
                         }
                     }else{
                         if(hoursBetween > 1){
                             if(hoursBetween == 1){
-                                return "Disinfected:" + daysBetween + "hour ago";
+                                return "Disinfected: " + hoursBetween + " hour ago";
                             }else{
-                                return "Disinfected:" + daysBetween + "hours ago";
+                                return "Disinfected: " + hoursBetween + " hours ago";
                             }
                         }else{
                             if(minutesBetween > 1){
                                 if(minutesBetween == 1){
-                                    return "Disinfected:" + daysBetween + "minutes ago";
+                                    return "Disinfected: " + minutesBetween + " minutes ago";
                                 }else{
-                                    return "Disinfected:" + daysBetween + "minute ago";
+                                    return "Disinfected: " + minutesBetween + " minute ago";
                                 }
                             }else{
                                 return "Disinfected: few seconds ago";
@@ -166,18 +166,18 @@ public class OwnedObjectsListSubItemAdapter extends RecyclerView.Adapter<OwnedOb
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void initializeDateTime(){
-        day = dateTime.charAt(0) * 10 + dateTime.charAt(1);
-        month = dateTime.charAt(2) * 10 + dateTime.charAt(3);
-        year = dateTime.charAt(4) * 1000 + dateTime.charAt(5) * 100 + dateTime.charAt(6) * 10 + dateTime.charAt(7);
-        hour = dateTime.charAt(8) * 10 + dateTime.charAt(9);
-        minute = dateTime.charAt(10) * 10 + dateTime.charAt(11);
+        day = (dateTime.charAt(0) - '0')* 10 + (dateTime.charAt(1)- '0');
+        month = (dateTime.charAt(2) - '0')* 10 + (dateTime.charAt(3)- '0');
+        year = (dateTime.charAt(4) - '0')* 1000 + (dateTime.charAt(5) - '0')* 100 + (dateTime.charAt(6) - '0')* 10 + (dateTime.charAt(7)- '0');
+        hour = (dateTime.charAt(8) - '0')* 10 + (dateTime.charAt(9) - '0');
+        minute = (dateTime.charAt(10) - '0')* 10 + (dateTime.charAt(11) - '0');
 
         String currentDateTime = getCurrentDatetime();
-        currentDay = currentDateTime.charAt(0) * 10 + currentDateTime.charAt(1);
-        currentMonth = currentDateTime.charAt(2) * 10 + currentDateTime.charAt(3);
-        currentYear = currentDateTime.charAt(4) * 1000 + currentDateTime.charAt(5) * 100 + currentDateTime.charAt(6) * 10 + currentDateTime.charAt(7);
-        currentHour = currentDateTime.charAt(8) * 10 + currentDateTime.charAt(9);
-        currentMinute = currentDateTime.charAt(10) * 10 + currentDateTime.charAt(11);
+        currentDay = (currentDateTime.charAt(0) - '0')* 10 + (currentDateTime.charAt(1) - '0');
+        currentMonth = (currentDateTime.charAt(2) - '0')* 10 + (currentDateTime.charAt(3) - '0');
+        currentYear = (currentDateTime.charAt(4) - '0')* 1000 + (currentDateTime.charAt(5) - '0')* 100 + (currentDateTime.charAt(6) - '0')* 10 + (currentDateTime.charAt(7) - '0');
+        currentHour = (currentDateTime.charAt(8) - '0')* 10 + (currentDateTime.charAt(9) - '0');
+        currentMinute = (currentDateTime.charAt(10) - '0')* 10 + (currentDateTime.charAt(11) - '0');
 
         LocalDate dateBefore = LocalDate.of(year, month, day);
         LocalDate dateAfter = LocalDate.of(currentYear, currentMonth, currentDay);

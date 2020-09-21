@@ -385,7 +385,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         return  disinfectionTime;
     }
 
-    private void setUpTimer(){/////////////////////functia pierdutaaaaaaa/////////////////////////////////
+    private void setUpTimer(){
         timeLeftMilliseconds = boxDisinfectionTime();
         updateTimer();
     }
