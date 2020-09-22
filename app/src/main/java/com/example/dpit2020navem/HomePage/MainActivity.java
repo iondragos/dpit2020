@@ -38,6 +38,8 @@ import com.example.dpit2020navem.AddAnObject.Model.ObjectType;
 import com.example.dpit2020navem.AddAnObject.Model.OwnedObject;
 import com.example.dpit2020navem.Bluetooth.BluetoothService;
 import com.example.dpit2020navem.Database.OwnedObjectsDatabase;
+import com.example.dpit2020navem.Database.UsefulStaff;
+import com.example.dpit2020navem.Database.UsefulStaffDatabase;
 import com.example.dpit2020navem.Help.HelpActivity;
 import com.example.dpit2020navem.Intro.IntroActivity;
 import com.example.dpit2020navem.Intro.WelcomeActivity;
@@ -89,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     TextView tvInfo;
     String s;
     boolean timerOn;
+    UsefulStaffDatabase usefulStaffDatabase;
+    UsefulStaff notificationOnOff;
 
 
     @Override
@@ -101,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         tvInfo = findViewById(R.id.tvInfo);
         timerOn = true;
 
+        setUpNotificationOn();
         setUpSideMenu();
         openSideMenu();
         setUpOwnedObjectsListAdapter();
@@ -123,6 +128,19 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         }else{
             bluetoothService.closeShandrama();
             finish();
+        }
+    }
+
+    private void setUpNotificationOn(){
+        usefulStaffDatabase = new UsefulStaffDatabase(this);
+        notificationOnOff = usefulStaffDatabase.getStuffById(1L);
+
+        if(notificationOnOff == null){
+            UsefulStaff ceva = new UsefulStaff();
+            ceva.setStuffId(1L);
+            ceva.setStuff("on");
+
+            usefulStaffDatabase.addToStuffDatabase(ceva);
         }
     }
 
@@ -492,7 +510,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
             boxStatePicture.setImageResource(R.drawable.opened_case);
         }
 
-        if(s.charAt(2) == 0 && s.charAt(3) == 0 && s.charAt(4) == 0 && s.charAt(5) == 0){
+        /*if(s.charAt(2) == 0 && s.charAt(3) == 0 && s.charAt(4) == 0 && s.charAt(5) == 0){
             //sendOnChannel1();
 
             //setLastDisinfected();
@@ -501,11 +519,11 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
             //ownedObjectsListMainPageAdapter.notifyDataSetChanged();
             //objectsThatWillBeDisinfectedListMainPageAdapter.addAll(database.getObjectsByIsObjectInBox(1));
             //objectsThatWillBeDisinfectedListMainPageAdapter.notifyDataSetChanged();
-        }
+        }*/
 
     }
 
-    private Long getBoxTimeWhenStart(){
+    /*private Long getBoxTimeWhenStart(){
         if(s != null && s.length() > 0){
             if(s.charAt(1) == '1'){
                 if(s.charAt(0) == 'r'){
@@ -520,7 +538,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
             }
         }
         return null;
-    }
+    }*/
 
     private String getCurrentDatetime(){
         Calendar calendar = Calendar.getInstance();
@@ -540,27 +558,32 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     }
 
     public void sendOnChannel1() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        usefulStaffDatabase = new UsefulStaffDatabase(this);
+        notificationOnOff = usefulStaffDatabase.getStuffById(1L);
 
-        String channelId = "channel_id_1";
+        if(notificationOnOff.getStuff().equals("on")){
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel1 = new NotificationChannel(channelId, "Timer Notification", NotificationManager.IMPORTANCE_DEFAULT);
-            channel1.setDescription("Sent when disinfection is completed");
-            notificationManager.createNotificationChannel(channel1);
+            String channelId = "channel_id_1";
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel channel1 = new NotificationChannel(channelId, "Timer Notification", NotificationManager.IMPORTANCE_DEFAULT);
+                channel1.setDescription("Sent when disinfection is completed");
+                notificationManager.createNotificationChannel(channel1);
+            }
+
+            NotificationCompat.Builder notification = new NotificationCompat.Builder(this, channelId)
+                    .setSmallIcon(R.drawable.logo_white_notifications)
+                    .setContentTitle("title")
+                    .setContentText("message")
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
+            notificationManager.notify(1, notification.build());
         }
-
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.logo_white_notifications)
-                .setContentTitle("title")
-                .setContentText("message")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
-        notificationManager.notify(1, notification.build());
     }
 
 }

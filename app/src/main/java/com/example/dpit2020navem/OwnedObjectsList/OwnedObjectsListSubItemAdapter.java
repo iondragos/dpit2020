@@ -133,21 +133,21 @@ public class OwnedObjectsListSubItemAdapter extends RecyclerView.Adapter<OwnedOb
                     }
 
                 }else{
-                    if(daysBetween > 1){
+                    if(daysBetween >= 1){
                         if(daysBetween == 1){
                             return "Disinfected: " + daysBetween + " day ago";
                         }else{
                             return "Disinfected: " + daysBetween + " days ago";
                         }
                     }else{
-                        if(hoursBetween > 1){
+                        if(hoursBetween >= 1){
                             if(hoursBetween == 1){
                                 return "Disinfected: " + hoursBetween + " hour ago";
                             }else{
                                 return "Disinfected: " + hoursBetween + " hours ago";
                             }
                         }else{
-                            if(minutesBetween > 1){
+                            if(minutesBetween >= 1){
                                 if(minutesBetween == 1){
                                     return "Disinfected: " + minutesBetween + " minutes ago";
                                 }else{

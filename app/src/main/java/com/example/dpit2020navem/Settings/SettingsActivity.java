@@ -26,6 +26,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,6 +35,8 @@ import android.widget.Toast;
 
 import com.example.dpit2020navem.AddAnObject.Activity.ObjectTypeMenuActivity;
 import com.example.dpit2020navem.Database.OwnedObjectsDatabase;
+import com.example.dpit2020navem.Database.UsefulStaff;
+import com.example.dpit2020navem.Database.UsefulStaffDatabase;
 import com.example.dpit2020navem.Help.HelpActivity;
 import com.example.dpit2020navem.HomePage.MainActivity;
 import com.example.dpit2020navem.Map.MapActivity;
@@ -53,9 +57,17 @@ public class SettingsActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView sideMenu;
-    Button buttonDeleteAllObjects;
+    TextView buttonDeleteAllObjects;
     OwnedObjectsDatabase database;
+    ConstraintLayout transparentLayout;
+    ConstraintLayout deleteObject;
+    TextView tvYes;
+    TextView tvNo;
+    TextView tvQuestion;
     Button buttonMap;
+    Switch notificationsSwitch;
+    UsefulStaffDatabase usefulStaffDatabase;
+    UsefulStaff notificationOnOff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +76,25 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         setUpSideMenu();
+        setUpDeleteLayout();
+        setUpSwitchButtonNotifications();
         openSideMenu();
         cleanOwnedObjectsList();
+        changeNotificationsStatus();
         openMap();
 
+    }
+
+    public void onBackPressed() {
+        if(deleteObject.getVisibility() == View.VISIBLE){
+            deleteObject.setVisibility(View.INVISIBLE);
+            transparentLayout = findViewById(R.id.transparentLayout);
+            transparentLayout.setVisibility(View.INVISIBLE);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            buttonSideMenu.setEnabled(true);
+        }else{
+            finish();
+        }
     }
 
     private void setUpSideMenu(){
@@ -133,6 +160,17 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
+    private void setUpDeleteLayout(){
+        transparentLayout = findViewById(R.id.transparentLayout);
+        transparentLayout.setVisibility(View.INVISIBLE);
+        deleteObject = findViewById(R.id.deleteObject);
+        deleteObject.setVisibility(View.INVISIBLE);
+
+        tvYes = findViewById(R.id.tvYes);
+        tvNo = findViewById(R.id.tvNo);
+        tvQuestion = findViewById(R.id.tvQuestion);
+    }
+
     private void cleanOwnedObjectsList(){
         database = new OwnedObjectsDatabase(this);
 
@@ -141,10 +179,90 @@ public class SettingsActivity extends AppCompatActivity {
         buttonDeleteAllObjects.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                database.cleanOwnedObjectsDatabase();
+
+                transparentLayout = findViewById(R.id.transparentLayout);
+                transparentLayout.setVisibility(View.VISIBLE);
+                deleteObject.setVisibility(View.VISIBLE);
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                buttonSideMenu.setEnabled(false);
+
+
+                tvYes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        database.cleanOwnedObjectsDatabase();
+
+                        deleteObject.setVisibility(View.INVISIBLE);
+
+                        transparentLayout = findViewById(R.id.transparentLayout);
+                        transparentLayout.setVisibility(View.INVISIBLE);
+                        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                        buttonSideMenu.setEnabled(true);
+
+                    }
+                });
+
+                tvNo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deleteObject.setVisibility(View.INVISIBLE);
+
+                        transparentLayout = findViewById(R.id.transparentLayout);
+                        transparentLayout.setVisibility(View.INVISIBLE);
+                        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                        buttonSideMenu.setEnabled(true);
+                    }
+                });
+            }
+        });
+
+
+    }
+
+    private void setUpSwitchButtonNotifications(){
+        notificationsSwitch = findViewById(R.id.notificationsSwitch);
+        usefulStaffDatabase = new UsefulStaffDatabase(this);
+        notificationOnOff = usefulStaffDatabase.getStuffById(1L);
+
+        if(notificationOnOff.getStuff().equals("on")){
+            notificationsSwitch.setChecked(true);
+            notificationsSwitch.setText("Turn off notifications");
+        }else{
+            notificationsSwitch.setChecked(false);
+            notificationsSwitch.setText("Turn on notifications");
+        }
+    }
+
+    private void changeNotificationsStatus(){
+        notificationsSwitch = findViewById(R.id.notificationsSwitch);
+        usefulStaffDatabase = new UsefulStaffDatabase(this);
+
+        notificationsSwitch.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                boolean on = ((Switch) v).isChecked();
+                if(on)
+                {
+                    notificationOnOff = usefulStaffDatabase.getStuffById(1L);
+                    usefulStaffDatabase.removeStuffFromStuffDatabase(notificationOnOff.getStuffId());
+                    notificationOnOff.setStuff("on");
+                    usefulStaffDatabase.addToStuffDatabase(notificationOnOff);
+
+                    notificationsSwitch.setText("Turn off notifications");
+                }
+                else
+                {
+                    notificationOnOff = usefulStaffDatabase.getStuffById(1L);
+                    usefulStaffDatabase.removeStuffFromStuffDatabase(notificationOnOff.getStuffId());
+                    notificationOnOff.setStuff("off");
+                    usefulStaffDatabase.addToStuffDatabase(notificationOnOff);
+
+                    notificationsSwitch.setText("Turn on notifications");
+                }
             }
         });
     }
+
 
     private void openMap(){
         buttonMap = findViewById(R.id.buttonMap);

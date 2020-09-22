@@ -12,5 +12,9 @@
         <item name="fontFamily">@font/agency</item>
     </style>
 
+    <style name="SwitchCompatTheme" >
+        <item name="colorControlActivated">@color/colorToolbar</item>
+    </style>
+
 </resources>
 

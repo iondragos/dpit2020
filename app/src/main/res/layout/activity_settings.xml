@@ -16,12 +16,17 @@
 
         <Switch
             android:id="@+id/notificationsSwitch"
-            android:layout_width="415dp"
-            android:layout_height="70dp"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:background="@color/white"
             android:fontFamily="@font/agency"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp"
             android:text="Notifications"
             android:textSize="24sp"
+            android:theme="@style/SwitchCompatTheme"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonDeleteAllObjects" />
 
@@ -60,13 +65,17 @@
             app:srcCompat="@drawable/logo_white_vector_circled"
             tools:ignore="VectorDrawableCompat" />
 
-        <Button
+        <TextView
             android:id="@+id/buttonDeleteAllObjects"
             android:layout_width="0dp"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:background="@color/white"
+            android:clickable="true"
             android:fontFamily="@font/agency"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
             android:text="Delete all Objects"
+            android:textColor="#000000"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -93,10 +102,29 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:text="map"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/line1"
+            android:layout_width="0dp"
+            android:layout_height="1.5dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonDeleteAllObjects" />
+
+        <TextView
+            android:id="@+id/line2"
+            android:layout_width="0dp"
+            android:layout_height="1.5dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/notificationsSwitch" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -196,13 +224,6 @@
         android:layout_gravity="start"
         app:itemTextAppearance="@style/Style_TextView"
         app:headerLayout="@layout/layout_side_menu_header"
-        app:menu="@menu/layout_side_menu">
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Switch" />
-    </com.google.android.material.navigation.NavigationView>
+        app:menu="@menu/layout_side_menu"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
