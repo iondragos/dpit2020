@@ -28,7 +28,7 @@
             android:fontFamily="@font/agency"
             android:gravity="center_vertical"
             android:textColor="#000000"
-            android:textSize="16dp"
+            android:textSize="18dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

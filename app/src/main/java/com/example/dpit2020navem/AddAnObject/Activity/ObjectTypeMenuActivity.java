@@ -172,12 +172,12 @@ public class ObjectTypeMenuActivity extends AppCompatActivity {
         createOwnedObjectList();
 
         objectTypeList = new ArrayList<>();
-        objectTypeList.add(new ObjectType("Phones",R.drawable.phone,10000,phonesList));
-        objectTypeList.add(new ObjectType("Wallets",R.drawable.wallet,20000,walletsList));
-        objectTypeList.add(new ObjectType("Keys",R.drawable.keys,30000,keysList));
-        objectTypeList.add(new ObjectType("Glasses",R.drawable.glasses,40000,glassesList));
-        objectTypeList.add(new ObjectType("Watches",R.drawable.watch,50000,watchesList));
-        objectTypeList.add(new ObjectType("Laptops",R.drawable.laptops,60000,laptopsList));
+        objectTypeList.add(new ObjectType("Phones",R.drawable.phone,50000,phonesList));
+        objectTypeList.add(new ObjectType("Wallets",R.drawable.wallet,30000,walletsList));
+        objectTypeList.add(new ObjectType("Keys",R.drawable.keys,35000,keysList));
+        objectTypeList.add(new ObjectType("Glasses",R.drawable.glasses,30000,glassesList));
+        objectTypeList.add(new ObjectType("Watches",R.drawable.watch,30000,watchesList));
+        objectTypeList.add(new ObjectType("Laptops",R.drawable.laptops,75000,laptopsList));
         objectTypeList.add(new ObjectType("Cameras",R.drawable.cameras,70000,camerasList));
         objectTypeList.add(new ObjectType("Headphones",R.drawable.headphones,60000,headphonesList));
         objectTypeList.add(new ObjectType("Mice",R.drawable.mice,60000,miceList));

@@ -154,12 +154,12 @@
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="155dp"
-                android:layout_height="62dp"
+                android:layout_width="192dp"
+                android:layout_height="54dp"
                 android:layout_marginTop="32dp"
                 android:fontFamily="@font/agency"
                 android:gravity="center"
-                android:text="Set object name"
+                android:text="SET OBJECT NAME"
                 android:textColor="#000000"
                 android:textSize="22sp"
                 android:textStyle="bold"

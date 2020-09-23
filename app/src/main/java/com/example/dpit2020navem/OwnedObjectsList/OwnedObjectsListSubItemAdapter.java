@@ -149,9 +149,9 @@ public class OwnedObjectsListSubItemAdapter extends RecyclerView.Adapter<OwnedOb
                         }else{
                             if(minutesBetween >= 1){
                                 if(minutesBetween == 1){
-                                    return "Disinfected: " + minutesBetween + " minutes ago";
-                                }else{
                                     return "Disinfected: " + minutesBetween + " minute ago";
+                                }else{
+                                    return "Disinfected: " + minutesBetween + " minutes ago";
                                 }
                             }else{
                                 return "Disinfected: few seconds ago";

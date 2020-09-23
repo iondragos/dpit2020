@@ -138,7 +138,10 @@ public class ObjectTypeDetailesActivity extends AppCompatActivity {
         listType.add(new ListHeader("Pens",R.drawable.pens));
 
         List<String> list1 = new ArrayList<>();
-        list1.add("phone detailes");
+        list1.add("- Disinfection time: 50 seconds\n" +
+                "- Material: metal, glass\n" +
+                "- Efficiency: 99.9999%\n" +
+                "- Explanation: Needed about 25 mJ/cm2  generated within 25 seconds, the leds can keep up to 20J for a second. With that known, up to 3 phones can be disinfected in 30 seconds, where we add 10 seconds at the start and 10 at the end for losses, errors and inefficiency.");
 
         List<String> list2 = new ArrayList<>();
         list2.add("wallet detailes");

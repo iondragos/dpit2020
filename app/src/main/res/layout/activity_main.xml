@@ -101,9 +101,9 @@
             android:background="@drawable/backgroud_main_page_gradient"
             android:fontFamily="@font/agency"
             android:gravity="center"
-            android:text="Select objects for disinfection"
+            android:text="Available objects"
             android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
@@ -119,9 +119,9 @@
             android:clickable="true"
             android:fontFamily="@font/agency"
             android:gravity="center"
-            android:text="See what objects will be disinfected"
+            android:text="Selected objects"
             android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/openOwnedObjectList" />
