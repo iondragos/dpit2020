@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 
 import com.example.dpit2020navem.HomePage.MainActivity;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
@@ -87,8 +88,8 @@ public class BluetoothService extends Service{
     }
 
     private String getDeviceMacAddress(){
-        address = "00:19:08:35:F7:17";  //BIG box address
-        //address = "98:D3:71:FD:77:F2";  //SMALL box address
+        //address = "00:19:08:35:F7:17";  //BIG box address
+        address = "98:D3:71:FD:77:F2";  //SMALL box address
         //address = "98:D3:61:FD:6E:16";
         return  address;
     }
@@ -193,16 +194,35 @@ public class BluetoothService extends Service{
             {
                 try
                 {
+                    Log.i(null, String.valueOf(inputStream.available()));
+
+                    while((ch = (byte) inputStream.read())!='x') {
+                        bytes++;
+                    }
+
                     while((ch = (byte) inputStream.read())!='x') {
                         bytes++;
                         s += Character.toString((char) ch);
                     }
 
 
-                    int ascii = s.charAt(0);
-                    if(ascii == 1){
-                        s = s.substring(1);
+
+                    try{
+                        int ascii = s.charAt(0);
+                        if(ascii == 1){
+                            s = s.substring(1);
+                        }
+                    }catch (Exception e){
+
+                        //msg("Error");
                     }
+
+
+
+                    while(inputStream.available() > 0){
+                        inputStream.read();
+                    }
+
                 }
                 catch (IOException e)
                 {

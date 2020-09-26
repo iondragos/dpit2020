@@ -1,4 +1,5 @@
 //mlc
+//fc cfr 1907 cluj
 package com.example.dpit2020navem.HomePage;
 
 import androidx.annotation.NonNull;
@@ -155,14 +156,14 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Toast.makeText(MainActivity.this, "Service is disconnected", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this, "Service is disconnected", Toast.LENGTH_SHORT).show();
             mBounded = false;
             bluetoothService = null;
         }
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            Toast.makeText(MainActivity.this, "Service is connected", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this, "Service is connected", Toast.LENGTH_SHORT).show();
             mBounded = true;
             BluetoothService.LocalBinder mLocalBinder = (BluetoothService.LocalBinder)service;
             bluetoothService = mLocalBinder.getBluetoothService();
@@ -374,15 +375,18 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
                     }else{
                         open = false;
                         turnOnBox();
+                        startButton.setText("PAUSE");
 
-                        startTimer(boxDisinfectionTime());
+                        //startTimer(boxDisinfectionTime());
 
                     }
                 }
                 else {
                     open = true;
                     turnOffBox();
-                    stopTimer();
+                    setUpTimer();
+                    startButton.setText("START");
+                    //stopTimer();
                 }
             }
         });
@@ -451,14 +455,11 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
 
             }
         }.start();
-        startButton.setText("PAUSE");
 
 
     }
     public void stopTimer() {
         countDownTimer.cancel();
-        setUpTimer();
-        startButton.setText("START");
     }
 
     public void updateTimer() {
@@ -483,6 +484,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
 
                 if(bluetoothService != null){
                     s = bluetoothService.readBluetooth();
+                    //Log.i(null, s);
                 }
 
                 if(s != null && s.length() > 0){
@@ -499,15 +501,29 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     }
 
     public void boxCommands(String s){
-        if(s.charAt(0) == 'e'){
-            timeRemaining.setText("ERROR");
-            tvInfo.setText("There has been a problem. Please check out the help section.");
-        }
+        try{
+            if(s.length() == 6){
+                if(s.charAt(0) == 'e'){
+                    timeRemaining.setText("ERROR");
+                    tvInfo.setText("There has been a problem. Please check out the help section.");
+                }
 
-        if(s.charAt(1) == '1'){
-            boxStatePicture.setImageResource(R.drawable.closed_case);
-        }else if(s.charAt(1) == '0'){
-            boxStatePicture.setImageResource(R.drawable.opened_case);
+                if(s.charAt(1) == '1'){
+                    boxStatePicture.setImageResource(R.drawable.closed_case);
+                }else if(s.charAt(1) == '0'){
+                    boxStatePicture.setImageResource(R.drawable.opened_case);
+                }
+
+                /*if(s.charAt(0) == 's' && s.charAt(1) == '1'){
+                    String time;
+                    time = String.valueOf(s.charAt(2) + s.charAt(3) + ":" + s.charAt(4) + s.charAt(5));
+                    timeRemaining.setText(time);
+                }*/
+            }
+
+        }catch (Exception e){
+
+            msg("a crapat");
         }
 
         /*if(s.charAt(2) == 0 && s.charAt(3) == 0 && s.charAt(4) == 0 && s.charAt(5) == 0){
@@ -521,6 +537,11 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
             //objectsThatWillBeDisinfectedListMainPageAdapter.notifyDataSetChanged();
         }*/
 
+    }
+
+    private void msg(String s)
+    {
+        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
     }
 
     /*private Long getBoxTimeWhenStart(){
