@@ -40,10 +40,10 @@
             android:id="@+id/startButton"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/rounded_button_color_5700d4"
-            android:text="START"
             android:fontFamily="@font/agency"
+            android:text="START"
             android:textColor="#ffffff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -77,12 +77,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:fontFamily="@font/seven_segment_bold"
             android:id="@+id/timeRemaining"
-            android:layout_width="184dp"
+            android:layout_width="300dp"
             android:layout_height="75dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:elevation="10dp"
+            android:fontFamily="@font/seven_segment_bold"
             android:gravity="center"
             android:textColor="#000000"
             android:textSize="50sp"
@@ -96,7 +96,7 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="30dp"
             android:background="@drawable/backgroud_main_page_gradient"
             android:fontFamily="@font/agency"
@@ -239,8 +239,8 @@
 
         <TextView
             android:id="@+id/tvInfo"
-            android:layout_width="243dp"
-            android:layout_height="32dp"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
             android:textAlignment="center"
             android:textColor="#FF0000"
             app:layout_constraintEnd_toEndOf="parent"

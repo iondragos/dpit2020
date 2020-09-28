@@ -9,23 +9,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Map.MapActivity"></activity>
-        <activity android:name=".Settings.SettingsActivity" />
-        <activity android:name=".Help.HelpActivity" />
-        <activity android:name=".UvcInfo.UvcInfoActivity" />
-        <activity android:name=".ObjectTypeDetailes.ObjectTypeDetailesActivity" />
-        <activity android:name=".OwnedObjectsList.OwnedObjectsListActivity" />
-        <activity android:name=".AddAnObject.Activity.ObjectMenuActivity" />
-        <activity android:name=".AddAnObject.Activity.ObjectTypeMenuActivity" />
-        <activity android:name=".Intro.WelcomeActivity" android:theme="@style/AppTheme">
+        <activity android:name=".Map.MapActivity"
+            android:screenOrientation="portrait" ></activity>
+        <activity android:name=".Settings.SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Help.HelpActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UvcInfo.UvcInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ObjectTypeDetailes.ObjectTypeDetailesActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".OwnedObjectsList.OwnedObjectsListActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".AddAnObject.Activity.ObjectMenuActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".AddAnObject.Activity.ObjectTypeMenuActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Intro.WelcomeActivity" android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Intro.IntroActivity" />
-        <activity android:name=".HomePage.MainActivity" />
+        <activity android:name=".Intro.IntroActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".HomePage.MainActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"

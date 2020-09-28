@@ -25,6 +25,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.text.Layout;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -92,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     TextView tvInfo;
     String s;
     boolean timerOn;
+    boolean timerRunning;
+    boolean errorBox;
     UsefulStaffDatabase usefulStaffDatabase;
     UsefulStaff notificationOnOff;
 
@@ -104,7 +107,9 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         textViewTitle = findViewById(R.id.textViewTitle);
         tvInfo = findViewById(R.id.tvInfo);
-        timerOn = true;
+        timerOn = false;
+        timerRunning = false;
+        errorBox = false;
 
         setUpNotificationOn();
         setUpSideMenu();
@@ -131,6 +136,15 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
             finish();
         }
     }
+
+    /*public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+            bluetoothService.closeShandrama();
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }*/
 
     private void setUpNotificationOn(){
         usefulStaffDatabase = new UsefulStaffDatabase(this);
@@ -206,26 +220,32 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
                 }else if(id == R.id.addAnObject){
                     Intent intent = new Intent(MainActivity.this, ObjectTypeMenuActivity.class);
                     startActivity(intent);
+                    bluetoothService.closeShandrama();
                     finish();
                 }else if(id == R.id.ownedObjectList) {
                     Intent intent = new Intent(MainActivity.this, OwnedObjectsListActivity.class);
                     startActivity(intent);
+                    bluetoothService.closeShandrama();
                     finish();
                 }else if(id == R.id.objectTypeDetailes) {
                     Intent intent = new Intent(MainActivity.this, ObjectTypeDetailesActivity.class);
                     startActivity(intent);
+                    bluetoothService.closeShandrama();
                     finish();
                 }else if(id == R.id.UVCinfo) {
                     Intent intent = new Intent(MainActivity.this, UvcInfoActivity.class);
                     startActivity(intent);
+                    bluetoothService.closeShandrama();
                     finish();
                 }else if(id == R.id.settings) {
                     Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                     startActivity(intent);
+                    bluetoothService.closeShandrama();
                     finish();
                 }else if(id == R.id.help) {
                     Intent intent = new Intent(MainActivity.this, HelpActivity.class);
                     startActivity(intent);
+                    bluetoothService.closeShandrama();
                     finish();
                 }
 
@@ -362,36 +382,38 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     private void changeBoxState(){
         startButton = findViewById(R.id.startButton);
         boxStatePicture = findViewById(R.id.boxStatePicture);
-        open = true;
+        open = false;
         boxStatePicture.setImageResource(R.drawable.opened_case);
         timeRemaining = findViewById(R.id.timeRemaining);
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(open == true) {
+                if(open == false) {
                     if(boxDisinfectionTime() == 0){
                         Toast.makeText(MainActivity.this, "The box is empty.", Toast.LENGTH_SHORT).show();
                     }else{
-                        open = false;
+                        open = true;
                         turnOnBox();
                         startButton.setText("PAUSE");
 
-                        //startTimer(boxDisinfectionTime());
+                        timerOn = true;
 
                     }
                 }
                 else {
-                    open = true;
-                    turnOffBox();
+                    timerRunning = false;
+                    stopTimer();
+                    open = false;
                     setUpTimer();
                     startButton.setText("START");
-                    //stopTimer();
+                    turnOffBox();
                 }
+
+                tvInfo.setText("");
             }
         });
     }
-
 
     private long boxDisinfectionTime(){
         database = new OwnedObjectsDatabase(this);
@@ -411,6 +433,61 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         timeLeftMilliseconds = boxDisinfectionTime();
         updateTimer();
     }
+
+    public void startTimer(Long disinfectionTime) {
+        timeLeftMilliseconds = disinfectionTime;
+        countDownTimer = new CountDownTimer(timeLeftMilliseconds ,1000) {
+            @Override
+            public void onTick(long l) {
+                timeLeftMilliseconds = l;
+                updateTimer();
+
+            }
+
+            @Override
+            public void onFinish() {
+                setLastDisinfected();
+                ownedObjectsListMainPageAdapter.clear();
+                objectsThatWillBeDisinfectedListMainPageAdapter.clear();
+                ownedObjectsListMainPageAdapter.addAll(database.getObjectsByIsObjectInBox(0));
+                ownedObjectsListMainPageAdapter.notifyDataSetChanged();
+                objectsThatWillBeDisinfectedListMainPageAdapter.addAll(database.getObjectsByIsObjectInBox(1));
+                objectsThatWillBeDisinfectedListMainPageAdapter.notifyDataSetChanged();
+
+                setUpTimer();
+                startButton.setText("START");
+                sendOnChannel1();
+            }
+        }.start();
+
+
+    }
+
+    public void stopTimer() {
+        countDownTimer.cancel();
+    }
+
+    public void updateTimer() {
+        int minutes = (int) timeLeftMilliseconds / 60000;
+        int seconds = (int) timeLeftMilliseconds % 60000 / 1000;
+        String timeLeftText = "";
+
+        if (minutes < 10) {
+            timeLeftText += "0";
+        }
+        timeLeftText += minutes;
+        timeLeftText += ":";
+        if (seconds < 10) {
+            timeLeftText += "0";
+        }
+        timeLeftText += seconds;
+
+        timeRemaining.setText(timeLeftText);
+    }
+
+
+
+
 
 
     private void turnOffBox()
@@ -441,40 +518,6 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
         bluetoothService.writeBluetooth("s" + sMinutes + sSeconds);
     }
 
-    public void startTimer(Long disinfectionTime) {
-        timeLeftMilliseconds = disinfectionTime;
-        countDownTimer = new CountDownTimer(timeLeftMilliseconds ,1000) {
-            @Override
-            public void onTick(long l) {
-                timeLeftMilliseconds = l;
-                updateTimer();
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        }.start();
-
-
-    }
-    public void stopTimer() {
-        countDownTimer.cancel();
-    }
-
-    public void updateTimer() {
-        int minutes = (int) timeLeftMilliseconds / 60000;
-        int seconds = (int) timeLeftMilliseconds % 60000 / 1000;
-        String timeLeftText;
-
-        timeLeftText = "" + minutes;
-        timeLeftText += " : ";
-        if (seconds < 10) timeLeftText += "0";
-        timeLeftText += seconds;
-
-        timeRemaining.setText(timeLeftText);
-    }
-
     public void readBluetooth(){
         handlerBluetooth = new Handler();
         handlerBluetooth.post(new Runnable() {
@@ -495,7 +538,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
                 }
 
 
-                handlerBluetooth.postDelayed(this, 100);
+                handlerBluetooth.postDelayed(this, 50);
             }
         });
     }
@@ -503,9 +546,28 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
     public void boxCommands(String s){
         try{
             if(s.length() == 6){
-                if(s.charAt(0) == 'e'){
+                if(s.charAt(0) == 'e' && errorBox == false){
+                    stopTimer();
+                    open = false;
+                    errorBox = true;
+                    startButton.setVisibility(View.INVISIBLE);
+                    startButton.setText("START");
                     timeRemaining.setText("ERROR");
                     tvInfo.setText("There has been a problem. Please check out the help section.");
+
+
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Do something after x seconds
+                            errorBox = false;
+                            setUpTimer();
+                            tvInfo.setText("");
+                            startButton.setVisibility(View.VISIBLE);
+                        }
+                    }, 7000);
+
                 }
 
                 if(s.charAt(1) == '1'){
@@ -514,28 +576,39 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
                     boxStatePicture.setImageResource(R.drawable.opened_case);
                 }
 
-                /*if(s.charAt(0) == 's' && s.charAt(1) == '1'){
-                    String time;
-                    time = String.valueOf(s.charAt(2) + s.charAt(3) + ":" + s.charAt(4) + s.charAt(5));
-                    timeRemaining.setText(time);
+
+
+                if(s.charAt(0) == 's' && s.charAt(1) == '1' && timerOn == true && errorBox == false){
+                    timerOn = false;
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Do something after x seconds
+                            timerRunning = true;
+                            startTimer(boxDisinfectionTime());
+                        }
+                    }, 2000);
+                }
+
+                if(s.charAt(0) == 'r' && s.charAt(1) == '0' && timerRunning == true){
+                    timerRunning = false;
+                    stopTimer();
+                    open = false;
+                    setUpTimer();
+                    startButton.setText("START");
+                }
+
+                /*
+                if(s.charAt(2) == '0' && s.charAt(3) == '0' && s.charAt(4) == '0' && s.charAt(5) == '0'){
+                    setUpTimer();
                 }*/
             }
 
         }catch (Exception e){
 
-            msg("a crapat");
+            //msg("a crapat");
         }
-
-        /*if(s.charAt(2) == 0 && s.charAt(3) == 0 && s.charAt(4) == 0 && s.charAt(5) == 0){
-            //sendOnChannel1();
-
-            //setLastDisinfected();
-
-            //ownedObjectsListMainPageAdapter.addAll(database.getObjectsByIsObjectInBox(0));
-            //ownedObjectsListMainPageAdapter.notifyDataSetChanged();
-            //objectsThatWillBeDisinfectedListMainPageAdapter.addAll(database.getObjectsByIsObjectInBox(1));
-            //objectsThatWillBeDisinfectedListMainPageAdapter.notifyDataSetChanged();
-        }*/
 
     }
 
@@ -597,8 +670,8 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
 
             NotificationCompat.Builder notification = new NotificationCompat.Builder(this, channelId)
                     .setSmallIcon(R.drawable.logo_white_notifications)
-                    .setContentTitle("title")
-                    .setContentText("message")
+                    .setContentTitle("Time's up!")
+                    .setContentText("You can now take your objects out of the box.")
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                     .setContentIntent(pendingIntent)
