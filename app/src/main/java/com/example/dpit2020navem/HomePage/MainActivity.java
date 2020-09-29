@@ -531,9 +531,7 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
                 }
 
                 if(s != null && s.length() > 0){
-                    textViewTitle.setText("");
                     Log.i(null,s);
-                    textViewTitle.setText(s);
                     boxCommands(s);
                 }
 
