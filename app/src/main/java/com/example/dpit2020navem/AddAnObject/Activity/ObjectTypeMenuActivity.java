@@ -178,14 +178,14 @@ public class ObjectTypeMenuActivity extends AppCompatActivity {
         objectTypeList.add(new ObjectType("Glasses",R.drawable.glasses,30000,glassesList));
         objectTypeList.add(new ObjectType("Watches",R.drawable.watch,30000,watchesList));
         objectTypeList.add(new ObjectType("Laptops",R.drawable.laptops,75000,laptopsList));
-        objectTypeList.add(new ObjectType("Cameras",R.drawable.cameras,70000,camerasList));
-        objectTypeList.add(new ObjectType("Headphones",R.drawable.headphones,60000,headphonesList));
-        objectTypeList.add(new ObjectType("Mice",R.drawable.mice,60000,miceList));
-        objectTypeList.add(new ObjectType("Chargers/Cables",R.drawable.chargers_cables,60000,chargersList));
-        objectTypeList.add(new ObjectType("Remotes/Joysticks",R.drawable.remotes_joysticks,60000,remotesList));
-        objectTypeList.add(new ObjectType("Accesories",R.drawable.accesories,60000,accesoriesList));
-        objectTypeList.add(new ObjectType("Books",R.drawable.books,60000,booksList));
-        objectTypeList.add(new ObjectType("Pens",R.drawable.pens,60000,pensList));
+        objectTypeList.add(new ObjectType("Cameras",R.drawable.cameras,55000,camerasList));
+        objectTypeList.add(new ObjectType("Headphones",R.drawable.headphones,25000,headphonesList));
+        objectTypeList.add(new ObjectType("Mice",R.drawable.mice,40000,miceList));
+        objectTypeList.add(new ObjectType("Chargers/Cables",R.drawable.chargers_cables,20000,chargersList));
+        objectTypeList.add(new ObjectType("Remotes/Joysticks",R.drawable.remotes_joysticks,50000,remotesList));
+        objectTypeList.add(new ObjectType("Accesories",R.drawable.accesories,20000,accesoriesList));
+        objectTypeList.add(new ObjectType("Books",R.drawable.books,30000,booksList));
+        objectTypeList.add(new ObjectType("Pens",R.drawable.pens,15000,pensList));
 
     }
 

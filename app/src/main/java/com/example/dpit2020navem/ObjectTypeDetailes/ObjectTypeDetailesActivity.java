@@ -139,48 +139,87 @@ public class ObjectTypeDetailesActivity extends AppCompatActivity {
 
         List<String> list1 = new ArrayList<>();
         list1.add("- Disinfection time: 50 seconds\n" +
-                "- Material: metal, glass\n" +
+                "- Material: metal, glass, plastic\n" +
                 "- Efficiency: 99.9999%\n" +
                 "- Explanation: Needed about 25 mJ/cm2  generated within 25 seconds, the leds can keep up to 20J for a second. With that known, up to 3 phones can be disinfected in 30 seconds, where we add 10 seconds at the start and 10 at the end for losses, errors and inefficiency.");
 
         List<String> list2 = new ArrayList<>();
-        list2.add("wallet detailes");
+        list2.add("- Disinfection time: 30 seconds\n" +
+                "- Material: leather, polyesther\n" +
+                "- Efficiency: 99%\n" +
+                "- Explanation: Needed about 25 mJ/cm2  generated within 25 seconds, the leds can keep up to 20J for a second. With that known, up to 3 wallets can be disinfected in 20 seconds, where we add 5 seconds at the start and 5 at the end for losses, errors and inefficiency. In case it is exposed too long, it can lead to a distaining.");
 
         List<String> list3 = new ArrayList<>();
-        list3.add("key detailes");
+        list3.add("- Disinfection time: 35 seconds\n" +
+                "- Material: metal\n" +
+                "- Efficiency: 99%\n" +
+                "- Explanation: Needed about 25 mJ/cm2  generated within 25 seconds, the leds can keep up to 20J for a second. With that known, up to 10 keys can be disinfected in 15 seconds, where we add 10 seconds at the start and 10 at the end for losses, errors and inefficiency.");
 
         List<String> list4 = new ArrayList<>();
-        list4.add("glasses detailes");
+        list4.add("- Disinfection time: 30 seconds\n" +
+                "- Material: metal, plastic, glass\n" +
+                "- Efficiency: 98%\n" +
+                "- Explanation: Needed about 25 mJ/cm2  generated within 25 seconds, the leds can keep up to 20J for a second. With that known, up to 5 pairs of glasses can be disinfected in 20 seconds, where we add 5 seconds at the start and 5 at the end for losses, errors and inefficiency. Its inefficiency is due to the material of the lenses.");
 
         List<String> list5 = new ArrayList<>();
-        list5.add("watch detailes");
+        list5.add("- Disinfection time: 30 seconds\n" +
+                "- Material: metal, plastic, rubber, leather, glass\n" +
+                "- Efficiency: 98.5%\n" +
+                "- Explanation: Needed about 25 mJ/cm2  generated within 25 seconds, the leds can keep up to 20J for a second. With that known, up to 7 watches can be disinfected in 20 seconds, where we add 5 seconds at the start and 5 at the end for losses, errors and inefficiency. Its inefficiency is due to the material of the screen. In case it is exposed too long, it can lead to a distaining.");
 
         List<String> list6 = new ArrayList<>();
-        list6.add("laptops detailes");
+        list6.add("- Disinfection time: 75 seconds\n" +
+                "- Material: metal, plastic, glass\n" +
+                "- Efficiency: 96%\n" +
+                "- Explanation: Needed about 25 mJ/cm2  generated within 25 seconds, the leds can keep up to 20J for a second. With that known, one laptop can be disinfected in 55 seconds, where we add 10 seconds at the start and 10 at the end for losses, errors and inefficiency. Its inefficiency is due to the impossibility of leaving the laptop open. In case it is exposed too long, it can lead to a distaining.");
 
         List<String> list7 = new ArrayList<>();
-        list7.add("cameras detailes");
+        list7.add("- Disinfection time: 55 seconds\n" +
+                "- Material: metal, plastic, glass\n" +
+                "- Efficiency: 98%\n" +
+                "- Explanation: Needed about 25 mJ/cm2  generated within 25 seconds, the leds can keep up to 20J for a second. With that known, up to 2 cameras can be disinfected in 35 seconds, where we add 10 seconds at the start and 10 at the end for losses, errors and inefficiency. Its inefficiency is due to the material of the lenses and the screen. In case it is exposed too long, it can lead to a distaining.");
 
         List<String> list8 = new ArrayList<>();
-        list8.add("headphones detailes");
+        list8.add("- Disinfection time: 25 seconds\n" +
+                "- Material: metal, plastic, rubber\n" +
+                "- Efficiency: 99,98%\n" +
+                "- Explanation: Needed about 25 mJ/cm2  generated within 25 seconds, the leds can keep up to 20J for a second. With that known, up to 7 sets of headphones can be disinfected in 15 seconds, where we add 5 seconds at the start and 5 at the end for losses, errors and inefficiency. In case it is exposed too long, it can lead to a distaining.");
 
         List<String> list9 = new ArrayList<>();
-        list9.add("mice detailes");
+        list9.add("- Disinfection time: 40 seconds\n" +
+                "- Material: metal, plastic\n" +
+                "- Efficiency: 99,6%\n" +
+                "- Explanation: Needed about 25 mJ/cm2  generated within 25 seconds, the leds can keep up to 20J for a second. With that known, up to 4 mice can be disinfected in 20 seconds, where we add 10 seconds at the start and 10 at the end for losses, errors and inefficiency. In case it is exposed too long, it can lead to a distaining.");
 
         List<String> list10 = new ArrayList<>();
-        list10.add("chargers/cables detailes");
+        list10.add("- Disinfection time: 20 seconds\n" +
+                "- Material: plastic, ruber, polyesther\n" +
+                "- Efficiency: 99,9%\n" +
+                "- Explanation: Needed about 25 mJ/cm2  generated within 25 seconds, the leds can keep up to 20J for a second. With that known, up to 7 chargers/cables can be disinfected in 10 seconds, where we add 5 seconds at the start and 5 at the end for losses, errors and inefficiency. In case it is exposed too long, it can lead to a distaining.");
 
         List<String> list11 = new ArrayList<>();
-        list11.add("remotes/joysticks detailes");
+        list11.add("- Disinfection time: 50 seconds\n" +
+                "- Material: plastic, rubber\n" +
+                "- Efficiency: 99,5%\n" +
+                "- Explanation: Needed about 25 mJ/cm2  generated within 25 seconds, the leds can keep up to 20J for a second. With that known, up to 4 remotes/joysticks can be disinfected in 30 seconds, where we add 10 seconds at the start and 10 at the end for losses, errors and inefficiency. In case it is exposed too long, it can lead to a distaining.");
 
         List<String> list12 = new ArrayList<>();
-        list12.add("accesories detailes");
+        list12.add("- Disinfection time: 20 seconds\n" +
+                "- Material: plastic, rubber, metal, glass, polyesther etc.\n" +
+                "- Efficiency: 98%\n" +
+                "- Explanation: Needed about 25 mJ/cm2  generated within 25 seconds, the leds can keep up to 20J for a second. With that known, up to 10 accesories can be disinfected in 10 seconds, where we add 5 seconds at the start and 5 at the end for losses, errors and inefficiency. In case it is exposed too long, it can lead to a distaining.");
 
         List<String> list13 = new ArrayList<>();
-        list13.add("books detailes");
+        list13.add("- Disinfection time: 30 seconds\n" +
+                "- Material: paper, leather\n" +
+                "- Efficiency: 99,99%\n" +
+                "- Explanation: Needed about 25 mJ/cm2  generated within 25 seconds, the leds can keep up to 20J for a second. With that known, up to 4 books can be disinfected in 20 seconds, where we add 5 seconds at the start and 5 at the end for losses, errors and inefficiency. In case it is exposed too long, it can lead to a distaining.");
 
         List<String> list14 = new ArrayList<>();
-        list14.add("pens detailes");
+        list14.add("- Disinfection time: 15 seconds\n" +
+                "- Material: plastic, metal, wood\n" +
+                "- Efficiency: 99,9%\n" +
+                "- Explanation: Needed about 25 mJ/cm2  generated within 25 seconds, the leds can keep up to 20J for a second. With that known, up to 30 pens can be disinfected in 5 seconds, where we add 5 seconds at the start and 5 at the end for losses, errors and inefficiency. In case it is exposed too long, it can lead to a distaining.");
 
         listDetailes.put(listType.get(0),list1);
         listDetailes.put(listType.get(1),list2);

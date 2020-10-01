@@ -132,7 +132,9 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
              layoutSelectedObjectsList.setVisibility(View.INVISIBLE);
              startButton.setVisibility(View.VISIBLE);
         }else{
-            bluetoothService.closeShandrama();
+            if(bluetoothService.getBtSocket() != null){
+                bluetoothService.closeShandrama();
+            }
             finish();
         }
     }
@@ -220,32 +222,44 @@ public class MainActivity extends AppCompatActivity implements OwnedObjectsListM
                 }else if(id == R.id.addAnObject){
                     Intent intent = new Intent(MainActivity.this, ObjectTypeMenuActivity.class);
                     startActivity(intent);
-                    bluetoothService.closeShandrama();
+                    if(bluetoothService.getBtSocket() != null){
+                        bluetoothService.closeShandrama();
+                    }
                     finish();
                 }else if(id == R.id.ownedObjectList) {
                     Intent intent = new Intent(MainActivity.this, OwnedObjectsListActivity.class);
                     startActivity(intent);
-                    bluetoothService.closeShandrama();
+                    if(bluetoothService.getBtSocket() != null){
+                        bluetoothService.closeShandrama();
+                    }
                     finish();
                 }else if(id == R.id.objectTypeDetailes) {
                     Intent intent = new Intent(MainActivity.this, ObjectTypeDetailesActivity.class);
                     startActivity(intent);
-                    bluetoothService.closeShandrama();
+                    if(bluetoothService.getBtSocket() != null){
+                        bluetoothService.closeShandrama();
+                    }
                     finish();
                 }else if(id == R.id.UVCinfo) {
                     Intent intent = new Intent(MainActivity.this, UvcInfoActivity.class);
                     startActivity(intent);
-                    bluetoothService.closeShandrama();
+                    if(bluetoothService.getBtSocket() != null){
+                        bluetoothService.closeShandrama();
+                    }
                     finish();
                 }else if(id == R.id.settings) {
                     Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                     startActivity(intent);
-                    bluetoothService.closeShandrama();
+                    if(bluetoothService.getBtSocket() != null){
+                        bluetoothService.closeShandrama();
+                    }
                     finish();
                 }else if(id == R.id.help) {
                     Intent intent = new Intent(MainActivity.this, HelpActivity.class);
                     startActivity(intent);
-                    bluetoothService.closeShandrama();
+                    if(bluetoothService.getBtSocket() != null){
+                        bluetoothService.closeShandrama();
+                    }
                     finish();
                 }
 

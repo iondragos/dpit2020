@@ -41,6 +41,14 @@ public class BluetoothService extends Service{
         }
     }
 
+    public BluetoothSocket getBtSocket() {
+        return btSocket;
+    }
+
+    public void setBtSocket(BluetoothSocket btSocket) {
+        this.btSocket = btSocket;
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
